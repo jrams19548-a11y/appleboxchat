@@ -1,0 +1,723 @@
+{% extends "base.html" %}
+
+{% block title %}AppleBox - {{ user_data.get('display_name', username) }}{% endblock %}
+
+{% block header_title %}
+<i class="fas fa-user"></i> {{ user_data.get('display_name', username) }}'s Profile - Applebox
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    {% if user_data.get('profile_bg') %}
+    body {
+        background-image: url('{{ user_data.profile_bg }}') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-attachment: fixed !important;
+    }
+    {% endif %}
+        .theme-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .theme-btn {
+        padding: 16px 12px;
+        border: 2px solid transparent;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 13px;
+        transition: all var(--transition-fast);
+        text-align: center;
+    }
+
+    .theme-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .theme-btn.active {
+        border-color: white;
+    }
+        .theme-default { background: linear-gradient(135deg, #1e1e2e, #2d2d3d); color: white; }
+    .theme-ocean { background: linear-gradient(135deg, #1a4b84, #2d89c8); color: white; }
+    .theme-forest { background: linear-gradient(135deg, #2d5a27, #45894d); color: white; }
+    .theme-sunset { background: linear-gradient(135deg, #cb2d3e, #ef473a); color: white; }
+    .theme-midnight { background: linear-gradient(135deg, #232526, #414345); color: white; }
+    .theme-light { background: linear-gradient(135deg, #f5f5f5, #ffffff); color: #333; border: 1px solid #ddd; }
+    .theme-purple { background: linear-gradient(135deg, #2d1b4e, #9b59b6); color: white; }
+    .theme-nord { background: linear-gradient(135deg, #2e3440, #88c0d0); color: white; }
+    .theme-dracula { background: linear-gradient(135deg, #282a36, #bd93f9); color: white; }
+    .theme-monokai { background: linear-gradient(135deg, #272822, #66d9ef); color: white; }
+    .theme-gruvbox { background: linear-gradient(135deg, #282828, #8ec07c); color: white; }
+    .theme-solarized { background: linear-gradient(135deg, #002b36, #268bd2); color: white; }
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .profile-banner {
+        height: 120px;
+        background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        position: relative;
+    }
+
+    .profile-main {
+        background: var(--card-bg);
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        border: 1px solid var(--border-color);
+        border-top: none;
+        padding: 20px;
+        padding-top: 60px;
+        position: relative;
+    }
+
+    .profile-avatar-wrapper {
+        position: absolute;
+        top: -60px;
+        left: 24px;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--radius-full);
+        border: 6px solid var(--card-bg);
+        object-fit: cover;
+        background: var(--card-bg);
+    }
+
+    .profile-status {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        background: var(--online-color);
+        border: 4px solid var(--card-bg);
+        border-radius: var(--radius-full);
+    }
+
+    .profile-status.offline {
+        background: var(--offline-color);
+    }
+
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+
+    .profile-info h1 {
+        font-size: 1.8rem;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .profile-username {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+
+    .profile-role {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: var(--radius-full);
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .role-owner { background: linear-gradient(135deg, #f5af19, #f12711); color: white; }
+    .role-co-owner { background: linear-gradient(135deg, #8e2de2, #4a00e0); color: white; }
+    .role-admin { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; }
+    .role-mod { background: linear-gradient(135deg, #3494e6, #ec6ead); color: white; }
+    .role-developer { background: linear-gradient(135deg, #00b4db, #0083b0); color: white; }
+    .role-regular { background: var(--input-bg); color: var(--text-color); }
+
+    .profile-actions {
+        display: flex;
+        gap: 12px;
+    }
+
+    .profile-section {
+        margin-top: 24px;
+    }
+
+    .section-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .profile-bio {
+        background: var(--input-bg);
+        padding: 20px;
+        border-radius: var(--radius-md);
+        line-height: 1.8;
+        white-space: pre-wrap;
+        font-size: 15px;
+        letter-spacing: 0.3px;
+    }
+
+    .profile-bio.empty {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+
+    .profile-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+    }
+
+    .stat-card {
+        background: var(--input-bg);
+        padding: 16px;
+        border-radius: var(--radius-md);
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 4px;
+    }
+
+    .mutual-friends {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .mutual-friend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: var(--input-bg);
+        border-radius: var(--radius-full);
+        text-decoration: none;
+        color: inherit;
+        transition: all var(--transition-fast);
+    }
+
+    .mutual-friend:hover {
+        background: var(--card-bg);
+        text-decoration: none;
+    }
+
+    .mutual-friend img {
+        width: 24px;
+        height: 24px;
+        border-radius: var(--radius-full);
+    }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 24px;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Badges */
+    .profile-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .badge-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: var(--input-bg);
+        border-radius: var(--radius-full);
+        font-size: 12px;
+    }
+
+    .badge-item i {
+        color: var(--accent-color);
+    }
+
+    /* Status badges */
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 10px;
+        border-radius: var(--radius-full);
+        font-size: 12px;
+        font-weight: 500;
+        margin-left: 8px;
+    }
+
+    .status-badge.suspended {
+        background: rgba(240, 71, 71, 0.2);
+        color: var(--danger-color);
+    }
+
+    .status-badge.muted {
+        background: rgba(250, 166, 26, 0.2);
+        color: var(--warning-color);
+    }
+
+    .status-badge.infected {
+        background: rgba(255, 85, 85, 0.2);
+        color: #ff5555;
+        border: 1px solid rgba(255, 85, 85, 0.3);
+    }
+
+    /* Legendary Profile Animations & Effects */
+    .legendary-profile .profile-main {
+        border: 3px solid #ffd700 !important;
+        box-shadow: 0 0 50px rgba(212, 175, 55, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.2) !important;
+        position: relative;
+        overflow: visible !important; /* Fixed clipping for PFP */
+        background: linear-gradient(135deg, var(--card-bg) 0%, #1a1a00 100%) !important;
+    }
+
+    .legendary-profile .profile-banner {
+        border: 6px solid transparent !important;
+        border-image: linear-gradient(to bottom right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c) 1 !important;
+        box-shadow: 0 0 20px rgba(184, 134, 11, 0.6), inset 0 0 10px rgba(0,0,0,0.5) !important;
+        position: relative;
+    }
+
+    /* Container for background effects to prevent clipping the avatar */
+    .legendary-bg-layer {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        border-radius: inherit;
+        z-index: 0;
+    }
+
+    .legendary-bg-layer::after {
+        content: "";
+        position: absolute;
+        top: -50%; left: -50%; width: 200%; height: 200%;
+        background-image: 
+            radial-gradient(circle, #fff 1px, transparent 1px),
+            radial-gradient(circle, #fff 1.5px, transparent 1px);
+        background-size: 80px 80px, 120px 120px;
+        animation: drift 20s linear infinite;
+        opacity: 0.3;
+    }
+    
+    .legendary-profile .profile-info h1, .legendary-profile .profile-header-name {
+        background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        font-weight: 900 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 3px !important;
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)) !important;
+        animation: gold-shimmer 4s infinite linear !important;
+        background-size: 200% auto !important;
+    }
+
+    @keyframes gold-shimmer {
+        to { background-position: 200% center; }
+    }
+
+    .legendary-profile .profile-avatar {
+        border-color: #ffd700 !important;
+        box-shadow: 0 0 25px rgba(212, 175, 55, 0.7) !important;
+        animation: avatar-glow 2s infinite alternate !important;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Floating Crown */
+    .legendary-crown {
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 40px;
+        color: #ffd700;
+        filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+        animation: crown-float 2s ease-in-out infinite;
+        z-index: 3;
+    }
+
+    @keyframes crown-float {
+        0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg); }
+        50% { transform: translateX(-50%) translateY(-10px) rotate(5deg); }
+    }
+
+    @keyframes avatar-glow {
+        from { transform: scale(1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+        to { transform: scale(1.05); box-shadow: 0 0 35px rgba(212, 175, 55, 0.9); }
+    }
+
+    /* Banner Light Sweep */
+    .legendary-profile .profile-banner::before {
+        content: "";
+        position: absolute;
+        top: 0; left: -100%; width: 50%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+        transform: skewX(-25deg);
+        animation: sweep 6s infinite;
+    }
+
+    .legendary-profile .profile-role {
+        background: linear-gradient(135deg, #ffd700, #ffaa00) !important;
+        color: #000 !important;
+        font-weight: 800 !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.5) !important;
+        animation: pulse-gold 2s infinite;
+    }
+
+    @keyframes pulse-gold {
+        0% { box-shadow: 0 0 0 0px rgba(212, 175, 55, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+        100% { box-shadow: 0 0 0 0px rgba(212, 175, 55, 0); }
+    }
+
+    @keyframes drift {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    /* ChosoKamo Profile (Sanguine Theme) */
+    .chosokamo-profile {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .chosokamo-profile .profile-main {
+        border: 3px solid #8b0000 !important;
+        box-shadow: 0 0 40px rgba(139, 0, 0, 0.5), inset 0 0 20px rgba(139, 0, 0, 0.2) !important;
+        background: linear-gradient(135deg, var(--card-bg) 0%, #1a0000 100%) !important;
+        position: relative;
+        z-index: 1;
+    }
+
+    .chosokamo-profile .profile-banner {
+        border: 4px solid #8b0000 !important;
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.5) !important;
+        z-index: 1;
+    }
+
+    .chosokamo-profile .profile-avatar {
+        border-color: #8b0000 !important;
+        box-shadow: 0 0 20px rgba(139, 0, 0, 0.6) !important;
+    }
+
+    .chosokamo-profile .profile-role {
+        background: linear-gradient(135deg, #8b0000, #ff0000) !important;
+        color: white !important;
+    }
+
+    .blood-drop {
+        position: absolute;
+        background-color: #8b0000;
+        width: 2px;
+        height: 12px;
+        border-radius: 0 0 5px 5px;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .blood-drip {
+        position: absolute;
+        top: 0;
+        width: 6px;
+        background: #8b0000;
+        border-radius: 0 0 5px 5px;
+        z-index: 3;
+        pointer-events: none;
+    }
+
+ /* Killua Profile (Godspeed Theme) */
+    .killua-profile .profile-main {
+        border: 3px solid #00d2ff !important;
+        box-shadow: 0 0 40px rgba(0, 210, 255, 0.5), inset 0 0 20px rgba(0, 210, 255, 0.2) !important;
+        background: linear-gradient(135deg, var(--card-bg) 0%, #001a33 100%) !important;
+        position: relative;
+    }
+
+    .killua-profile .profile-banner {
+        border: 4px solid #00d2ff !important;
+        box-shadow: 0 0 20px rgba(0, 210, 255, 0.5) !important;
+    }
+
+    /* Lightning Strike Animation */
+    .killua-profile .profile-main::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10;
+        animation: lightning-strike 7s infinite;
+    }
+
+    @keyframes lightning-strike {
+        0%, 94%, 100% { opacity: 0; }
+        95% { opacity: 0.4; }
+        96% { opacity: 0.1; }
+        97% { opacity: 0.6; }
+        98% { opacity: 0; }
+    }
+
+    .killua-profile .profile-avatar {
+        border-color: #00d2ff !important;
+        box-shadow: 0 0 20px rgba(0, 210, 255, 0.6) !important;
+        animation: godspeed-glow 2s infinite alternate !important;
+    }
+
+    @keyframes godspeed-glow {
+        from { box-shadow: 0 0 15px rgba(0, 210, 255, 0.4); filter: brightness(1); }
+        to { box-shadow: 0 0 35px rgba(0, 210, 255, 0.9), 0 0 15px #fff; filter: brightness(1.2); }
+    }
+
+    .killua-profile .profile-role {
+        background: linear-gradient(135deg, #00d2ff, #005a9e) !important;
+        color: white !important;
+        animation: blue-flicker 3s infinite;
+    }
+
+    @keyframes blue-flicker {
+        0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
+        50% { opacity: 0.8; box-shadow: 0 0 20px rgba(0, 210, 255, 0.8); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-container {% if username == special_user %}legendary-profile{% elif username == 'Killua' %}killua-profile{% elif username == 'ChosoKamo' %}chosokamo-profile{% endif %}">
+    <div class="profile-banner" style="{% if user_data.get('banner_url') %}background: url('{{ user_data.banner_url }}') center/cover no-repeat;{% endif %}"></div>
+    <div class="profile-main">
+        <div class="profile-avatar-wrapper">
+            <img src="{{ user_data.get('profile_pic') or 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + username }}" alt="Avatar" class="profile-avatar">
+            <span class="profile-status {% if user_data.get('is_stealth') and current_user.id != username %}offline{% elif not is_online %}offline{% endif %}"></span>
+        </div>
+
+        <div class="profile-header">
+            <div class="profile-info">
+                <h1>
+                <h1 class="{% if username == special_user %}golden-name{% endif %}">
+                    {{ user_data.get('display_name', username) }}
+                    {% if user_data.get('is_suspended') %}
+                    <span class="status-badge suspended"><i class="fas fa-ban"></i> Suspended</span>
+                    {% endif %}
+                    {% if user_data.get('is_muted') %}
+                    <span class="status-badge muted"><i class="fas fa-volume-mute"></i> Muted</span>
+                    {% endif %}
+                    {% if user_data.get('is_infected') %}
+                    <span class="status-badge infected"><i class="fas fa-biohazard"></i> Infected</span>
+                    {% endif %}
+                </h1>
+                <div class="profile-username">@{{ username }}</div>
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 8px;">Member since {{ user_data.get('created_at', 'Unknown') }}</div>
+                {% if user_data.get('custom_status') %}
+                <div style="font-style: italic; color: var(--accent-color); margin-bottom: 12px; font-size: 14px;">"{{ user_data.custom_status }}"</div>
+                {% endif %}
+                {% set role = user_data.get('role', 'Regular User') %}
+                <span class="profile-role role-{{ role|lower|replace(' ', '-') }}">
+                    <i class="fas fa-{% if role == 'Owner' %}crown{% elif role == 'Co-owner' %}gem{% elif role == 'Admin' %}shield-alt{% elif role == 'Mod' %}gavel{% elif role == 'Developer' %}code{% else %}user{% endif %}"></i>
+                    {{ role }}
+                </span>
+            </div>
+            
+            {% if user_data.get('badges') %}
+            <div class="profile-badges">
+                {% for badge in user_data.badges %}
+                {% set b_text = badge if badge is string else badge.text %}
+                {% set b_icon = 'fa-certificate' if badge is string else (badge.icon or 'fa-certificate') %}
+                {% set b_color = 'var(--input-bg)' if badge is string else (badge.color or 'var(--input-bg)') %}
+                <div class="badge-item" style="background-color: {{ b_color }}; color: white;">
+                    <i class="fas {{ b_icon }}"></i> {{ b_text }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if current_user.id != username %}
+            <div class="profile-actions">
+                {% set is_staff = current_user.role in ['Developer', 'Owner', 'Co-owner', 'Admin', 'Mod'] or current_user.id in ['jesseramsey', 'Killua'] %}
+                {% if username not in friends %}
+                <form method="POST" action="{{ url_for('send_friend_request', username=username) }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Add Friend
+                    </button>
+                </form>
+                {% if is_staff %}
+                <a href="{{ url_for('direct_message', username=username) }}" class="btn btn-secondary">
+                    <i class="fas fa-comment"></i> Send Message
+                </a>
+                {% endif %}
+                {% else %}
+                <a href="{{ url_for('direct_message', username=username) }}" class="btn btn-primary">
+                    <i class="fas fa-comment"></i> Send Message
+                </a>
+                <form method="POST" action="{{ url_for('unfriend') }}">
+                    <input type="hidden" name="username" value="{{ username }}">
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="fas fa-user-check"></i> Friends
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="profile-section">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i> About
+            </div>
+            <div class="profile-bio {% if not user_data.get('bio') or user_data.get('bio') == 'No bio provided.' %}empty{% endif %}">
+                {{ user_data.get('bio', 'No bio provided.') }}
+            </div>
+        </div>
+
+        <div class="profile-stats">
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% if is_online and (not user_data.get('is_stealth') or current_user.id == username) %}
+                    <i class="fas fa-circle" style="color: var(--online-color); font-size: 0.8em;"></i>
+                    {% else %}
+                    <i class="fas fa-circle" style="color: var(--offline-color); font-size: 0.8em;"></i>
+                    {% endif %}
+                </div>
+                <div class="stat-label">
+                    {% if is_online and (not user_data.get('is_stealth') or current_user.id == username) %}
+                    Currently Online
+                    {% else %}
+                    Offline
+                    {% endif %}
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ friends|length if friends else 0 }}</div>
+                <div class="stat-label">Friends</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ user_data.get('created_at', 'Unknown') }}</div>
+                <div class="stat-label">Member Since</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{% if is_online and (not user_data.get('is_stealth') or current_user.id == username) %}Now{% else %}{{ user_data.get('last_online', 'Unknown') or 'Unknown' }}{% endif %}</div>
+                <div class="stat-label">Last Online</div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('home') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // --- Persistent Call Reconnection Logic ---
+    socket.on('call-made', async (data) => {
+        sessionStorage.setItem('activeCallPartner', data.sender);
+        if (data.isReconnect && typeof answerCall === 'function') {
+            await answerCall(data.offer, data.sender);
+            if (typeof showCallPanel === 'function') showCallPanel(data.sender);
+        }
+    });
+
+    socket.on('hang-up', () => {
+        sessionStorage.removeItem('activeCallPartner');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const partner = sessionStorage.getItem('activeCallPartner');
+        if (partner) {
+            if (typeof showCallPanel === 'function') showCallPanel(partner);
+            socket.emit('request-call-sync', { to: partner });
+        }
+    });
+
+    socket.on('partner-reconnected', (data) => {
+        if (typeof startCall === 'function') {
+            startCall(data.sender, true);
+        } else if (typeof callUser === 'function') {
+            callUser(data.sender, true);
+        }
+    });
+</script>
+
+{% if username == 'ChosoKamo' %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileContainer = document.querySelector('.profile-container');
+        
+        // Blood Rain Animation
+        function createDrop() {
+            const drop = document.createElement('div');
+            drop.className = 'blood-drop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.top = '-20px';
+            drop.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            const duration = Math.random() * 1.5 + 1;
+            drop.style.transition = `top ${duration}s linear, opacity ${duration}s linear`;
+            
+            profileContainer.appendChild(drop);
+            
+            setTimeout(() => {
+                drop.style.top = (profileContainer.offsetHeight + 100) + 'px';
+            }, 20);
+            
+            setTimeout(() => { drop.remove(); }, duration * 1000);
+        }
+        setInterval(createDrop, 150);
+
+        // Blood Drip Animation
+        function createDrip() {
+            const banner = document.querySelector('.profile-banner');
+            if (!banner) return;
+            const drip = document.createElement('div');
+            drip.className = 'blood-drip';
+            drip.style.left = Math.random() * 100 + '%';
+            drip.style.height = '0px';
+            drip.style.transition = 'height 4s ease-in, opacity 4s ease-in';
+            banner.appendChild(drip);
+            setTimeout(() => { drip.style.height = (Math.random() * 40 + 20) + 'px'; }, 50);
+            setTimeout(() => { drip.style.opacity = '0'; }, 3000);
+            setTimeout(() => { drip.remove(); }, 4100);
+        }
+        setInterval(createDrip, 1200);
+    });
+</script>
+{% endif %}
+{% endblock %}

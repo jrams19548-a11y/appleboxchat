@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Games{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4">Games</h1>
+            <p class="text-muted">Play games with other users</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Minecraft</h5>
+                </div>
+                <a href="{{ url_for('minecraft') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+        <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Fnaf</h5>
+                </div>
+                <a href="{{ url_for('fnaf1') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Fnaf 2</h5>
+                </div>
+                <a href="{{ url_for('fnaf2') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+<div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Thats not my neighbor</h5>
+                </div>
+                <a href="{{ url_for('tnmn') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Brotato</h5>
+                </div>
+                <a href="{{ url_for('brotato') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+        <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Cookie Clicker</h5>
+                </div>
+                <a href="{{ url_for('clicker') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4 mt-2">
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">AppleBox Platformer</h5>
+                </div>
+                <a href="{{ url_for('platformer') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card gamecard h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Multiplayer Chess</h5>
+                </div>
+                <a href="{{ url_for('chess') }}" class="btn btn-primary">Play</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

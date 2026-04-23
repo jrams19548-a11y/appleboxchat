@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AppleBox Open World Platformer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background: #050505; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        canvas { display: block; }
+        #game-ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 8px;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .controls { font-size: 12px; margin-top: 5px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div id="game-ui">
+        <strong>AppleBox Platformer: Open World</strong>
+        <div class="controls">WASD / Arrows to Move • Space to Jump</div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const socket = io();
+
+        // User Data
+        const myUsername = "{{ current_user.id }}";
+        const myDisplayName = "{{ current_user.display_name }}";
+
+        // Features from game.py
+        const splashTexts = [
+            "Now with more cubes!", "101% bug-free!*", "Press space to jump!",
+            "Made with Python!", "Not a creeper!", "Totally original!",
+            "Insert coin!", "Powered by snacks!", "Jump like you mean it!",
+            "Also try minecraft!", "Still better than homework!"
+        ];
+        const splash = splashTexts[Math.floor(Math.random() * splashTexts.length)];
+        let gameState = 'MENU'; // MENU, PLAYING, PAUSED, SETTINGS
+
+        // Game Configuration
+        const GRAVITY = 0.8; // Matched to game.py
+        const FRICTION = 0.85;
+        const WORLD_WIDTH = 5000;
+        const WORLD_HEIGHT = 2000;
+        const CUBE_SIZE = 30; // Matched to game.py
+
+        // Button configuration
+        const btnW = 200;
+        const btnH = 60;
+        let btnX, btnY;
+        let isHovered = false;
+
+        // Settings
+        let config = {
+            playerColor: '#00d2ff',
+            showNames: true,
+            difficulty: 'Normal'
+        };
+
+        let player = {
+            x: 100, y: 1800, w: CUBE_SIZE, h: CUBE_SIZE,
+            vx: 0, vy: 0,
+            color: '#00d2ff',
+            grounded: false
+        };
+
+        const others = {};
+        const keys = {};
+        let enemies = [];
+
+        // Open World Map (Platforms) - Ported procedural generation logic
+        let platforms = [
+            {x: 50, y: 1850, w: 200, h: 30}, // Starting Platform
+        ];
+
+        function generatePlatforms() {
+            let x = 400;
+            let y = 1800;
+            for (let i = 0; i < 60; i++) {
+                let w = Math.floor(Math.random() * 100) + 150;
+                platforms.push({x: x, y: y, w: w, h: 25});
+                
+                // Add enemies to some platforms
+                if (Math.random() > 0.7) {
+                    enemies.push({
+                        x: x + 10,
+                        y: y - 30,
+                        w: 30,
+                        h: 30,
+                        minX: x,
+                        maxX: x + w - 30,
+                        dir: 1,
+                        speed: 2
+                    });
+                }
+
+                x += Math.floor(Math.random() * 150) + 200;
+                y += Math.floor(Math.random() * 160) - 80;
+                if (y < 500) y = 500;
+                if (y > 1900) y = 1900;
+            }
+        }
+        generatePlatforms();
+
+        window.addEventListener('keydown', e => {
+            keys[e.code] = true;
+            // Feature from game.py: Escape toggles Pause
+            if (e.code === 'Escape') {
+                if (gameState === 'PLAYING') {
+                    gameState = 'PAUSED';
+                } else if (gameState === 'PAUSED') {
+                    gameState = 'PLAYING';
+                } else if (gameState === 'SETTINGS') {
+                    gameState = 'MENU';
+                }
+            }
+        });
+
+        window.addEventListener('keyup', e => keys[e.code] = false);
+        window.addEventListener('mousemove', e => {
+            isHovered = e.clientX > btnX && e.clientX < btnX + btnW && e.clientY > btnY && e.clientY < btnY + btnH;
+        });
+        window.addEventListener('click', e => {
+            if (gameState === 'MENU' || gameState === 'PAUSED') {
+                if (isHovered) {
+                    gameState = 'PLAYING';
+                } else if (gameState === 'MENU' && e.clientY > 330 && e.clientY < 330 + btnH) {
+                    gameState = 'SETTINGS';
+                }
+            } else if (gameState === 'SETTINGS' && isHovered) {
+                gameState = 'MENU';
+            }
+        });
+
+        socket.on('game-player-moved', data => {
+            others[data.username] = data;
+        });
+
+        socket.on('player-left', data => {
+            delete others[data.username];
+        });
+
+        function resetPlayer() {
+            player.x = 100;
+            player.y = 1700; // Above starting platform
+            player.vx = 0;
+            player.vy = 0;
+        }
+        resetPlayer();
+
+        function update() {
+            if (gameState !== 'PLAYING') return;
+
+            // Movement logic
+            if (keys['ArrowLeft'] || keys['KeyA']) player.vx -= 0.8;
+            if (keys['ArrowRight'] || keys['KeyD']) player.vx += 0.8;
+            player.vx *= FRICTION;
+
+            if ((keys['Space'] || keys['ArrowUp'] || keys['KeyW']) && player.grounded) {
+                player.vy = -15; // Matched to game.py
+                player.grounded = false;
+            }
+
+            player.vy += GRAVITY;
+            player.x += player.vx;
+            player.y += player.vy;
+
+            // Fall off map reset (from game.py)
+            if (player.y > WORLD_HEIGHT + 200) resetPlayer();
+
+            // Floor and World clamping
+            if (player.x < 0) player.x = 0;
+            if (player.x > WORLD_WIDTH - player.w) player.x = WORLD_WIDTH - player.w;
+
+            // Collision detection
+            player.grounded = false;
+            for (let p of platforms) {
+                if (player.x < p.x + p.w && player.x + player.w > p.x &&
+                    player.y < p.y + p.h && player.y + player.h > p.y) {
+                    if (player.vy > 0 && (player.y + player.h - player.vy) <= p.y) {
+                        player.y = p.y - player.h; // Corrected height logic
+                        player.vy = 0;
+                        player.grounded = true;
+                    }
+                }
+            }
+
+            // Enemy logic
+            enemies.forEach(en => {
+                en.x += en.dir * en.speed;
+                if (en.x <= en.minX || en.x >= en.maxX) en.dir *= -1;
+
+                // Collision with player
+                if (player.x < en.x + en.w && player.x + player.w > en.x &&
+                    player.y < en.y + en.h && player.y + player.h > en.y) {
+                    resetPlayer();
+                }
+            });
+
+            socket.emit('game-move', { x: player.x, y: player.y });
+        }
+
+        function drawMenu() {
+            ctx.fillStyle = '#1e1e1e'; // DARK_GRAY
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0000ff'; // BLUE
+            ctx.font = "bold 74px Segoe UI";
+            ctx.textAlign = "center";
+            ctx.fillText("Platformer", canvas.width / 2, 150);
+
+            // Pulsing Splash text logic from game.py 
+            const pulse = 1.0 + 0.1 * Math.sin(Date.now() * 0.01);
+            ctx.save();
+            ctx.translate(canvas.width / 2 + 50, 180);
+            ctx.rotate(5 * Math.PI / 180);
+            ctx.scale(pulse, pulse);
+            ctx.fillStyle = "#ffff00"; // YELLOW
+            ctx.font = "24px Segoe UI";
+            ctx.fillText(splash, 0, 0);
+            ctx.restore();
+
+            btnX = canvas.width / 2 - btnW / 2;
+            
+            // Play Button
+            btnY = 250;
+            ctx.fillStyle = isHovered ? '#808080' : '#0000ff';
+            ctx.fillRect(btnX, btnY, btnW, btnH);
+            ctx.fillStyle = 'white';
+            ctx.font = "30px Segoe UI";
+            ctx.fillText("Play", canvas.width / 2, btnY + 35);
+
+            // Settings Button
+            const setY = 330;
+            ctx.fillStyle = (isHovered && btnY !== 250) ? '#808080' : '#444';
+            ctx.fillRect(btnX, setY, btnW, btnH);
+            ctx.fillStyle = 'white';
+            ctx.fillText("Settings", canvas.width / 2, setY + 35);
+        }
+
+        function drawPauseMenu() {
+            ctx.fillStyle = 'rgba(0,0,0,0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = "bold 50px Segoe UI";
+            ctx.textAlign = "center";
+            ctx.fillText("PAUSED", canvas.width / 2, canvas.height / 2 - 50);
+
+            btnX = canvas.width / 2 - btnW / 2;
+            btnY = canvas.height / 2;
+            ctx.fillStyle = isHovered ? '#808080' : '#0000ff';
+            ctx.fillRect(btnX, btnY, btnW, btnH);
+            ctx.fillStyle = 'white';
+            ctx.font = "24px Segoe UI";
+            ctx.fillText("Resume", canvas.width / 2, btnY + 35);
+            
+            ctx.font = "14px Segoe UI";
+            ctx.fillText("Press ESC to Resume", canvas.width / 2, btnY + 80);
+        }
+
+        function drawSettings() {
+            ctx.fillStyle = '#1e1e1e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00d2ff';
+            ctx.font = "bold 40px Segoe UI";
+            ctx.textAlign = "center";
+            ctx.fillText("Settings", canvas.width / 2, 100);
+
+            ctx.fillStyle = 'white';
+            ctx.font = "20px Segoe UI";
+            ctx.fillText("Player Color: " + config.playerColor, canvas.width / 2, 200);
+            ctx.fillText("Show Names: " + (config.showNames ? "On" : "Off"), canvas.width / 2, 240);
+            ctx.fillText("World: procedural_generated_v1", canvas.width / 2, 280);
+
+            btnX = canvas.width / 2 - btnW / 2;
+            btnY = 400;
+            ctx.fillStyle = isHovered ? '#808080' : '#0000ff';
+            ctx.fillRect(btnX, btnY, btnW, btnH);
+            ctx.fillStyle = 'white';
+            ctx.fillText("Back to Menu", canvas.width / 2, btnY + 35);
+        }
+
+        function draw() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (gameState === 'MENU') {
+                drawMenu();
+                requestAnimationFrame(draw);
+                return;
+            }
+            if (gameState === 'SETTINGS') {
+                drawSettings();
+                requestAnimationFrame(draw);
+                return;
+            }
+
+            // Camera logic (follow player)
+            const camX = Math.max(0, Math.min(player.x - canvas.width / 2, WORLD_WIDTH - canvas.width));
+            const camY = Math.max(0, Math.min(player.y - canvas.height / 2, WORLD_HEIGHT - canvas.height));
+
+            ctx.save();
+            ctx.translate(-camX, -camY);
+
+            // Set world background color
+            ctx.fillStyle = '#1e1e1e';
+            ctx.fillRect(0, 0, WORLD_WIDTH, WORLD_HEIGHT + 500);
+
+            // Draw platforms
+            ctx.fillStyle = '#00ff00'; // GREEN from game.py
+            platforms.forEach(p => ctx.fillRect(p.x, p.y, p.w, p.h));
+
+            // Draw enemies
+            ctx.fillStyle = '#ff0000'; // RED for enemies
+            enemies.forEach(en => ctx.fillRect(en.x, en.y, en.w, en.h));
+
+            // Draw other players
+            Object.values(others).forEach(p => drawPlayer(p.x, p.y, p.display_name, '#e94560'));
+
+            // Draw local player
+            drawPlayer(player.x, player.y, myDisplayName, player.color);
+
+            ctx.restore();
+
+            if (gameState === 'PAUSED') {
+                drawPauseMenu();
+            }
+
+            requestAnimationFrame(draw);
+            update();
+        }
+
+        function drawPlayer(x, y, name, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x, y, CUBE_SIZE, CUBE_SIZE);
+            ctx.fillStyle = 'white';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(name, x + CUBE_SIZE / 2, y - 10);
+        }
+
+        draw();
+    </script>
+</body>
+</html>

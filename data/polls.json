@@ -1,0 +1,1142 @@
+{
+  "1": {
+    "id": "1",
+    "title": "hi",
+    "options": [
+      "h",
+      "h"
+    ],
+    "votes": {
+      "h": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-30 02:40 PM",
+    "closed": true
+  },
+  "2": {
+    "id": "2",
+    "title": "hi",
+    "options": [
+      "hi",
+      "hi"
+    ],
+    "votes": {
+      "hi": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-30 02:43 PM",
+    "closed": true
+  },
+  "3": {
+    "id": "3",
+    "title": "hi",
+    "options": [
+      "hi",
+      "hi"
+    ],
+    "votes": {
+      "hi": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-30 02:43 PM",
+    "closed": true
+  },
+  "4": {
+    "id": "4",
+    "title": "hi",
+    "options": [
+      "hi",
+      "hi"
+    ],
+    "votes": {
+      "hi": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-30 02:45 PM",
+    "closed": true
+  },
+  "5": {
+    "id": "5",
+    "title": "hi",
+    "options": [
+      "how",
+      "ha"
+    ],
+    "votes": {
+      "how": [
+        "CreeperCast5008",
+        "jesseramsey"
+      ],
+      "ha": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-30 02:45 PM",
+    "closed": true
+  },
+  "6": {
+    "id": "6",
+    "title": "hi",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "CreeperCast5008"
+      ],
+      "no": []
+    },
+    "creator": "jesseramsey",
+    "room": "general",
+    "created_at": "2026-03-30 02:49 PM",
+    "closed": true
+  },
+  "7": {
+    "id": "7",
+    "title": "is polls working",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "Server",
+        "CreeperCast5008"
+      ],
+      "no": [
+        "Higaruma"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-30 02:51 PM",
+    "closed": true
+  },
+  "8": {
+    "id": "8",
+    "title": "caleb.",
+    "options": [
+      "meh",
+      "BAN"
+    ],
+    "votes": {
+      "meh": [
+        "Cornball caleb",
+        "CreeperCast5008"
+      ],
+      "BAN": []
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-03-31 07:56 AM",
+    "closed": true
+  },
+  "9": {
+    "id": "9",
+    "title": "Give Caleb Mod?",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "votes": {
+      "Yes": [
+        "random",
+        "Big man",
+        "Cornball caleb"
+      ],
+      "No": [
+        "Higaruma",
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-31 09:26 AM",
+    "closed": true
+  },
+  "10": {
+    "id": "10",
+    "title": "Should we try and get as many people on here as possible?",
+    "options": [
+      "YES",
+      "NO"
+    ],
+    "votes": {
+      "YES": [],
+      "NO": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-31 12:15 PM",
+    "closed": true
+  },
+  "11": {
+    "id": "11",
+    "title": "Should we try and get as many people on here as possible?",
+    "options": [
+      "YES",
+      "NO"
+    ],
+    "votes": {
+      "YES": [],
+      "NO": [
+        "Higaruma",
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-31 12:23 PM",
+    "closed": true
+  },
+  "12": {
+    "id": "12",
+    "title": "Should we mute or suspend caleb",
+    "options": [
+      "MUTE",
+      "SUSPEND"
+    ],
+    "votes": {
+      "MUTE": [],
+      "SUSPEND": [
+        "Higaruma"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "admin",
+    "created_at": "2026-03-31 12:30 PM",
+    "closed": true
+  },
+  "13": {
+    "id": "13",
+    "title": "should I get admin",
+    "options": [
+      "\ud80c\uddcc\ud80c\udef4",
+      "\ud80c\udd53\ud80c\udd3f\ud80c\uddcc\ud80c\udcc0",
+      "\ud80c\udd72\ud80c\ude54 \ud80c\uddcc\ud80c\udef4"
+    ],
+    "votes": {
+      "\ud80c\uddcc\ud80c\udef4": [
+        "Cornball caleb"
+      ],
+      "\ud80c\udd53\ud80c\udd3f\ud80c\uddcc\ud80c\udcc0": [],
+      "\ud80c\udd72\ud80c\ude54 \ud80c\uddcc\ud80c\udef4": []
+    },
+    "creator": "Cornball caleb",
+    "room": "general",
+    "created_at": "2026-03-31 01:44 PM",
+    "closed": true
+  },
+  "14": {
+    "id": "14",
+    "title": "should I get admin",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "Cornball",
+        "Corn lord",
+        "67",
+        "Cornball caleb"
+      ],
+      "no": [
+        "CreeperCast5008",
+        "[RECTANGLE] Boxboy Randy"
+      ]
+    },
+    "creator": "Cornball caleb",
+    "room": "general",
+    "created_at": "2026-03-31 01:45 PM",
+    "closed": true
+  },
+  "15": {
+    "id": "15",
+    "title": "is I woro",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "Higaruma"
+      ],
+      "no": [
+        "CreeperCast5008",
+        "Cornball caleb"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-03-31 02:19 PM",
+    "closed": true
+  },
+  "16": {
+    "id": "16",
+    "title": "Ra, god of the sun and the creator. VS. King Minos. who would win.",
+    "options": [
+      "Ra",
+      "King Minos"
+    ],
+    "votes": {
+      "Ra": [
+        "Cornballcaleb"
+      ],
+      "King Minos": [
+        "Zenitsu Agatsuma",
+        "M",
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "Cornballcaleb",
+    "room": "general",
+    "created_at": "2026-04-02 10:10 AM",
+    "closed": true
+  },
+  "17": {
+    "id": "17",
+    "title": "Should I do seasonal updates",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "votes": {
+      "Yes": [
+        "M",
+        "Higaruma"
+      ],
+      "No": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-02 10:52 AM",
+    "closed": true
+  },
+  "18": {
+    "id": "18",
+    "title": "how many caleb and greyson to beat clayton (all at same time)",
+    "options": [
+      "1000000 of each",
+      "2 of each",
+      "9 of each"
+    ],
+    "votes": {
+      "1000000 of each": [
+        "k",
+        "CreeperCast5008"
+      ],
+      "2 of each": [],
+      "9 of each": []
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-04-02 11:52 AM",
+    "closed": true
+  },
+  "19": {
+    "id": "19",
+    "title": "how many Chinese kids needed to remake shein",
+    "options": [
+      "1000",
+      "1 samuel"
+    ],
+    "votes": {
+      "1000": [],
+      "1 samuel": [
+        "Higaruma"
+      ]
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 11:53 AM",
+    "closed": true
+  },
+  "20": {
+    "id": "20",
+    "title": "how many Chinese kids needed to remake shein",
+    "options": [
+      "1000",
+      "1 samuel"
+    ],
+    "votes": {
+      "1000": [],
+      "1 samuel": [
+        "Higaruma",
+        "k"
+      ]
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 11:53 AM",
+    "closed": true
+  },
+  "21": {
+    "id": "21",
+    "title": "how many Chinese kids needed to remake shein",
+    "options": [
+      "1000",
+      "1 samuel"
+    ],
+    "votes": {
+      "1000": [],
+      "1 samuel": [
+        "k",
+        "Higaruma",
+        "M"
+      ]
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 11:53 AM",
+    "closed": true
+  },
+  "22": {
+    "id": "22",
+    "title": "hi",
+    "options": [
+      "hi",
+      "hi"
+    ],
+    "votes": {
+      "hi": [
+        "k",
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-02 11:57 AM",
+    "closed": true
+  },
+  "23": {
+    "id": "23",
+    "title": "hi",
+    "options": [
+      "hi",
+      "hi"
+    ],
+    "votes": {
+      "hi": [
+        "Higaruma",
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-02 11:57 AM",
+    "closed": true
+  },
+  "24": {
+    "id": "24",
+    "title": "test",
+    "options": [
+      "test",
+      "test"
+    ],
+    "votes": {
+      "test": [
+        "k",
+        "Higaruma"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-02 11:57 AM",
+    "closed": true
+  },
+  "25": {
+    "id": "25",
+    "title": "greyson",
+    "options": [
+      "\u5f7c\u3092\u3001\u53e4\u304d\u826f\u304d\u6642\u4ee3\u306e\u5de5\u5834\u3078\u3068\u9001\u308a\u8fbc\u3081\u3002",
+      "\u6211\u4e5f\u4e0d\u77e5\u9053\uff0c\u4f46\u81f3\u5c11\u505a\u9ede\u4ec0\u9ebc\u5427\u3002"
+    ],
+    "votes": {
+      "\u5f7c\u3092\u3001\u53e4\u304d\u826f\u304d\u6642\u4ee3\u306e\u5de5\u5834\u3078\u3068\u9001\u308a\u8fbc\u3081\u3002": [
+        "k",
+        "Higaruma"
+      ],
+      "\u6211\u4e5f\u4e0d\u77e5\u9053\uff0c\u4f46\u81f3\u5c11\u505a\u9ede\u4ec0\u9ebc\u5427\u3002": []
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 12:00 PM",
+    "closed": true
+  },
+  "26": {
+    "id": "26",
+    "title": "greyson",
+    "options": [
+      "\ud80c\udfbc\ud80c\udc8b\ud80c\udd42\ud80c\uddcc\ud80c\udef4\ud80c\udd71\ud80c\ude16\ud80d\udc0d\ud80c\udced\ud80c\uddcb\ud80c\ude0e\ud80c\udd42\ud80c\udef4\ud80d\udc0d\ud80c\udced\ud80c\uddcb\ud80c\udfcf\ud80c\udfcf\ud80c\udced\ud80c\udd42\ud80d\udc0d\ud80c\udfa2\ud80c\ude54\ud80c\uddcb\ud80c\udced\ud80c\udca7\ud80c\udc8b\ud80c\udd42\ud80c\ude16",
+      "\ud80c\ude54\ud80c\udd42\ud80c\udef4\ud80d\udc0d\ud80c\udd3f\ud80d\udc0d\ud80c\udd53\ud80c\udd3f\ud80c\ude16\ud80d\udc0d\ud80c\udcc0\ud80c\udd3f\ud80c\udcc0\ud80c\uddcc\ud80d\udc0d",
+      "\ud80c\uddcb\ud80c\udef4\ud80d\udc0d\ud80c\udd3f\ud80d\udc0d\ud80c\ude54\ud80c\uddcc\ud80c\udeaa\ud80c\udd71\ud80c\udfa2\ud80c\udc8b\ud80c\uddcb\ud80c\udfcf\ud80c\udd42\ud80d\udc0d\ud80c\udd43\ud80c\ude54\ud80c\udd71\ud80c\udef4\ud80d\udc0d\ud80c\udeaa\ud80c\udd3f\ud80c\udc8b\ud80c\udd42\ud80c\ude16\ud80c\udfcf\ud80c\udef4\ud80d\udc0d\ud80c\udef4\ud80c\ude54\ud80c\udd71\ud80c\udd43\ud80d\udc0d\ud80c\ude16\ud80c\udd71\ud80d\udc0d\ud80c\udced\ud80c\udd71\ud80c\uddaf\ud80c\udd42"
+    ],
+    "votes": {
+      "\ud80c\udfbc\ud80c\udc8b\ud80c\udd42\ud80c\uddcc\ud80c\udef4\ud80c\udd71\ud80c\ude16\ud80d\udc0d\ud80c\udced\ud80c\uddcb\ud80c\ude0e\ud80c\udd42\ud80c\udef4\ud80d\udc0d\ud80c\udced\ud80c\uddcb\ud80c\udfcf\ud80c\udfcf\ud80c\udced\ud80c\udd42\ud80d\udc0d\ud80c\udfa2\ud80c\ude54\ud80c\uddcb\ud80c\udced\ud80c\udca7\ud80c\udc8b\ud80c\udd42\ud80c\ude16": [
+        "k"
+      ],
+      "\ud80c\ude54\ud80c\udd42\ud80c\udef4\ud80d\udc0d\ud80c\udd3f\ud80d\udc0d\ud80c\udd53\ud80c\udd3f\ud80c\ude16\ud80d\udc0d\ud80c\udcc0\ud80c\udd3f\ud80c\udcc0\ud80c\uddcc\ud80d\udc0d": [],
+      "\ud80c\uddcb\ud80c\udef4\ud80d\udc0d\ud80c\udd3f\ud80d\udc0d\ud80c\ude54\ud80c\uddcc\ud80c\udeaa\ud80c\udd71\ud80c\udfa2\ud80c\udc8b\ud80c\uddcb\ud80c\udfcf\ud80c\udd42\ud80d\udc0d\ud80c\udd43\ud80c\ude54\ud80c\udd71\ud80c\udef4\ud80d\udc0d\ud80c\udeaa\ud80c\udd3f\ud80c\udc8b\ud80c\udd42\ud80c\ude16\ud80c\udfcf\ud80c\udef4\ud80d\udc0d\ud80c\udef4\ud80c\ude54\ud80c\udd71\ud80c\udd43\ud80d\udc0d\ud80c\ude16\ud80c\udd71\ud80d\udc0d\ud80c\udced\ud80c\udd71\ud80c\uddaf\ud80c\udd42": []
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-04-02 12:03 PM",
+    "closed": true
+  },
+  "27": {
+    "id": "27",
+    "title": "WHO IS DEEMETH FIT TO BE CO-OWNER",
+    "options": [
+      "Clayton",
+      "Gunner",
+      "Ryder",
+      "Caleb"
+    ],
+    "votes": {
+      "Clayton": [
+        "M",
+        "Higaruma"
+      ],
+      "Gunner": [
+        "k",
+        "Cornballcaleb"
+      ],
+      "Ryder": [
+        "CreeperCast5008"
+      ],
+      "Caleb": []
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-02 01:56 PM",
+    "closed": false
+  },
+  "28": {
+    "id": "28",
+    "title": "Round 2",
+    "options": [
+      "Clayton",
+      "Gunner"
+    ],
+    "votes": {
+      "Clayton": [
+        "M",
+        "Higaruma"
+      ],
+      "Gunner": [
+        "Cornballcaleb",
+        "k"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-02 01:59 PM",
+    "closed": false
+  },
+  "29": {
+    "id": "29",
+    "title": "Caleb this is netanyahu speaking, are you deep inside of JJ rn.",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "Higaruma",
+        "CreeperCast5008",
+        "k"
+      ],
+      "no": []
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 02:34 PM",
+    "closed": false
+  },
+  "30": {
+    "id": "30",
+    "title": "suspend all of Caleb's accounts",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "Higaruma"
+      ],
+      "no": [
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 02:35 PM",
+    "closed": false
+  },
+  "31": {
+    "id": "31",
+    "title": "delete all of caleb's accounts from the code AND remove from doc",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "Higaruma"
+      ],
+      "no": [
+        "CreeperCast5008"
+      ]
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-02 02:36 PM",
+    "closed": false
+  },
+  "32": {
+    "id": "32",
+    "title": "shark sprr",
+    "options": [
+      "sput",
+      "bthovn"
+    ],
+    "votes": {
+      "sput": [],
+      "bthovn": []
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-04-06 09:13 AM",
+    "closed": false
+  },
+  "33": {
+    "id": "33",
+    "title": "shrmk sprr",
+    "options": [
+      "sput",
+      "bthovn"
+    ],
+    "votes": {
+      "sput": [],
+      "bthovn": [
+        "Higaruma"
+      ]
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-04-06 09:14 AM",
+    "closed": false
+  },
+  "34": {
+    "id": "34",
+    "title": "SHALL WE BANISH CALEB TO THY SHADOW REALM",
+    "options": [
+      "YES",
+      "NO"
+    ],
+    "votes": {
+      "YES": [
+        "Higaruma"
+      ],
+      "NO": [
+        "Killua",
+        "Cornballcaleb"
+      ]
+    },
+    "creator": "CreeperCast5008",
+    "room": "general",
+    "created_at": "2026-04-06 02:18 PM",
+    "closed": false
+  },
+  "35": {
+    "id": "35",
+    "title": "Eradicate austin",
+    "options": [
+      "yes",
+      "yes",
+      "sure"
+    ],
+    "votes": {
+      "yes": [],
+      "sure": [
+        "Sisyphus",
+        "k"
+      ]
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-04-07 09:05 AM",
+    "closed": false
+  },
+  "36": {
+    "id": "36",
+    "title": "go on strike (or do an insurrection)",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "k",
+        "Insurrectionist ",
+        "Higaruma"
+      ],
+      "no": []
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-07 09:14 AM",
+    "closed": false
+  },
+  "37": {
+    "id": "37",
+    "title": "shrmk sprr",
+    "options": [
+      "berthvn",
+      "Shrek!"
+    ],
+    "votes": {
+      "berthvn": [
+        "Higaruma",
+        "CreeperCast5008"
+      ],
+      "Shrek!": []
+    },
+    "creator": "Higaruma",
+    "room": "general",
+    "created_at": "2026-04-07 09:18 AM",
+    "closed": false
+  },
+  "38": {
+    "id": "38",
+    "title": "change my commission for Clayton from kaelXgreyson to the great greyson crashout",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "k",
+        "CreeperCast5008",
+        "Higaruma",
+        "austinshowscattle"
+      ],
+      "no": []
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-07 09:32 AM",
+    "closed": false
+  },
+  "39": {
+    "id": "39",
+    "title": "does austinshowsfeet shreksturbate",
+    "options": [
+      "yes",
+      "yeah"
+    ],
+    "votes": {
+      "yes": [
+        "k"
+      ],
+      "yeah": []
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-07 09:54 AM",
+    "closed": false
+  },
+  "40": {
+    "id": "40",
+    "title": "men os",
+    "options": [
+      "death",
+      "death 2"
+    ],
+    "votes": {
+      "death": [
+        "k",
+        "Higaruma",
+        "Killua"
+      ],
+      "death 2": []
+    },
+    "creator": "k",
+    "room": "general",
+    "created_at": "2026-04-07 10:01 AM",
+    "closed": false
+  },
+  "41": {
+    "id": "41",
+    "title": "Shall Keri ualive thy's account?",
+    "options": [
+      "yea",
+      "nay"
+    ],
+    "votes": {
+      "yea": [],
+      "nay": [
+        "kerimaryite"
+      ]
+    },
+    "creator": "creepercast5008",
+    "room": "general",
+    "created_at": "2026-04-07 11:20 AM",
+    "closed": false
+  },
+  "42": {
+    "id": "42",
+    "title": "yeah",
+    "options": [
+      "this page needs a hero!",
+      "take 2ml of f3nt",
+      "take 10ml of hopium",
+      "dearest gassy king, shall we praise you one last time, may our sins be forgiven."
+    ],
+    "votes": {
+      "this page needs a hero!": [
+        "creepercast5008"
+      ],
+      "take 2ml of f3nt": [],
+      "take 10ml of hopium": [],
+      "dearest gassy king, shall we praise you one last time, may our sins be forgiven.": [
+        "kerimaryite",
+        "ChosoKamo"
+      ]
+    },
+    "creator": "kerimaryite",
+    "room": "general",
+    "created_at": "2026-04-07 11:20 AM",
+    "closed": false
+  },
+  "43": {
+    "id": "43",
+    "title": "very serious",
+    "options": [
+      "tomboys",
+      "femboys"
+    ],
+    "votes": {
+      "tomboys": [
+        "kerimaryite",
+        "creepercast5008"
+      ],
+      "femboys": []
+    },
+    "creator": "kerimaryite",
+    "room": "general",
+    "created_at": "2026-04-07 11:44 AM",
+    "closed": false
+  },
+  "44": {
+    "id": "44",
+    "title": "The kingdom of heaven has long since forgotten my name, and I am EAGER to make them remember.",
+    "options": [
+      "Yes...",
+      "No..."
+    ],
+    "votes": {
+      "Yes...": [
+        "ChosoKamo",
+        "Sisyphus"
+      ],
+      "No...": []
+    },
+    "creator": "Sisyphus",
+    "room": "general",
+    "created_at": "2026-04-07 01:04 PM",
+    "closed": false
+  },
+  "45": {
+    "id": "45",
+    "title": "RIP big stein",
+    "options": [
+      "I give my heart out to him in his final moments",
+      "Rest in peace, glorious king.",
+      "Rest in peace, may his soul drift off to the islands in heaven."
+    ],
+    "votes": {
+      "I give my heart out to him in his final moments": [
+        "ChosoKamo"
+      ],
+      "Rest in peace, glorious king.": [
+        "M"
+      ],
+      "Rest in peace, may his soul drift off to the islands in heaven.": [
+        "kerimaryite"
+      ]
+    },
+    "creator": "kerimaryite",
+    "room": "general",
+    "created_at": "2026-04-07 01:45 PM",
+    "closed": false
+  },
+  "46": {
+    "id": "46",
+    "title": "eliminate jeff",
+    "options": [
+      "YES",
+      "no"
+    ],
+    "votes": {
+      "YES": [
+        "Sisyphus"
+      ],
+      "no": [
+        "ChosoKamo",
+        "austinshowscattle",
+        "kerimaryite"
+      ]
+    },
+    "creator": "Sisyphus",
+    "room": "general",
+    "created_at": "2026-04-07 02:14 PM",
+    "closed": false
+  },
+  "47": {
+    "id": "47",
+    "title": "punishment for greyson, all of these include demotion BTW(accessing people's school accs, a ton of abuse, being a general crybaby.)",
+    "options": [
+      "remove from friend group",
+      "ban off the docs and applebox",
+      "temporary removal from friend group",
+      "just a demotion"
+    ],
+    "votes": {
+      "remove from friend group": [],
+      "ban off the docs and applebox": [],
+      "temporary removal from friend group": [],
+      "just a demotion": []
+    },
+    "creator": "kerimaryite",
+    "room": "admin",
+    "created_at": "2026-04-09 11:20 AM",
+    "closed": false
+  },
+  "48": {
+    "id": "48",
+    "title": "punishment for greyson, all of these include demotion BTW(accessing people's school accs, a ton of abuse, being a general crybaby.)",
+    "options": [
+      "remove from friend group",
+      "ban off the docs and applebox",
+      "temporary removal from friend group",
+      "just a demotion"
+    ],
+    "votes": {
+      "remove from friend group": [],
+      "ban off the docs and applebox": [
+        "kerimaryite"
+      ],
+      "temporary removal from friend group": [],
+      "just a demotion": [
+        "creepercast5008"
+      ]
+    },
+    "creator": "kerimaryite",
+    "room": "admin",
+    "created_at": "2026-04-09 11:20 AM",
+    "closed": false
+  },
+  "49": {
+    "id": "49",
+    "title": "punishment for greyson, all of these include demotion BTW(accessing people's school accs, a ton of abuse, being a general crybaby.)",
+    "options": [
+      "just demotion",
+      "temporary removal from friend group",
+      "banned from docs and applebox",
+      "removal from friend group"
+    ],
+    "votes": {
+      "just demotion": [
+        "jesseramsey",
+        "ChosoKamo"
+      ],
+      "temporary removal from friend group": [],
+      "banned from docs and applebox": [
+        "kerimaryite"
+      ],
+      "removal from friend group": []
+    },
+    "creator": "kerimaryite",
+    "room": "admin",
+    "created_at": "2026-04-09 11:50 AM",
+    "closed": false
+  },
+  "50": {
+    "id": "50",
+    "title": "I should totally be staff (in my defense the worst thing I did with staff perms was edit messages a tiny bit)",
+    "options": [
+      "yay",
+      "nay"
+    ],
+    "votes": {
+      "yay": [
+        "kerimaryite",
+        "jesseramsey"
+      ],
+      "nay": [
+        "ChosoKamo"
+      ]
+    },
+    "creator": "kerimaryite",
+    "room": "requests",
+    "created_at": "2026-04-14 02:07 PM",
+    "closed": false
+  },
+  "51": {
+    "id": "51",
+    "title": "should Keri be staff again. ARGUMENT: Clayton told me i'd be given staff after the wipe, even if it wasn't approved by JJ he still did say it. Caleb and Ryder both admitted I was actually good at my job and they didn't really care about the minor abuse of edited messages. Alongside that, I've never actually abused staff powers besides minor use of say and editing messages.",
+    "options": [
+      "yes",
+      "no"
+    ],
+    "votes": {
+      "yes": [
+        "kerimaryite",
+        "ChosoKamo"
+      ],
+      "no": []
+    },
+    "creator": "kerimaryite",
+    "room": "requests",
+    "created_at": "2026-04-21 10:44 AM",
+    "closed": false
+  },
+  "52": {
+    "id": "52",
+    "title": "gunner want staff roles, his argument is that I said he would have his perms back (I was informed that this would happen) and ryder and caleb support this idea, please vote",
+    "options": [
+      "Yes he gets staff ( which one jj and me will decide*) *mostly jjs decision",
+      "no"
+    ],
+    "votes": {
+      "Yes he gets staff ( which one jj and me will decide*) *mostly jjs decision": [
+        "kerimaryite",
+        "Ryu Ishigori"
+      ],
+      "no": [
+        "Killua",
+        "jesseramsey"
+      ]
+    },
+    "creator": "ChosoKamo",
+    "room": "requests",
+    "created_at": "2026-04-21 10:48 AM",
+    "closed": false
+  },
+  "53": {
+    "id": "53",
+    "title": "\ud83d\udcca gunner want staff roles, his argument is that I said he would have his perms back (I was informed that this would happen) and ryder and caleb support this idea, please vote",
+    "options": [
+      "yes (me and JJ will decide role*) *mostly JJ",
+      "no!"
+    ],
+    "votes": {
+      "yes (me and JJ will decide role*) *mostly JJ": [
+        "kerimaryite",
+        "Ryu Ishigori"
+      ],
+      "no!": [
+        "Killua",
+        "jesseramsey"
+      ]
+    },
+    "creator": "ChosoKamo",
+    "room": "general",
+    "created_at": "2026-04-21 10:50 AM",
+    "closed": false
+  },
+  "54": {
+    "id": "54",
+    "title": "\ud83d\udcca gunner want staff roles, his argument is that I said he would have his perms back (I was informed that this would happen) and ryder and caleb support this idea, please vote. RECO: owners and co owners stay out, don't ban pls.",
+    "options": [
+      "yes ( JJ and me will decide what role*) mostly jjs decision",
+      "no"
+    ],
+    "votes": {
+      "yes ( JJ and me will decide what role*) mostly jjs decision": [
+        "kerimaryite",
+        "Ryu Ishigori"
+      ],
+      "no": [
+        "Killua"
+      ]
+    },
+    "creator": "ChosoKamo",
+    "room": "general",
+    "created_at": "2026-04-21 10:55 AM",
+    "closed": false
+  },
+  "55": {
+    "id": "55",
+    "title": "\ud83d\udcca \ud83d\udcca gunner want staff roles, his argument is that I said he would have his perms back (I was informed that this would happen) and ryder and caleb support this idea, please vote. RECO: owners and co owners stay out, don't ban pls.",
+    "options": [
+      "yes (JJ and me will decide) mostly JJ choice",
+      "NO!"
+    ],
+    "votes": {
+      "yes (JJ and me will decide) mostly JJ choice": [
+        "kerimaryite",
+        "Minos",
+        "Ryu Ishigori"
+      ],
+      "NO!": [
+        "silver",
+        "Killua",
+        "ChosoKamo"
+      ]
+    },
+    "creator": "ChosoKamo",
+    "room": "requests",
+    "created_at": "2026-04-21 10:56 AM",
+    "closed": false
+  },
+  "56": {
+    "id": "56",
+    "title": "eat reese",
+    "options": [
+      "yes",
+      "yeah",
+      "okay",
+      "I'm up for it"
+    ],
+    "votes": {
+      "yes": [
+        "ChosoKamo"
+      ],
+      "yeah": [],
+      "okay": [
+        "kerimaryite"
+      ],
+      "I'm up for it": []
+    },
+    "creator": "kerimaryite",
+    "room": "general",
+    "created_at": "2026-04-22 12:06 PM",
+    "closed": false
+  },
+  "57": {
+    "id": "57",
+    "title": "Is Gunner the God of Gooning and all else?",
+    "options": [
+      "Yes (I LOVE GUNNER GOONING ON ME)",
+      "No (ITS ALL OVER MY SCREEEENNNNN)"
+    ],
+    "votes": {
+      "Yes (I LOVE GUNNER GOONING ON ME)": [
+        "kerimaryite"
+      ],
+      "No (ITS ALL OVER MY SCREEEENNNNN)": []
+    },
+    "creator": "Killua",
+    "room": "general",
+    "created_at": "2026-04-22 01:16 PM",
+    "closed": false
+  }
+}

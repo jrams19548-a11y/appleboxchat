@@ -1,0 +1,2 @@
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 11:19 AM", "details": {"room": "srv_1776961131:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 11:20 AM", "details": {"room": "srv_1776961131:general"}}

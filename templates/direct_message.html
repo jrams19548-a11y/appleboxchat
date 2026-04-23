@@ -1,0 +1,1907 @@
+{% extends "base.html" %}
+
+{% block title %}AppleBox - {{ recipient_name or users[recipient]['display_name'] }}{% endblock %}
+
+{% block header_title %}
+<i class="fas fa-at"></i> {{ recipient_name or users[recipient]['display_name'] }} - Applebox
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    html, body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* Call Header */
+    .dm-header {
+        padding: 12px 20px;
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 10;
+    }
+
+    .dm-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .dm-header-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .dm-header-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-full);
+    }
+
+    .dm-header-name {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .media-preview {
+        position: relative;
+        margin-top: 8px;
+        max-width: 100%;
+        min-height: 180px;
+        border-radius: var(--radius-md);
+        background: var(--input-bg);
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        cursor: pointer;
+    }
+
+    .media-preview .preview-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.45));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        opacity: 1;
+        transition: opacity 0.2s ease;
+    }
+
+    .media-preview .preview-overlay i {
+        font-size: 28px;
+        color: white;
+    }
+
+    .media-preview .preview-label {
+        color: white;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+    }
+
+    .media-preview.loaded .preview-overlay {
+        display: none;
+    }
+
+    .media-preview video,
+    .media-preview iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+    }
+
+ .theme-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .theme-btn {
+        padding: 16px 12px;
+        border: 2px solid transparent;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 13px;
+        transition: all var(--transition-fast);
+        text-align: center;
+    }
+
+    .theme-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .typing-indicator {
+        font-size: 12px;
+        color: var(--text-muted);
+        padding: 4px 0;
+        min-height: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .typing-dots {
+        display: flex;
+        gap: 4px;
+    }
+
+    .typing-dots span {
+        width: 6px;
+        height: 6px;
+        background: var(--text-muted);
+        border-radius: var(--radius-full);
+        animation: typing 1.4s infinite;
+    }
+
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-4px); }
+    }
+
+    .theme-btn.active {
+        border-color: white;
+    }
+
+    .theme-default { background: linear-gradient(135deg, #1e1e2e, #2d2d3d); color: white; }
+    .theme-ocean { background: linear-gradient(135deg, #1a4b84, #2d89c8); color: white; }
+    .theme-forest { background: linear-gradient(135deg, #2d5a27, #45894d); color: white; }
+    .theme-sunset { background: linear-gradient(135deg, #cb2d3e, #ef473a); color: white; }
+    .theme-midnight { background: linear-gradient(135deg, #232526, #414345); color: white; }
+    .theme-light { background: linear-gradient(135deg, #f5f5f5, #ffffff); color: #333; border: 1px solid #ddd; }
+    .theme-purple { background: linear-gradient(135deg, #2d1b4e, #9b59b6); color: white; }
+    .theme-nord { background: linear-gradient(135deg, #2e3440, #88c0d0); color: white; }
+    .theme-dracula { background: linear-gradient(135deg, #282a36, #bd93f9); color: white; }
+    .theme-monokai { background: linear-gradient(135deg, #272822, #66d9ef); color: white; }
+    .theme-gruvbox { background: linear-gradient(135deg, #282828, #8ec07c); color: white; }
+    .theme-solarized { background: linear-gradient(135deg, #002b36, #268bd2); color: white; }
+    .page-content {
+        flex: 1;
+        display: flex;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    /* Friends Sidebar */
+    .friends-sidebar {
+        width: 260px;
+        background: var(--card-bg);
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .friends-header {
+        padding: 16px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .friends-header h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .friends-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px;
+    }
+
+    .friend-dm-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        text-decoration: none;
+        color: inherit;
+        margin-bottom: 4px;
+    }
+
+    .friend-dm-item:hover {
+        background: var(--input-bg);
+        text-decoration: none;
+    }
+
+    .friend-dm-item.active {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    .sidebar-section-label {
+        padding: 12px 16px 4px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Group DM/Call Styles */
+    .friends-header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .group-creation-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .group-action-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 14px;
+        padding: 4px;
+        transition: color var(--transition-fast), transform 0.1s;
+    }
+
+    .group-action-btn:hover {
+        color: var(--accent-color);
+        transform: scale(1.1);
+    }
+
+    .friend-selection-container {
+        margin-top: 16px;
+    }
+
+    .selection-search {
+        width: 100%;
+        padding: 8px 12px;
+        background: var(--input-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        color: var(--text-color);
+        margin-bottom: 12px;
+    }
+
+    .selection-list {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+    }
+
+    .selection-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background var(--transition-fast);
+    }
+
+    .selection-item:hover {
+        background: var(--input-bg);
+    }
+
+    .selection-item input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .friend-dm-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-full);
+        object-fit: cover;
+        position: relative;
+    }
+
+    .dm-status {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: var(--radius-full);
+        background: var(--offline-color);
+        border: 2px solid var(--card-bg);
+    }
+
+    .dm-status.online {
+        background: var(--online-color);
+    }
+
+    .friend-dm-item.active .dm-status {
+        border-color: var(--accent-color);
+    }
+
+    .friend-dm-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .friend-dm-name {
+        font-weight: 600;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .friend-dm-username {
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    .friend-dm-item.active .friend-dm-username {
+        color: rgba(255,255,255,0.7);
+    }
+
+    /* Chat Area */
+    .dm-chat-area {
+        flex: 1;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .dm-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .dm-message {
+        display: flex;
+        gap: 12px;
+        max-width: 70%;
+        flex-shrink: 0;
+    }
+
+    .dm-message.sent {
+        margin-left: auto;
+        flex-direction: row-reverse;
+    }
+
+    .dm-message-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: var(--radius-full);
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .dm-message-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Jump to Bottom Button */
+    .jump-to-bottom-btn {
+        position: absolute;
+        bottom: 120px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--accent-color);
+        color: white;
+        padding: 8px 16px;
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        align-items: center;
+        gap: 8px;
+        box-shadow: var(--shadow-lg);
+        z-index: 100;
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .jump-to-bottom-btn.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .dm-message.sent .dm-message-content {
+        align-items: flex-end;
+    }
+
+    .dm-message-bubble {
+        background: var(--input-bg);
+        padding: 12px 16px;
+        border-radius: var(--radius-lg);
+        word-wrap: break-word;
+        line-height: 1.7;
+        font-size: 15px;
+        letter-spacing: 0.2px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .dm-message.sent .dm-message-bubble {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    .dm-message-bubble:hover {
+        opacity: 0.9;
+    }
+
+    .dm-message-bubble img, .dm-message-bubble video {
+        display: block;
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: var(--radius-md);
+        margin-top: 8px;
+        cursor: pointer;
+    }
+
+    /* Chat Links Highlighting */
+    .chat-link {
+        color: var(--accent-color);
+        text-decoration: underline;
+        background: rgba(114, 137, 218, 0.1);
+        padding: 0 4px;
+        border-radius: var(--radius-sm);
+        transition: background var(--transition-fast);
+    }
+    .chat-link:hover {
+        background: rgba(114, 137, 218, 0.2);
+    }
+
+    /* DM Context Menu */
+    .dm-context-menu {
+        position: absolute;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        min-width: 150px;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.95);
+        transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    }
+
+    .dm-context-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+
+    .dm-context-item {
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: background var(--transition-fast);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .dm-context-item:last-child {
+        border-bottom: none;
+    }
+
+    .dm-context-item:hover {
+        background: var(--input-bg);
+    }
+
+    .dm-context-item.warning {
+        color: #ff9800;
+    }
+
+    .dm-context-item.warning:hover {
+        background: rgba(255, 152, 0, 0.1);
+    }
+
+    /* Confirmation Modal */
+    .confirm-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .confirm-modal.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .confirm-modal-content {
+        background: var(--card-bg);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: var(--shadow-lg);
+        transform: scale(0.9);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .confirm-modal.active .confirm-modal-content {
+        transform: scale(1);
+    }
+
+    .confirm-modal-header {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .confirm-modal-body {
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    .confirm-modal-input {
+        width: 100%;
+        padding: 12px;
+        background: var(--input-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        color: var(--text-color);
+        font-size: 15px;
+        margin-bottom: 16px;
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .confirm-modal-input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+    }
+
+    .confirm-modal-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+    }
+
+    .modal-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        font-weight: 500;
+        transition: all var(--transition-fast);
+    }
+
+    .modal-btn-primary {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    .modal-btn-primary:hover {
+        background: var(--accent-hover);
+    }
+
+    .modal-btn-danger {
+        background: var(--danger-color);
+        color: white;
+    }
+
+    .modal-btn-danger:hover {
+        background: #c62828;
+    }
+
+    .modal-btn-secondary {
+        background: var(--input-bg);
+        color: var(--text-color);
+    }
+
+    .modal-btn-secondary:hover {
+        background: var(--border-color);
+    }
+
+
+    .dm-message-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        font-size: 11px;
+        color: var(--text-muted);
+    }
+
+    .dm-message.sent .dm-message-meta {
+        flex-direction: row-reverse;
+    }
+
+    /* Input Area */
+    .dm-input-area {
+        padding: 16px 20px;
+        background: var(--header-bg);
+        border-top: 1px solid var(--border-color);
+    }
+
+    .dm-input-wrapper {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .dm-input-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background: var(--input-bg);
+        position: relative;
+        border-radius: var(--radius-lg);
+        padding: 4px 16px;
+        border: 1px solid var(--border-color);
+        transition: border-color var(--transition-fast);
+    }
+
+    .dm-input-container:focus-within {
+        border-color: var(--accent-color);
+    }
+
+    #dm-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        padding: 12px 0;
+        color: var(--text-color);
+        font-size: 15px;
+        outline: none;
+    }
+
+    #dm-input::placeholder {
+        color: var(--text-muted);
+    }
+
+    .dm-send-btn {
+        width: 44px;
+        height: 44px;
+        background: var(--accent-color);
+        border: none;
+        border-radius: var(--radius-md);
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all var(--transition-fast);
+    }
+
+    .dm-send-btn:hover {
+        background: var(--accent-hover);
+        transform: scale(1.05);
+    }
+
+    /* Empty State */
+    .dm-empty {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        text-align: center;
+        padding: 40px;
+    }
+
+    .dm-empty i {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+
+    .dm-empty h3 {
+        color: var(--text-color);
+        margin-bottom: 8px;
+    }
+
+    /* Date Separator */
+    .date-separator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .date-separator span {
+        background: var(--input-bg);
+        padding: 6px 16px;
+        border-radius: var(--radius-full);
+        font-size: 12px;
+        color: var(--text-muted);
+    }
+
+    /* 404 Page */
+    .not-found-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 80vh; /* Adjust as needed */
+        text-align: center;
+        padding: 40px;
+        color: var(--text-muted);
+    }
+
+    .not-found-page .fas {
+        font-size: 80px;
+        margin-bottom: 24px;
+        color: var(--accent-color);
+        opacity: 0.7;
+    }
+
+    .not-found-page h1 {
+        font-size: 48px;
+        margin-bottom: 12px;
+        color: var(--text-color);
+    }
+
+    .not-found-page p {
+        font-size: 18px;
+        margin-bottom: 32px;
+        max-width: 600px;
+    }
+
+    .not-found-page .btn-home {
+        padding: 12px 24px;
+        background: var(--accent-color);
+        color: white;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all var(--transition-fast);
+    }
+
+    .not-found-page .btn-home:hover {
+        background: var(--accent-hover);
+        transform: translateY(-2px);
+    }
+
+    .funny-remark {
+        margin-top: 40px;
+        font-style: italic;
+        opacity: 0.8;
+    }
+
+
+    /* Link Preview Styling */
+    .link-preview {
+        display: flex;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.05);
+        border-left: 3px solid var(--accent-color);
+        border-radius: var(--radius-md);
+        margin-top: 8px;
+        padding: 10px;
+        max-width: 100%;
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    .link-preview-image {
+        width: 100%;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
+        margin-bottom: 8px;
+    }
+    .link-preview-title {
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--accent-color);
+        margin-bottom: 4px;
+    }
+    .link-preview-description {
+        font-size: 11px;
+        color: var(--text-muted);
+        line-height: 1.3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .friends-sidebar {
+            display: none;
+        }
+
+        .dm-message {
+            max-width: 85%;
+        }
+
+        .dm-messages {
+            padding: 12px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="friends-sidebar">
+    <div class="friends-header">
+        <div class="friends-header-content">
+            <h3><i class="fas fa-envelope"></i> DMs</h3>
+            <div class="group-creation-actions">
+                <button class="group-action-btn" onclick="openGroupModal('dm')" title="Create Group DM"><i class="fas fa-users"></i></button>
+                <button class="group-action-btn" onclick="openGroupModal('call')" title="New Group Call"><i class="fas fa-phone-alt"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="friends-list">
+        <div class="sidebar-section-label">Friends</div>
+        {% for friend in friends %}
+        {% if friend in users %}
+        <a href="{{ url_for('direct_message', username=friend) }}" 
+           class="friend-dm-item {% if friend == recipient %}active{% endif %}">
+            <div style="position: relative;">
+                <img src="{{ users[friend].get('profile_pic') or 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + friend }}" 
+                     alt="Avatar" 
+                     class="friend-dm-avatar">
+                <span class="dm-status {% if friend in online_users %}online{% endif %}" data-user-status="{{ friend }}"></span>
+            </div>
+            <div class="friend-dm-info">
+                <div class="friend-dm-name">{{ users[friend]['display_name'] }}</div>
+                <div class="friend-dm-username">@{{ friend }}</div>
+            </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+
+        {% if groups %}
+        <div class="sidebar-section-label">Groups</div>
+        {% for gid, gdata in groups.items() %}
+        <a href="{{ url_for('group_message', group_id=gid) }}" 
+           class="friend-dm-item {% if gid == recipient %}active{% endif %}">
+            <div class="friend-dm-avatar" style="display: flex; align-items: center; justify-content: center; background: var(--input-bg); overflow: hidden;">
+                {% if gdata.icon_url %}
+                <img src="{{ gdata.icon_url }}" alt="Icon" style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                <i class="fas fa-users" style="font-size: 18px; color: var(--accent-color);"></i>
+                {% endif %}
+            </div>
+            <div class="friend-dm-info">
+                <div class="friend-dm-name">{{ gdata.name }}</div>
+                <div class="friend-dm-username">{{ gdata.members|length }} members</div>
+            </div>
+        </a>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="dm-chat-area">
+    <div class="dm-header">
+        <div class="dm-header-info">
+            {% if not is_group %}
+            <img src="{{ users[recipient].get('profile_pic') or 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + recipient }}" class="dm-header-avatar">
+            {% else %}
+            <div class="dm-header-avatar" style="display: flex; align-items: center; justify-content: center; background: var(--input-bg); overflow: hidden;">
+                {% if groups[recipient].icon_url %}
+                <img src="{{ groups[recipient].icon_url }}" alt="Icon" style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                <i class="fas fa-users" style="color: var(--accent-color);"></i>
+                {% endif %}
+            </div>
+            {% endif %}
+            <div class="dm-header-name">{{ recipient_name or users[recipient]['display_name'] }}</div>
+        </div>
+        <div class="dm-header-actions">
+            {% if is_group %}
+            {% if is_creator %}
+            <button class="call-btn" onclick="openAddMemberModal()" title="Add Member" style="background: var(--success-color);">
+                <i class="fas fa-user-plus"></i>
+            </button>
+            {% endif %}
+            <button class="call-btn" onclick="openManageMembersModal()" title="Group Management">
+                <i class="fas fa-users-cog"></i>
+            </button>
+            <button class="call-btn" onclick="leaveGroup()" title="Leave Group" style="background: var(--danger-color);">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+            {% endif %}
+            <button class="call-btn" onclick="{% if is_group %}handleGroupCallStart(){% else %}startCall('{{ recipient }}'){% endif %}" title="Voice Call">
+                <i class="fas fa-phone"></i>
+            </button>
+        </div>
+    </div>
+    <button id="jump-to-bottom" class="jump-to-bottom-btn" onclick="scrollToBottom()">
+        <i class="fas fa-arrow-down"></i> New Messages
+    </button>
+    <div class="dm-messages" id="dm-messages">
+        {% if dm_messages %}
+            {% for message in dm_messages %}
+            {% if message.sender in users %}
+            <div class="dm-message {% if message.sender == current_user.id %}sent{% else %}received{% endif %}" 
+                 oncontextmenu="showDMContextMenu(event, {{ loop.index0 }}, '{{ message.text|replace("'", "\\'")|replace('"', '\\"') }}', '{{ message.sender }}')">
+                <img src="{{ users[message.sender].get('profile_pic') or 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + message.sender }}" 
+                     alt="Avatar" 
+                     class="dm-message-avatar">
+                <div class="dm-message-content">
+                <div class="dm-message-bubble" id="content-{{ loop.index0 }}">
+                    {{ message.text|safe }}
+                    {% if message.image %}
+                        {% if message.image.lower().endswith(('.mp4', '.webm', '.ogg')) %}
+                            <video src="{{ message.image }}" controls preload="metadata" playsinline></video>
+                        {% else %}
+                            <img src="{{ message.image }}" alt="Media" onclick="openImageModal('{{ message.image }}')">
+                        {% endif %}
+                    {% endif %}
+                </div>
+                    <div class="dm-message-meta">
+                        <span>{{ message.timestamp }}</span>
+                    {% if message.edited %}<span style="font-style: italic; font-size: 10px;">(edited)</span>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+        <div class="dm-empty">
+            <i class="fas fa-comments"></i>
+            <h3>Start a conversation</h3>
+            <p>Send a message to {{ recipient_name or users[recipient]['display_name'] }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="dm-input-area" style="position: relative;">
+        <div id="command-suggestions" class="command-suggestions"></div>
+        <div id="user-suggestions" class="command-suggestions"></div>
+        <div class="dm-input-wrapper">
+            <div class="dm-input-container">
+                <div class="typing-indicator" id="typing-indicator" style="position: absolute; bottom: 100%; left: 16px; margin-bottom: 8px;"></div>
+                <div class="emoji-picker" id="emoji-picker">
+                    <div class="emoji-grid">
+                        <button class="emoji-btn" onclick="insertEmoji('😊')">😊</button>
+                        <button class="emoji-btn" onclick="insertEmoji('😂')">😂</button>
+                        <button class="emoji-btn" onclick="insertEmoji('❤️')">❤️</button>
+                        <button class="emoji-btn" onclick="insertEmoji('👍')">👍</button>
+                        <button class="emoji-btn" onclick="insertEmoji('👎')">👎</button>
+                        <button class="emoji-btn" onclick="insertEmoji('🔥')">🔥</button>
+                        <button class="emoji-btn" onclick="insertEmoji('🎉')">🎉</button>
+                        <button class="emoji-btn" onclick="insertEmoji('💯')">💯</button>
+                        <button class="emoji-btn" onclick="insertEmoji('😉')">😉</button>
+                        <button class="emoji-btn" onclick="insertEmoji('😢')">😢</button>
+                        <button class="emoji-btn" onclick="insertEmoji('😮')">😮</button>
+                        <button class="emoji-btn" onclick="insertEmoji('🤔')">🤔</button>
+                        <button class="emoji-btn" onclick="insertEmoji('🚀')">🚀</button>
+                        <button class="emoji-btn" onclick="insertEmoji('⭐')">⭐</button>
+                        <button class="emoji-btn" onclick="insertEmoji('✅')">✅</button>
+                        <button class="emoji-btn" onclick="insertEmoji('❌')">❌</button>
+                        {% for code, url in custom_emojis.items() %}
+                        <button class="emoji-btn" onclick="insertEmoji(':{{ code }}:')" title=":{{ code }}:">
+                            <img src="{{ url }}" style="width: 22px; height: 22px; object-fit: contain;">
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <button class="group-action-btn" onclick="toggleEmojiPicker()" title="Emoji" style="margin-right: 8px; font-size: 18px;">
+                    <i class="fas fa-smile"></i>
+                </button>
+
+                <input type="text" id="dm-input" placeholder="Message {{ recipient_name or users[recipient]['display_name'] }}..." autocomplete="off">
+                <label class="group-action-btn" title="Attach Media" style="margin: 0 8px; font-size: 18px;">
+                    <input type="file" id="media-input" accept="image/*,video/*" style="display: none;">
+                    <i class="fas fa-paperclip"></i>
+                </label>
+                <button class="group-action-btn" onclick="formatDMText('bold')" title="Bold (__text__)" style="margin-right: 8px; font-size: 18px;">
+                    <i class="fas fa-bold"></i>
+                </button>
+                <button class="group-action-btn" onclick="formatDMText('italic')" title="Italic (*text*)" style="margin-right: 8px; font-size: 18px;">
+                    <i class="fas fa-italic"></i>
+                </button>
+            </div>
+            <button class="dm-send-btn" onclick="sendDM()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Group Creation Modal -->
+<div id="group-creation-modal" class="confirm-modal">
+    <div class="confirm-modal-content">
+        <div class="confirm-modal-header" id="group-modal-header">
+            <i class="fas fa-users"></i> Create Group DM
+        </div>
+        <div class="confirm-modal-body">
+            <div id="group-name-wrapper">
+                <label style="display: block; margin-bottom: 8px;">Group Name</label>
+                <input type="text" id="group-name-input" class="confirm-modal-input" style="min-height: auto; margin-bottom: 16px;" placeholder="Name your group...">
+            </div>
+            <label style="display: block; margin-bottom: 8px;">Select Friends</label>
+            <input type="text" id="selection-search" class="selection-search" placeholder="Search friends..." onkeyup="filterFriends()">
+            <div class="selection-list" id="selection-list">
+                {% for friend in friends %}
+                {% if friend in users %}
+                <label class="selection-item">
+                    <input type="checkbox" name="group-members" value="{{ friend }}">
+                    <span>{{ users[friend]['display_name'] }} (@{{ friend }})</span>
+                </label>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="confirm-modal-actions">
+            <button class="modal-btn modal-btn-secondary" onclick="closeGroupModal()">Cancel</button>
+            <button class="modal-btn modal-btn-primary" id="group-confirm-btn">Create</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add Member Modal -->
+<div id="add-member-modal" class="confirm-modal">
+    <div class="confirm-modal-content">
+        <div class="confirm-modal-header"><i class="fas fa-user-plus"></i> Add to Group</div>
+        <div class="confirm-modal-body">
+            <div class="selection-list">
+                {% for friend in friends %}
+                {% if friend in users %}
+                    <div class="selection-item" onclick="addGroupMember('{{ friend }}')">
+                        <span>{{ users[friend]['display_name'] }} (@{{ friend }})</span>
+                        <i class="fas fa-plus" style="margin-left: auto; color: var(--success-color);"></i>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="confirm-modal-actions">
+            <button class="modal-btn modal-btn-secondary" onclick="this.closest('.confirm-modal').classList.remove('active')">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Manage Members Modal -->
+<div id="manage-members-modal" class="confirm-modal">
+    <div class="confirm-modal-content">
+        <div class="confirm-modal-header"><i class="fas fa-users-cog"></i> Group Management</div>
+        <div class="confirm-modal-body">
+            {% if is_group and recipient in groups %}
+                {% if is_creator %}
+                <div style="margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;">
+                    <div class="form-group">
+                        <label class="form-label">Rename Group</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" id="rename-group-input" class="form-input" value="{{ groups[recipient].name }}" style="margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="renameGroup()">Update</button>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label">Group Icon URL</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="url" id="group-icon-input" class="form-input" value="{{ groups[recipient].icon_url }}" placeholder="https://..." style="margin-bottom: 0;">
+                            <button class="btn btn-primary" onclick="updateGroupIcon()">Update</button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <label class="sidebar-section-label" style="padding-left: 0;">Members</label>
+            <div class="selection-list">
+                    {% for member in groups[recipient].members %}
+                    {% if member in users %}
+                    <div class="selection-item" style="justify-content: space-between; align-items: center;">
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <span style="font-weight: 600;">{{ users[member]['display_name'] }}</span>
+                            <span style="font-size: 11px; color: var(--text-muted);">@{{ member }}{% if member == groups[recipient].creator %} (Creator){% endif %}</span>
+                        </div>
+                        {% if is_creator and member != current_user.id %}
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn btn-sm btn-secondary" onclick="transferOwnership('{{ member }}')" style="padding: 4px 8px; font-size: 11px;">Transfer</button>
+                            <button class="btn btn-sm btn-danger" onclick="removeGroupMember('{{ member }}')" style="padding: 4px 8px; font-size: 11px;">Remove</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% if is_creator %}
+                <div style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    <button class="btn btn-danger" onclick="deleteGroup()" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-trash-alt"></i> Delete Group & History
+                    </button>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="confirm-modal-actions">
+            <button class="modal-btn modal-btn-secondary" onclick="this.closest('.confirm-modal').classList.remove('active')">Close</button>
+        </div>
+    </div>
+</div>
+
+{% if error_code == 404 %}
+<div class="not-found-page">
+    <i class="fas fa-exclamation-triangle"></i>
+    <h1>Oops! Page Not Found</h1>
+    <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+    <a href="{{ url_for('index') }}" class="btn-home">Go to Homepage</a>
+    <div class="funny-remark">
+        <!-- Funny remarks will be added here dynamically or randomly -->
+        It seems like you've ventured into the digital wilderness!
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const recipient = "{{ recipient }}";
+    const isGroup = {{ 'true' if is_group else 'false' }};
+    const currentUserDisplayName = "{{ users[current_user.id]['display_name'] }}";
+    const currentUserId = "{{ current_user.id }}";
+    const users = globalUsers;
+    let lastMessageCount = 0;
+    let lastMessageHash = '';
+
+    // Scroll management
+    const messagesDiv = document.getElementById('dm-messages');
+    const jumpBtn = document.getElementById('jump-to-bottom');
+
+    function scrollToBottom() {
+        messagesDiv.scrollTo({ top: messagesDiv.scrollHeight, behavior: 'smooth' });
+        jumpBtn.classList.remove('active');
+    }
+
+    messagesDiv.addEventListener('scroll', () => {
+        const isAtBottom = messagesDiv.scrollHeight - messagesDiv.clientHeight <= messagesDiv.scrollTop + 150;
+        if (isAtBottom) {
+            jumpBtn.classList.remove('active');
+        } else if (messagesDiv.scrollHeight - messagesDiv.clientHeight - messagesDiv.scrollTop > 300) {
+            jumpBtn.classList.add('active');
+        }
+    });
+
+    const currentRecipient = "{{ recipient }}"; // Added for report functionality
+    const funnyRemarks = [
+        "Did you take a wrong turn at Albuquerque?",
+        "Even algorithms get lost sometimes.",
+        "This page is playing hide-and-seek.",
+        "Error 404: Page not found. It's probably on vacation.",
+        "Looks like this page went for a coffee break and never came back.",
+        "You've found a wild 404! What do you do?",
+        "Houston, we have a 404.",
+        "Don't worry, it's not you, it's the page.",
+        "This page is as lost as a sock in the dryer.",
+        "Maybe the page is shy and is hiding.",
+    ];
+
+    function getRandomFunnyRemark() {
+        return funnyRemarks[Math.floor(Math.random() * funnyRemarks.length)];
+    }
+
+    function hashMessages(messages) {
+        return messages.map(msg => `${msg.sender}|${msg.text}`).join('|||');
+    }
+
+    function getAvatar(username) {
+        if (users[username] && users[username].profile_pic) {
+            return users[username].profile_pic;
+        }
+        return `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`;
+    }
+
+    function openGroupModal(type) {
+        const modal = document.getElementById('group-creation-modal');
+        const header = document.getElementById('group-modal-header');
+        const nameWrapper = document.getElementById('group-name-wrapper');
+        const confirmBtn = document.getElementById('group-confirm-btn');
+
+        if (type === 'dm') {
+            header.innerHTML = '<i class="fas fa-users"></i> Create Group DM';
+            nameWrapper.style.display = 'block';
+            confirmBtn.textContent = 'Create Group';
+            confirmBtn.onclick = handleGroupDMCreate;
+        } else {
+            header.innerHTML = '<i class="fas fa-phone-alt"></i> New Group Call';
+            nameWrapper.style.display = 'none';
+            confirmBtn.textContent = 'Start Group Call';
+            confirmBtn.onclick = handleGroupCallStart;
+        }
+
+        modal.classList.add('active');
+    }
+
+    function closeGroupModal() {
+        document.getElementById('group-creation-modal').classList.remove('active');
+    }
+
+    function filterFriends() {
+        const q = document.getElementById('selection-search').value.toLowerCase();
+        document.querySelectorAll('.selection-item').forEach(item => {
+            item.style.display = item.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
+        });
+    }
+
+    function getSelectedFriends() {
+        return Array.from(document.querySelectorAll('input[name="group-members"]:checked')).map(cb => cb.value);
+    }
+
+    async function handleGroupDMCreate() {
+        const name = document.getElementById('group-name-input').value.trim();
+        const members = getSelectedFriends();
+        if (!name) return showToast('Please name your group', 'error');
+        if (members.length < 1) return showToast('Select at least 1 friend', 'error');
+        
+        try {
+            const res = await fetch('/api/group/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, members })
+            });
+            const data = await res.json();
+            if (data.success) {
+                window.location.href = `/group_dm/${data.group_id}`;
+            }
+        } catch (e) {
+            showToast('Failed to create group', 'error');
+        }
+    }
+
+    function handleGroupCallStart() {
+        const members = getSelectedFriends();
+        if (members.length === 0) return showToast('Select at least one friend', 'error');
+        
+        const callId = isGroup ? recipient : `call_${Date.now()}`;
+        showToast(`Starting group call...`, 'success');
+        closeGroupModal();
+        
+        // Signals to all members to join the same call room
+        socket.emit('initiate-group-call', { call_id: callId, members: isGroup ? [] : members });
+        startCall(callId); // Existing call logic should handle the room join
+    }
+
+    async function renameGroup() {
+        const newName = document.getElementById('rename-group-input').value.trim();
+        if (!newName) return;
+        try {
+            const res = await fetch(`/api/group/rename/${recipient}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: newName })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Group renamed', 'success');
+                setTimeout(() => location.reload(), 500);
+            } else {
+                showToast(data.error || 'Failed to rename', 'error');
+            }
+        } catch (e) { showToast('Error renaming group', 'error'); }
+    }
+
+    async function updateGroupIcon() {
+        const iconUrl = document.getElementById('group-icon-input').value.trim();
+        try {
+            const res = await fetch(`/api/group/update_icon/${recipient}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ icon_url: iconUrl })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Group icon updated', 'success');
+                setTimeout(() => location.reload(), 500);
+            } else {
+                showToast(data.error || 'Failed to update icon', 'error');
+            }
+        } catch (e) { showToast('Error updating icon', 'error'); }
+    }
+
+    function openAddMemberModal() {
+        document.getElementById('add-member-modal').classList.add('active');
+    }
+
+    function openManageMembersModal() {
+        document.getElementById('manage-members-modal').classList.add('active');
+    }
+
+    function leaveGroup() {
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `
+            <div class="confirm-modal-content">
+                <div class="confirm-modal-header">
+                    <i class="fas fa-sign-out-alt"></i> Leave Group
+                </div>
+                <div class="confirm-modal-body">
+                    Are you sure you want to leave this group?
+                </div>
+                <div class="confirm-modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeConfirmModal(this)">Cancel</button>
+                    <button class="modal-btn modal-btn-danger" onclick="executeLeaveGroup(this)">Leave Group</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    async function executeLeaveGroup(button) {
+        try {
+            const res = await fetch(`/api/group/leave/${recipient}`, { method: 'POST' });
+            const data = await res.json();
+            if (data.success) window.location.href = '/';
+            else {
+                showToast(data.error || 'Failed to leave group', 'error');
+                closeConfirmModal(button);
+            }
+        } catch (e) { 
+            showToast('Failed to leave group', 'error');
+            closeConfirmModal(button);
+        }
+    }
+
+    async function addGroupMember(username) {
+        try {
+            const res = await fetch(`/api/group/add_member/${recipient}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Member added', 'success');
+                setTimeout(() => location.reload(), 500);
+            } else {
+                showToast(data.error || 'Failed to add member', 'error');
+            }
+        } catch (e) { showToast('Failed to add member', 'error'); }
+    }
+
+    async function removeGroupMember(username) {
+        if (!confirm(`Remove ${username} from group?`)) return;
+        try {
+            const res = await fetch(`/api/group/remove_member/${recipient}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Member removed', 'success');
+                setTimeout(() => location.reload(), 500);
+            } else {
+                showToast(data.error || 'Failed to remove member', 'error');
+            }
+        } catch (e) { showToast('Failed to remove member', 'error'); }
+    }
+
+    function transferOwnership(username) {
+        document.getElementById('manage-members-modal').classList.remove('active');
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `
+            <div class="confirm-modal-content">
+                <div class="confirm-modal-header">
+                    <i class="fas fa-crown"></i> Transfer Ownership
+                </div>
+                <div class="confirm-modal-body">
+                    Transfer ownership to <strong>@${username}</strong>? You will lose creator permissions and this action cannot be undone.
+                </div>
+                <div class="confirm-modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeConfirmModal(this)">Cancel</button>
+                    <button class="modal-btn modal-btn-primary" onclick="executeTransferOwnership('${username}', this)">Transfer Now</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    async function executeTransferOwnership(username, button) {
+        try {
+            const res = await fetch(`/api/group/transfer_ownership/${recipient}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Ownership transferred', 'success');
+                setTimeout(() => location.reload(), 500);
+            } else {
+                showToast(data.error || 'Transfer failed', 'error');
+                closeConfirmModal(button);
+            }
+        } catch (e) { 
+            showToast('Error transferring ownership', 'error');
+            closeConfirmModal(button);
+        }
+    }
+
+    function deleteGroup() {
+        document.getElementById('manage-members-modal').classList.remove('active');
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `
+            <div class="confirm-modal-content">
+                <div class="confirm-modal-header">
+                    <i class="fas fa-trash-alt"></i> Delete Group
+                </div>
+                <div class="confirm-modal-body">
+                    Are you sure? This will delete the group and <strong>ALL message history for EVERYONE</strong>. This action is permanent and cannot be undone.
+                </div>
+                <div class="confirm-modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeConfirmModal(this)">Cancel</button>
+                    <button class="modal-btn modal-btn-danger" onclick="executeDeleteGroup(this)">Delete Permanently</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    async function executeDeleteGroup(button) {
+        try {
+            const res = await fetch(`/api/group/delete/${recipient}`, { method: 'POST' });
+            const data = await res.json();
+            if (data.success) {
+                showToast('Group deleted', 'success');
+                window.location.href = '/';
+            } else {
+                showToast(data.error || 'Failed to delete group', 'error');
+                closeConfirmModal(button);
+            }
+        } catch (e) { 
+            showToast('Error deleting group', 'error');
+            closeConfirmModal(button);
+        }
+    }
+
+    function formatMessageText(text) {
+        if (!text) return '';
+        text = text.replace(/__(.*?)__/g, '<strong>$1</strong>');
+        text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        const urlRegex = /(https?:\/\/[^\s<]+[^.,\s<])/g;
+        return text.replace(urlRegex, (url) => {
+            const escapedUrl = url.replace(/"/g, '&quot;');
+            let embed = '';
+            const ytRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/;
+            const ytMatch = url.match(ytRegex);
+            if (ytMatch) {
+                embed = `<div class="media-preview" data-type="youtube" data-src="https://www.youtube.com/embed/${ytMatch[1]}?rel=0&autoplay=0"><div class="preview-overlay"><i class="fas fa-play"></i><span class="preview-label">Play YouTube</span></div></div>`;
+            } else if (url.match(/\.(mp4|webm|ogg)(\?.*)?$/i)) {
+                embed = `<div class="media-preview" data-type="video" data-src="${escapedUrl}"><div class="preview-overlay"><i class="fas fa-play"></i><span class="preview-label">Play Video</span></div></div>`;
+            }
+            return `<a href="${escapedUrl}" target="_blank" rel="noopener noreferrer" class="chat-link">${url}</a>${embed}`;
+        });
+    }
+
+    function activateMediaPreview(el) {
+        if (el.classList.contains('loaded')) return;
+        const type = el.dataset.type;
+        const src = el.dataset.src;
+        if (!src) return;
+
+        let inner = '';
+        if (type === 'youtube') {
+            inner = `<iframe width="100%" height="100%" src="${src}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+        } else if (type === 'video') {
+            inner = `<video src="${src}" controls preload="metadata" playsinline style="width:100%;height:100%;object-fit:contain;"></video>`;
+        }
+
+        if (inner) {
+            el.innerHTML = inner;
+            el.classList.add('loaded');
+        }
+    }
+
+    function attachMediaPreviews(container) {
+        container.querySelectorAll('.media-preview:not(.preview-attached)').forEach(el => {
+            el.classList.add('preview-attached');
+            el.addEventListener('click', () => activateMediaPreview(el));
+        });
+    }
+
+    function formatDMText(type) {
+        const input = document.getElementById('dm-input');
+        const start = input.selectionStart, end = input.selectionEnd;
+        const selected = input.value.substring(start, end);
+        let formatted = type === 'bold' ? `__${selected}__` : `*${selected}*`;
+        input.value = input.value.substring(0, start) + formatted + input.value.substring(end);
+        input.focus();
+        input.setSelectionRange(start + 2, start + 2 + selected.length);
+    }
+
+    // Typing indicator logic
+    const dmInput = document.getElementById('dm-input');
+    const dmTypingIndicator = document.getElementById('typing-indicator');
+    let isDmTyping = false;
+    let dmTypingTimer;
+    const dmTypingUsers = new Set();
+
+    if (dmInput) {
+        dmInput.addEventListener('input', () => {
+            if (!isDmTyping) {
+                isDmTyping = true;
+                socket.emit('typing', { room: recipient, typing: true });
+            }
+            clearTimeout(dmTypingTimer);
+            dmTypingTimer = setTimeout(() => {
+                isDmTyping = false;
+                socket.emit('typing', { room: recipient, typing: false });
+            }, 3000);
+        });
+    }
+
+    socket.on('user-typing', (data) => {
+        // Match group ID or sender username for private DMs
+        if (data.room === recipient || data.username === recipient) {
+            if (data.typing) dmTypingUsers.add(data.display_name);
+            else dmTypingUsers.delete(data.display_name);
+            
+            if (dmTypingUsers.size === 0) {
+                dmTypingIndicator.innerHTML = '';
+            } else {
+                const usersArr = Array.from(dmTypingUsers);
+                const text = usersArr.length === 1 ? `<strong>${usersArr[0]}</strong> is typing...` : usersArr.length === 2 ? `<strong>${usersArr[0]}</strong> and <strong>${usersArr[1]}</strong> are typing...` : "Several people are typing...";
+                dmTypingIndicator.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div><span>${text}</span>`;
+            }
+        }
+    });
+
+    if (isGroup) {
+        socket.emit('join_room', { room: recipient });
+    }
+
+    async function sendDM() {
+        const input = document.getElementById('dm-input');
+        const message = input.value.trim();
+        const image = window.pendingImage;
+        if (!message && !image) return;
+        delete window.pendingImage;
+        input.value = '';
+        if (typeof hideAllSuggestions === 'function') hideAllSuggestions();
+
+        // Stop typing indicator
+        if (isDmTyping) {
+            isDmTyping = false;
+            clearTimeout(dmTypingTimer);
+            socket.emit('typing', { room: recipient, typing: false });
+        }
+
+        try {
+            const endpoint = isGroup ? '/send_group_dm' : '/send_dm';
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message, recipient, image })
+            });
+            const data = await response.json();
+            if (data.success) loadMessages();
+        } catch (error) {
+            showToast('Failed to send message', 'error');
+        }
+    }
+
+    function showDMContextMenu(event, messageId, messageText, sender) {
+        event.preventDefault(); event.stopPropagation();
+        document.querySelector('.dm-context-menu')?.remove();
+        const menu = document.createElement('div');
+        menu.className = 'dm-context-menu';
+        let items = '';
+        if (sender === currentUserId) {
+            items += `<div class="dm-context-item" onclick="showDMEditModal(${messageId}, '${escapeQuotes(messageText)}')"><i class="fas fa-edit"></i><span>Edit</span></div>`;
+            items += `<div class="dm-context-item danger" onclick="showDMDeleteModal(${messageId})"><i class="fas fa-trash"></i><span>Delete</span></div>`;
+        }
+        items += `<div class="dm-context-item warning" onclick="showDMReportModal('${escapeQuotes(messageText)}', '${sender}')"><i class="fas fa-flag"></i><span>Report</span></div>`;
+        menu.innerHTML = items;
+        document.body.appendChild(menu);
+        menu.style.top = event.pageY + 'px'; menu.style.left = event.pageX + 'px';
+        setTimeout(() => menu.classList.add('active'), 10);
+        setTimeout(() => document.addEventListener('click', closeDMContextMenu), 100);
+    }
+
+    function showDMEditModal(messageId, currentText) {
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `<div class="confirm-modal-content"><div class="confirm-modal-header"><i class="fas fa-edit"></i>Edit Message</div><div class="confirm-modal-body"><textarea class="confirm-modal-input" id="edit-dm-input">${currentText}</textarea></div><div class="confirm-modal-actions"><button class="modal-btn modal-btn-secondary" onclick="closeConfirmModal(this)">Cancel</button><button class="modal-btn modal-btn-primary" onclick="confirmDMEdit(${messageId}, this)">Save</button></div></div>`;
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    async function confirmDMEdit(messageId, button) {
+        const text = document.getElementById('edit-dm-input').value.trim();
+        if (!text) return;
+        const res = await fetch(`/edit_dm/${recipient}/${messageId}`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text })
+        });
+        if (res.ok) { loadMessages(); closeConfirmModal(button); showToast('Message edited', 'success'); }
+    }
+
+    function showDMDeleteModal(messageId) {
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `<div class="confirm-modal-content"><div class="confirm-modal-header"><i class="fas fa-trash"></i>Delete Message</div><div class="confirm-modal-body">Delete this message?</div><div class="confirm-modal-actions"><button class="modal-btn modal-btn-secondary" onclick="closeConfirmModal(this)">Cancel</button><button class="modal-btn modal-btn-danger" onclick="confirmDMDelete(${messageId}, this)">Delete</button></div></div>`;
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+
+    async function confirmDMDelete(messageId, button) {
+        const res = await fetch(`/delete_dm/${recipient}/${messageId}`, { method: 'POST' });
+        if (res.ok) { loadMessages(); closeConfirmModal(button); showToast('Message deleted', 'success'); }
+    }
+
+    async function loadMessages() {
+        try {
+            const endpoint = isGroup ? `/get_group_dm/${recipient}` : `/get_dm/${recipient}`;
+            const response = await fetch(endpoint);
+            const data = await response.json();
+
+            const messagesDiv = document.getElementById('dm-messages');
+            const isAtBottom = messagesDiv.scrollHeight - messagesDiv.clientHeight <= messagesDiv.scrollTop + 50;
+
+            // Check if messages have changed
+            const currentHash = hashMessages(data.messages);
+            const newMessages = data.messages.length - lastMessageCount;
+            if (data.messages.length !== lastMessageCount || currentHash !== lastMessageHash) {
+                lastMessageCount = data.messages.length;
+                lastMessageHash = currentHash;
+                
+                messagesDiv.innerHTML = data.messages.reverse().map(message => {
+                let previewHTML = '';
+                if (message.link_preview) {
+                    const lp = message.link_preview;
+                    if (lp.title || lp.description || lp.image) {
+                        previewHTML = `
+                            <a href="${lp.url}" target="_blank" class="link-preview">
+                                ${lp.image ? `<img src="${lp.image}" class="link-preview-image" onerror="this.style.display='none'">` : ''}
+                                <div class="link-preview-title">${lp.title}</div>
+                                ${lp.description ? `<div class="link-preview-description">${lp.description}</div>` : ''}
+                            </a>
+                        `;
+                    }
+                }
+
+                let badgesHTML = '';
+                const senderData = globalUsers[message.sender];
+                if (senderData?.badges) {
+                    senderData.badges.forEach(b => {
+                        const bText = typeof b === 'string' ? b : b.text;
+                        const bIcon = typeof b === 'string' ? 'fa-certificate' : (b.icon || 'fa-certificate');
+                        const bColor = typeof b === 'string' ? 'var(--accent-color)' : (b.color || 'var(--accent-color)');
+                        badgesHTML += `<span class="badge" style="background-color: ${bColor}; font-size: 10px; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px; vertical-align: middle; margin-left: 4px; color: white;">
+                            <i class="fas ${bIcon}"></i> ${bText}
+                        </span>`;
+                    });
+                }
+
+                return `
+                <div class="dm-message ${message.sender === currentUserId ? 'sent' : 'received'}" 
+                     oncontextmenu="showDMContextMenu(event, ${message.id}, '${escapeQuotes(message.text)}', '${message.sender}')">
+                    <img src="${getAvatar(message.sender)}" 
+                         alt="Avatar" 
+                         class="dm-message-avatar">
+                        <div class="dm-message-content" style="display:flex; flex-direction:column;">
+                            <div style="display: flex; align-items: center;">
+                                <span class="${message.sender === specialUser ? 'rose-gold-name' : ''}" style="font-size: 12px; margin-bottom: 2px; font-weight: bold;">${globalUsers[message.sender]?.display_name || message.sender}</span>
+                                ${badgesHTML}
+                            </div>
+                        <div class="dm-message-bubble">
+                            ${formatMessageText(message.text)}
+                            ${message.image ? (message.image.toLowerCase().endsWith('.mp4') || message.image.toLowerCase().endsWith('.webm') || message.image.toLowerCase().endsWith('.ogg') ? 
+                                `<video src="${message.image}" controls preload="metadata" playsinline></video>` : 
+                                `<img src="${message.image}" alt="Media" onclick="openImageModal('${message.image}')">`) : ''}
+                            ${previewHTML}
+                        </div>
+                        <div class="dm-message-meta">
+                            <span>${message.timestamp}</span> ${message.edited ? '<span style="font-style: italic; font-size: 10px;">(edited)</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+
+                attachMediaPreviews(messagesDiv);
+                if (isAtBottom) scrollToBottom();
+            }
+        } catch (error) {
+            console.error("Error loading messages:", error);
+        }
+    }
+
+    function insertEmoji(emoji) {
+        const input = document.getElementById('dm-input');
+        input.value += emoji;
+        input.focus();
+        document.getElementById('emoji-picker').classList.remove('active');
+    }
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.emoji-picker') && !e.target.closest('.group-action-btn')) {
+            document.getElementById('emoji-picker').classList.remove('active');
+        }
+    });
+
+    // Event listeners
+    document.getElementById('dm-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendDM();
+        }
+    });
+
+    document.getElementById('media-input').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                window.pendingImage = e.target.result;
+                sendDM();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Scroll to bottom on initial load
+    setTimeout(() => {
+        const messagesDiv = document.getElementById('dm-messages');
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }, 500);
+
+
+    // Listen for global online/offline status changes
+    socket.on('user-status-change', (data) => {
+        const statusDots = document.querySelectorAll(`[data-user-status="${data.username}"]`);
+        statusDots.forEach(dot => {
+            if (data.status === 'online') {
+                dot.classList.add('online');
+            } else {
+                dot.classList.remove('online');
+            }
+        });
+    });
+
+    // Refresh page when names are updated globally
+    socket.on('names-updated', function() {
+        location.reload();
+    });
+
+    // Add random funny remark to 404 page
+    document.addEventListener('DOMContentLoaded', () => {
+        const funnyRemarkElement = document.querySelector('.funny-remark');
+        if (funnyRemarkElement) {
+            funnyRemarkElement.textContent = getRandomFunnyRemark();
+        }
+    });
+
+
+    function showDMReportModal(messageText, sender) {
+        closeDMContextMenu();
+        const modal = document.createElement('div');
+        modal.className = 'confirm-modal';
+        modal.innerHTML = `
+            <div class="confirm-modal-content">
+                <div class="confirm-modal-header">
+                    <i class="fas fa-flag"></i>
+                    Report Direct Message
+                </div>
+                <div class="confirm-modal-body">
+                    Please describe why you're reporting this message:
+                    <textarea class="confirm-modal-input" id="dm-report-reason-input" placeholder="Enter your reason here..."></textarea>
+                </div>
+                <div class="confirm-modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeConfirmModal(this)">Cancel</button>
+                    <button class="modal-btn modal-btn-danger" onclick="confirmDMReport('${escapeQuotes(messageText)}', '${sender}', this)">Submit Report</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
+        document.getElementById('dm-report-reason-input').focus();
+    }
+
+    async function confirmDMReport(messageText, sender, button) {
+        const reason = document.getElementById('dm-report-reason-input').value.trim();
+        if (!reason) {
+            showToast('Please provide a reason', 'error');
+            return;
+        }
+
+        try {
+            const response = await fetch('/report_dm', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    reason, 
+                    message_text: messageText, 
+                    sender,
+                    recipient: currentRecipient
+                })
+            });
+
+            if (response.ok) {
+                showToast('Message reported', 'success');
+                closeConfirmModal(button);
+            } else {
+                showToast('Failed to report message', 'error');
+            }
+        } catch (error) {
+            showToast('Failed to report message', 'error');
+        }
+    }
+
+    function escapeQuotes(str) {
+        return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+    }
+
+    function closeConfirmModal(element) {
+        const modal = element.closest('.confirm-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        }
+    }
+    loadMessages();
+    setInterval(async () => {
+        await loadMessages();
+    }, 5000); // Increased to 5s to reduce server load. 1s polling is heavy on the backend.
+
+    // --- Persistent Call Reconnection Logic ---
+    socket.on('call-made', async (data) => {
+        sessionStorage.setItem('activeCallPartner', data.sender);
+        if (data.isReconnect && typeof answerCall === 'function') {
+            await answerCall(data.offer, data.sender);
+            if (typeof showCallPanel === 'function') showCallPanel(data.sender);
+        }
+    });
+
+    socket.on('hang-up', () => {
+        sessionStorage.removeItem('activeCallPartner');
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const partner = sessionStorage.getItem('activeCallPartner');
+        if (partner) {
+            if (typeof showCallPanel === 'function') showCallPanel(partner);
+            socket.emit('request-call-sync', { to: partner });
+        }
+    });
+
+    socket.on('partner-reconnected', (data) => {
+        if (typeof startCall === 'function') {
+            startCall(data.sender, true);
+        } else if (typeof callUser === 'function') {
+            callUser(data.sender, true);
+        }
+    });
+</script>
+{% endblock %}

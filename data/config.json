@@ -1,0 +1,13 @@
+{
+  "profanity_filter_enabled": true,
+  "popup_message": "Notice anything a little different?",
+  "popup_id": "1776947959",
+  "maintenance_mode": true,
+  "seasonal_theme": "none",
+  "active_troll_effects": [
+    "reese",
+    "eese",
+    "flashbang",
+    "yellow"
+  ]
+}
