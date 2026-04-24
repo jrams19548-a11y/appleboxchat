@@ -459,13 +459,6 @@ def save_users():
             security_answer_enc = encrypt_password(data.get('security_answer', ''))
             f.write(f"{username}|{password_enc}|{data['display_name']}|{data['role']}|{str(data.get('is_suspended', False)).lower()}|{str(data.get('is_muted', False)).lower()}|{data.get('bio', '')}|{data.get('profile_pic', '')}|{data.get('theme', 'default')}|{json.dumps(data.get('custom_theme', {}))}|{data.get('ringtone_url', '')}|{str(data.get('mute_ringtone', True)).lower()}|{data.get('banner_url', '')}|{json.dumps(data.get('badges', []))}|{str(data.get('is_stealth', False)).lower()}|{data.get('security_question', '')}|{security_answer_enc}|{data.get('custom_status', '')}|{data.get('created_at', '')}|{data.get('last_online', '')}|{data.get('face_descriptor', '')}|{data.get('profile_bg', '')}|{str(data.get('is_infected', False)).lower()}\n")
 
-def load_special_code():
-    try:
-        with open('data/special_code.txt', 'r') as f:
-            return f.read().strip()
-    except FileNotFoundError:
-        return 'applebox2024'  # default code
-
 def load_groups():
     groups = {}
     try:
@@ -563,7 +556,6 @@ def update_banner():
     return redirect(url_for('home'))
 
 users = load_users()
-special_code = load_special_code()
 messages = []
 ROLES = ['Owner', 'Admin', 'Mod', 'Regular User', 'Co-owner', 'Developer']
 
@@ -822,11 +814,6 @@ def register():
         username = request.form['username']
         password = request.form['password']
         display_name = request.form.get('display_name', username)
-        entered_code = request.form.get('special_code', '').strip()
-
-        if entered_code != special_code:
-            flash('Invalid special code')
-            return redirect(url_for('register'))
 
         if username in users:
             flash('Username already exists')
@@ -872,11 +859,6 @@ def login():
 
         username = request.form['username']
         password = request.form['password']
-        entered_code = request.form.get('special_code', '').strip()
-
-        if entered_code != special_code:
-            flash('Invalid special code')
-            return render_template('login.html')
 
         if username in users and users[username]['password'] == password:
             # Check maintenance mode
