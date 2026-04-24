@@ -1,2 +1,549 @@
 {"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 11:19 AM", "details": {"room": "srv_1776961131:general"}}
 {"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 11:20 AM", "details": {"room": "srv_1776961131:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:19 PM", "details": {"room": "srv_1776961139:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:20 PM", "details": {"room": "srv_1776961131:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:20 PM", "details": {"room": "srv_1776961135:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:20 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:20 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:21 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:22 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:22 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:24 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:26 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:31 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:31 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:32 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:32 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:32 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:32 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general", "message": "Hi"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general", "message": "wsg"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:33 PM", "details": {"room": "srv_1776972044:general", "message": "Hey"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:34 PM", "details": {"room": "srv_1776972044:general", "message": "How goes it?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:34 PM", "details": {"room": "srv_1776972044:general", "message": "I fr thought the site was gonna die, but I contacted gh support"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:34 PM", "details": {"room": "srv_1776972044:general", "message": "Its good that they were able to restore it"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:34 PM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:34 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general", "message": "Who is all on this?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general", "message": "I know Gunner is banned"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general", "message": "We're back, so peak"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general", "message": "I was right on the edge of it being unrecoverable, because it takes a good hour to Perma delete it. also, only Tristan and caleb"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general", "message": "Ok"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:35 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "Im so glad that we are back"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "Then who is chosokamo?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "I went to admin panel and saw that"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "idk"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "idk"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "not mine"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "Maybe trisotn"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "possibly"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "I guess it was an account that Clayton made when I was being pressured"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:36 PM", "details": {"room": "srv_1776972044:general", "message": "Probably"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general", "message": "That's my guess"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general", "message": "ah ok"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general", "message": "BRO"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:37 PM", "details": {"room": "srv_1776972044:general", "message": "what?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:38 PM", "details": {"room": "srv_1776972044:general", "message": "I couldn't figure out how to stop ot TT"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:38 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:38 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:38 PM", "details": {"room": "srv_1776972044:general", "message": "Flashbang"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:38 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:39 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:39 PM", "details": {"room": "srv_1776972044:general", "message": "ow my eyees"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:39 PM", "details": {"room": "srv_1776972044:general", "message": "XD"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:39 PM", "details": {"room": "srv_1776972044:general", "message": "These are actually funny, not like what gunner was suggesting"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:39 PM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:40 PM", "details": {"room": "srv_1776972044:general", "message": "how do you do the yellow images flash?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:40 PM", "details": {"room": "srv_1776972044:general", "message": "its /austin"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:40 PM", "details": {"room": "srv_1776972044:general", "message": "that's an interesting name for it XD"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:40 PM", "details": {"room": "srv_1776972044:general", "message": "hey, it's called yellow stamps"}}
+{"type": "virus", "username": "jesseramsey", "timestamp": "2026-04-23 02:41 PM", "details": {"target": "Ryu Ishigori", "status": "infected"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:41 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-23 02:41 PM", "details": {"room": "srv_1776972044:general", "message": "Caleb is now infected with ckc"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-23 02:41 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:41 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:41 PM", "details": {"room": "srv_1776972044:general", "message": "AAAHHHHHHHH"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:42 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:42 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:43 PM", "details": {"room": "srv_1776972044:general", "message": "hey JJ just with a police officer"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-23 02:43 PM", "details": {"room": "srv_1776972044:general", "message": "left*"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:43 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:44 PM", "details": {"room": "srv_1776972044:general", "message": "what?"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:44 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-23 02:44 PM", "details": {"room": "srv_1776972044:general", "message": "why?"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-23 02:44 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "virus_action", "username": "CKC Virus", "timestamp": "2026-04-23 02:47 PM", "details": {"target_user": "Ryu Ishigori", "action": "deleted", "item": "profile_pic"}}
+{"type": "virus_action", "username": "CKC Virus", "timestamp": "2026-04-23 02:57 PM", "details": {"target_user": "Ryu Ishigori", "action": "deleted", "item": "banner_url"}}
+{"type": "virus", "username": "jesseramsey", "timestamp": "2026-04-24 08:15 AM", "details": {"target": "Ryu Ishigori", "status": "cured"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:15 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:16 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:16 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:18 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:19 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general", "message": "brh"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general", "message": "Hi"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general", "message": "I'll make my accc again ig"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:22 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:23 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:23 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:23 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:23 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:24 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:24 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:24 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:24 AM", "details": {"room": "srv_1776972044:general", "message": "Gunner was being a major crybaby"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:24 AM", "details": {"room": "srv_1776972044:general", "message": "done"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:24 AM", "details": {"room": "srv_1776972044:general", "message": "he tries to get people in trouble so he can get the way he wants"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:25 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:25 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:25 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:25 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:25 AM", "details": {"room": "srv_1776972044:general", "message": "ik"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:26 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:26 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:27 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:27 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:27 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:27 AM", "details": {"room": "srv_1776972044:general", "message": "can I get my badge back"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:27 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:28 AM", "details": {"room": "srv_1776972044:general", "message": "Og and what else?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:28 AM", "details": {"room": "srv_1776972044:general", "message": "King Of The Sanguine"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:28 AM", "details": {"room": "srv_1776972044:general", "message": "What color for that one?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:28 AM", "details": {"room": "srv_1776972044:general", "message": "red"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:28 AM", "details": {"room": "srv_1776972044:general", "message": "Ok"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:29 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:29 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:29 AM", "details": {"room": "srv_1776972044:general", "message": "Ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:29 AM", "details": {"room": "srv_1776972044:general", "message": "Added them"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:29 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:29 AM", "details": {"room": "srv_1776972044:general", "message": "what's a profile background?"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:30 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:30 AM", "details": {"room": "srv_1776972044:general", "message": "Its currently not working"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:30 AM", "details": {"room": "srv_1776972044:general", "message": "oh ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:30 AM", "details": {"room": "srv_1776972044:general", "message": "it would be the image behind your profile info"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:30 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:30 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:31 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:31 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:31 AM", "details": {"room": "srv_1776972044:general", "message": "Im so tired of gunner"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "why did u leave my discord again?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "invite me back"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "idk what happened"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "ok I will when I get home"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "since u left my server boost was gonna end on the 26th"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:32 AM", "details": {"room": "srv_1776972044:general", "message": "oh, so I need to be back?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "yeah\\"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "gunner wont be"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "Ok, I didn't know thats how that worked"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "wdym"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "oh nvm"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "I get it now"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:33 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general", "message": "but yeah"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general", "message": "I'ma ban gunner permanetly"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general", "message": "fair"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general", "message": "that's pretty fair"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:34 AM", "details": {"room": "srv_1776972044:general", "message": "he tried to justify him snitching"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:35 AM", "details": {"room": "srv_1776972044:general", "message": "cuz yall \"threatened\" him"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:35 AM", "details": {"room": "srv_1776972044:general", "message": "by saying you wanna talk"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:35 AM", "details": {"room": "srv_1776972044:general", "message": "I didn't say crap to him yesterday"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:35 AM", "details": {"room": "srv_1776972044:general", "message": "I didn't even see him"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:35 AM", "details": {"room": "srv_1776972044:general", "message": "apparently greyson \"threatened\" him"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:35 AM", "details": {"room": "srv_1776972044:general", "message": "Then why report me?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:36 AM", "details": {"room": "srv_1776972044:general", "message": "cuz he's a baby"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:36 AM", "details": {"room": "srv_1776972044:general", "message": "That doesn't make sense"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:36 AM", "details": {"room": "srv_1776972044:general", "message": "fair enough"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:36 AM", "details": {"room": "srv_1776972044:general", "message": "That new doc I sent you, btw gunner will not be part of"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:36 AM", "details": {"room": "srv_1776972044:general", "message": "when will chess be fixed"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "ik"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "idk"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "make it where only owner can change perms"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "Why?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "so no one else does"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "also change your school pass"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:37 AM", "details": {"room": "srv_1776972044:general", "message": "cuz gunner still has it"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:38 AM", "details": {"room": "srv_1776972044:general", "message": "You don't even trust yourself to not change perms?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:38 AM", "details": {"room": "srv_1776972044:general", "message": "for the doc?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:38 AM", "details": {"room": "srv_1776972044:general", "message": "I just think only owner should change and add ppl"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:39 AM", "details": {"room": "srv_1776972044:general", "message": "because we don't know abt gunner"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:39 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:39 AM", "details": {"room": "srv_1776972044:general", "message": "yk"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:39 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general", "message": "Ok, and its done btw"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general", "message": "only I can change perms"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general", "message": "for the doc?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general", "message": "ummm"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:40 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general", "message": "yk how to do that right?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general", "message": "I did"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general", "message": "ok good"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general", "message": "now no way for gunner to get on without getting in your acc"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general", "message": "btw change your pass"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:41 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:42 AM", "details": {"room": "srv_1776972044:general", "message": "for your school acc I meant"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:42 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:42 AM", "details": {"room": "srv_1776972044:general", "message": "Ok, I changed it"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:42 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 08:42 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:43 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:43 AM", "details": {"room": "srv_1776972044:general", "message": "goof"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:43 AM", "details": {"room": "srv_1776972044:general", "message": "good"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:43 AM", "details": {"room": "srv_1776972044:general", "message": "He was bluffing about my personal account, right?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:43 AM", "details": {"room": "srv_1776972044:general", "message": "idk"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:43 AM", "details": {"room": "srv_1776972044:general", "message": "I think so"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "cuz there's no way he has that"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "plus Google asks for my phone if he tries to log in"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "https://www.youtube.com/watch?v=-TUbYjMnmJo"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "good"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "grrr yt still don't work"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:44 AM", "details": {"room": "srv_1776972044:general", "message": "Ok, the issue with yt is its the school internet because I'm able to watch it"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:45 AM", "details": {"room": "srv_1776972044:general", "message": "awwww man"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:45 AM", "details": {"room": "srv_1776972044:general", "message": "and there's no way around that"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:45 AM", "details": {"room": "srv_1776972044:general", "message": "yes"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:45 AM", "details": {"room": "srv_1776972044:general", "message": "sadness"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:45 AM", "details": {"room": "srv_1776972044:general", "message": "super sadness"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general", "message": "I wish I could bring my phone to school."}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general", "message": "Your parents don't let you?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general", "message": "wait since your at home could u try to find a fern"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general", "message": "nah"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general", "message": "\"its against the law\""}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:46 AM", "details": {"room": "srv_1776972044:general", "message": "technically no"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:47 AM", "details": {"room": "srv_1776972044:general", "message": "wdym"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:47 AM", "details": {"room": "srv_1776972044:general", "message": "they don't have a matter really on which websites we go to unless they are really bad"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:47 AM", "details": {"room": "srv_1776972044:general", "message": "huh"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:47 AM", "details": {"room": "srv_1776972044:general", "message": "if yk"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "that's my understanding at least"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "so can you find a fern or no?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "no, I am using my personal computer"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "well yeah"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "can you look for one and see if you can send me it"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "genius"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "wdym"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:48 AM", "details": {"room": "srv_1776972044:general", "message": "is that sarcasm"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:49 AM", "details": {"room": "srv_1776972044:general", "message": "no, I was actually saying it was smart"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:49 AM", "details": {"room": "srv_1776972044:general", "message": "oh ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:50 AM", "details": {"room": "srv_1776972044:general", "message": "also, I found the source code for fern"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:50 AM", "details": {"room": "srv_1776972044:general", "message": "nice"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:50 AM", "details": {"room": "srv_1776972044:general", "message": "maybe you could use it?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:50 AM", "details": {"room": "srv_1776972044:general", "message": "idk if it will work tho without an actual server"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:50 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:50 AM", "details": {"room": "srv_1776972044:general", "message": "is there a link tho, they should have a discord"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:51 AM", "details": {"room": "srv_1776972044:general", "message": "No"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:51 AM", "details": {"room": "srv_1776972044:general", "message": "There isnt"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:52 AM", "details": {"room": "srv_1776972044:general", "message": "look it up on Google cuz Ryder was on it I thinl"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:52 AM", "details": {"room": "srv_1776972044:general", "message": "Ok"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:52 AM", "details": {"room": "srv_1776972044:general", "message": "think"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:53 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:53 AM", "details": {"room": "srv_1776972044:general", "message": "s3.amazonaws.com/class works/index.html"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:53 AM", "details": {"room": "srv_1776972044:general", "message": "copy and paste"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "It didn't work"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "https://s3.amazonaws.com/classworks/index.html"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "nvm"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "try dat"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "It did"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "yo did I just find one"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "its blocked"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:54 AM", "details": {"room": "srv_1776972044:general", "message": "We'll keep trying"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:55 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:55 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:55 AM", "details": {"room": "srv_1776972044:general", "message": "https://d2mxyt8j2p6hed.cloudfront.net/"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:56 AM", "details": {"room": "srv_1776972044:general", "message": "blocked"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:56 AM", "details": {"room": "srv_1776972044:general", "message": "its that cloud front thing"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:56 AM", "details": {"room": "srv_1776972044:general", "message": "https://compsci-10928.b-cdn.net/"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:56 AM", "details": {"room": "srv_1776972044:general", "message": "nuh uh"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:56 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:57 AM", "details": {"room": "srv_1776972044:general", "message": "I went to one of the old ferns and clicked the discord link"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:57 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:57 AM", "details": {"room": "srv_1776972044:general", "message": "but that last one didn't work"}}
+{"type": "join", "username": "ChosoKamo", "timestamp": "2026-04-24 08:57 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "https://s3.amazonaws.com/angelfern/index.html"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "works?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "maybe idk"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "yep"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "it works"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 08:58 AM", "details": {"room": "srv_1776972044:general", "message": "I don't have lights peed on here"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:00 AM", "details": {"room": "srv_1776972044:general", "message": "yeah thoes others dont"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:00 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:00 AM", "details": {"room": "srv_1776972044:general", "message": "imma bout to paste more"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:01 AM", "details": {"room": "srv_1776972044:general", "message": "I'll test em all"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:02 AM", "details": {"room": "srv_1776972044:general", "message": "Sorry I cant help you test them"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:03 AM", "details": {"room": "srv_1776972044:general", "message": "yeah we will need more but later prob"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general", "message": "Ok, at least we found onw"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general", "message": "I havee so many math notes today"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general", "message": "I need to do my schoolwork too"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:05 AM", "details": {"room": "srv_1776972044:general", "message": "or at least I thinl"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:06 AM", "details": {"room": "srv_1776972044:general", "message": "for 2nd hour"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:06 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:06 AM", "details": {"room": "srv_1776972044:general", "message": "yeah like 3 pages of notes lol"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:07 AM", "details": {"room": "srv_1776972044:general", "message": "lol"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:07 AM", "details": {"room": "srv_1776972044:general", "message": "rip"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:07 AM", "details": {"room": "srv_1776972044:general", "message": "at least we have fern"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:07 AM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:07 AM", "details": {"room": "srv_1776972044:general", "message": "if we have fern we technically have every site"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:07 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:08 AM", "details": {"room": "srv_1776972044:general", "message": "I don't know If I will be able to add fern or a proxy to my website or not"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:08 AM", "details": {"room": "srv_1776972044:general", "message": "I'll be play jjs in 3rd lowkey"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:08 AM", "details": {"room": "srv_1776972044:general", "message": "wdym?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:08 AM", "details": {"room": "srv_1776972044:general", "message": "on rblx?"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:08 AM", "details": {"room": "srv_1776972044:general", "message": "jjs?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:08 AM", "details": {"room": "srv_1776972044:general", "message": "oh ook"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:09 AM", "details": {"room": "srv_1776972044:general", "message": "do u have work 3r"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:09 AM", "details": {"room": "srv_1776972044:general", "message": "d"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:09 AM", "details": {"room": "srv_1776972044:general", "message": "I can get my work done in less than an hour, but I prob wont be able to get on roblox"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:10 AM", "details": {"room": "srv_1776972044:general", "message": "also u need to should me how to log onto my home acc on the Chromebooks"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:10 AM", "details": {"room": "srv_1776972044:general", "message": "Ask greyson later today"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:10 AM", "details": {"room": "srv_1776972044:general", "message": "he knows"}}
+{"type": "message", "username": "ChosoKamo", "timestamp": "2026-04-24 09:10 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:10 AM", "details": {"room": "srv_1776972044:general", "message": "but its risky though"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:11 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:12 AM", "details": {"room": "srv_1776972044:general", "message": "I need to get off, but I'll keep my website hosting"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:33 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:33 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:33 AM", "details": {"room": "srv_1776972044:general", "message": "Hola"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:33 AM", "details": {"room": "srv_1776972044:general", "message": "We found a fern btw"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 09:34 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:34 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:34 AM", "details": {"room": "srv_1776972044:general", "message": "hello"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:34 AM", "details": {"room": "srv_1776972044:general", "message": "Hi"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:34 AM", "details": {"room": "srv_1776972044:general", "message": "What's going on at school today?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:36 AM", "details": {"room": "srv_1776972044:general", "message": "nothin much, I got called to the office earlier about the situation with gunner, I told them EVERYTHING that he said, did, you name it, I wrote it down as well, I also gave them the names of alibis an"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:36 AM", "details": {"room": "srv_1776972044:general", "message": "I ain't gonna let you get expelled"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:36 AM", "details": {"room": "srv_1776972044:general", "message": "thanks"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:36 AM", "details": {"room": "srv_1776972044:general", "message": "at least when I'm home I can keep the website running 24/7"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:36 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:37 AM", "details": {"room": "srv_1776972044:general", "message": "What should we change the special code to?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:37 AM", "details": {"room": "srv_1776972044:general", "message": "for signing in"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:37 AM", "details": {"room": "srv_1776972044:general", "message": "idk"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:38 AM", "details": {"room": "srv_1776972044:general", "message": "rn its literally applebox+the year I started development"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "Also, greyson are you going to the band banquet"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "I may be able to because its not on school campus"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "yeap"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "oh no"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "that's not good"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "wdym I said I am able to go to the banquet"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:39 AM", "details": {"room": "srv_1776972044:general", "message": "OH"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:40 AM", "details": {"room": "srv_1776972044:general", "message": "I read that wrong"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:40 AM", "details": {"room": "srv_1776972044:general", "message": "yeah, because technically I am prohibited from all Choctaw public SCHOOL campuses"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:40 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:41 AM", "details": {"room": "srv_1776972044:general", "message": "they never said anything about churches, which is where this is hosted"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:41 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:41 AM", "details": {"room": "srv_1776972044:general", "message": "so major loophole"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:41 AM", "details": {"room": "srv_1776972044:general", "message": "noice"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:41 AM", "details": {"room": "srv_1776972044:general", "message": "ya pretty nice"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general", "message": "I got called to the office"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general", "message": "what did you say?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general", "message": "yeah, I put his name down as one of the alibis"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general", "message": "smart move"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:42 AM", "details": {"room": "srv_1776972044:general", "message": "\ud83d\udc4d"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:43 AM", "details": {"room": "srv_1776972044:general", "message": "nice"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:43 AM", "details": {"room": "srv_1776972044:general", "message": "I told them that gunner did something and JJ took the fire"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:43 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:44 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:44 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "low-key we are working like crazy"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "\ud83d\udd25"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "I don't get why you have to spend seven hours doing work when you can get it done in one"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "EXACTLY"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "fr"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:45 AM", "details": {"room": "srv_1776972044:general", "message": "it's 8 hours sadly"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:46 AM", "details": {"room": "srv_1776972044:general", "message": "I'm already done with my work"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:46 AM", "details": {"room": "srv_1776972044:general", "message": "dang"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:46 AM", "details": {"room": "srv_1776972044:general", "message": "I'm just watching youtube rn fr"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:46 AM", "details": {"room": "srv_1776972044:general", "message": "lol"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:46 AM", "details": {"room": "srv_1776972044:general", "message": "hey"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "who's gonna be admin?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "idk"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "and mod?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "can I be admin?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "FIGHT TO THE DEATH"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "No"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "why"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "gray can have admin"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "why?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general", "message": "he's worked harder for it ngl"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:47 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 09:48 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:48 AM", "details": {"room": "srv_1776972044:general", "message": "ok, and I invited both ryder and Clayton to the new doc"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:48 AM", "details": {"room": "srv_1776972044:general", "message": "south Caleb, I have a question"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:48 AM", "details": {"room": "srv_1776972044:general", "message": "hm"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:49 AM", "details": {"room": "srv_1776972044:general", "message": "\"you physically cant do that because he's biologically a girl\" not really a question just want to know if you recognize that"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:49 AM", "details": {"room": "srv_1776972044:general", "message": "\ud83d\ude02"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:49 AM", "details": {"room": "srv_1776972044:general", "message": "lol"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:49 AM", "details": {"room": "srv_1776972044:general", "message": "oh I get it"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:50 AM", "details": {"room": "srv_1776972044:general", "message": "wild"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:50 AM", "details": {"room": "srv_1776972044:general", "message": "\ud83d\ude02"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:50 AM", "details": {"room": "srv_1776972044:general", "message": "that's crazy"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:50 AM", "details": {"room": "srv_1776972044:general", "message": "I aint gonna say what happened but addy told me lol"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:50 AM", "details": {"room": "srv_1776972044:general", "message": "ok lol"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:51 AM", "details": {"room": "srv_1776972044:general", "message": "should I tell Jordyn and addy what's going on, or no?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:51 AM", "details": {"room": "srv_1776972044:general", "message": "no"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:51 AM", "details": {"room": "srv_1776972044:general", "message": "no'"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:51 AM", "details": {"room": "srv_1776972044:general", "message": "alright"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:52 AM", "details": {"room": "srv_1776972044:general", "message": "Has gunner really said anything about me? he sent me ??? on discord acting like he didnt know what was up"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:52 AM", "details": {"room": "srv_1776972044:general", "message": "I'll try to see"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:52 AM", "details": {"room": "srv_1776972044:general", "message": "if I find anything I'll let you know"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 09:52 AM", "details": {"room": "srv_1776972044:general", "message": "I haven't talked to him at all today"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:52 AM", "details": {"room": "srv_1776972044:general", "message": "good idea"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:53 AM", "details": {"room": "srv_1776972044:general", "message": "these are the messages"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:54 AM", "details": {"room": "srv_1776972044:general", "message": "He acts like he didn't do anything"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:55 AM", "details": {"room": "srv_1776972044:general", "message": "so little fact, gunner is a major racsit, a neo naz, homophobic, bullied josh so much me and some friends saw him have a mental breakdown, he says the n word like it's a normal word like hello/hi."}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:55 AM", "details": {"room": "srv_1776972044:general", "message": "forgot to censor"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:56 AM", "details": {"room": "srv_1776972044:general", "message": "anyways yeah\\"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:56 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:56 AM", "details": {"room": "srv_1776972044:general", "message": "I agree"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:56 AM", "details": {"room": "srv_1776972044:general", "message": "I know a few people who have dirt on him"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:56 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:57 AM", "details": {"room": "srv_1776972044:general", "message": "I cant show you the messages that he sent me that were really concerning"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 09:57 AM", "details": {"room": "srv_1776972044:general", "message": "because he made a joke about a shooting and made it look like a game."}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:57 AM", "details": {"room": "srv_1776972044:general", "message": "or else you guys will get in trouble"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 09:57 AM", "details": {"room": "srv_1776972044:general", "message": "yes"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:59 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 09:59 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "What was gunner up to during lunch yesterday?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "or do you guys not know"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "he wasn't at the table yesterday, remeber?"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "ya, but does anyone know where he went?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "no clue"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "ok, just curious"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "I sorta saw"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:00 AM", "details": {"room": "srv_1776972044:general", "message": "ok?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:01 AM", "details": {"room": "srv_1776972044:general", "message": "can you tell us?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:03 AM", "details": {"room": "srv_1776972044:general", "message": "for the best, don't you think?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:04 AM", "details": {"room": "srv_1776972044:general", "message": "definetly"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:04 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:04 AM", "details": {"room": "srv_1776972044:general", "message": "I think its for the best"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:04 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "I didn't fully see where he went, I can show y'all during lunch"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "not me tho"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "if you can provide a description"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "because I'll strugle to explain"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "fair enough"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "why comic"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:05 AM", "details": {"room": "srv_1776972044:general", "message": "comic is meh"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "its the worst font"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "I'll explain to you what he shows me"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "OMG"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "ok"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "IM A MOD"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "yay"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "yw"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "thank you"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "yw for that flashbang"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "you awake now?"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:06 AM", "details": {"room": "srv_1776972044:general", "message": "yes"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:07 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:07 AM", "details": {"room": "srv_1776972044:general", "message": "do I have that ability or no?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:07 AM", "details": {"room": "srv_1776972044:general", "message": "no"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "GREYSON"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "WHY"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "WHY"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "chill out with spam"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "I'm testing that troll things limit"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "don't"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "I done now"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "rotate and shake cant be on at the same time"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "I'm done nie"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:08 AM", "details": {"room": "srv_1776972044:general", "message": "ik"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general", "message": "did you know if you invert then flash it makes it black?"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general", "message": "pretty cool"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general", "message": "because it flashes your screen white, so when you invert colors..."}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:09 AM", "details": {"room": "srv_1776972044:general", "message": "Clayton, is that you?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "is Clayton on?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "yw for getting the trolls working btw"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "also, yes"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "he's choso"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "why is he not saying anything?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "he's afk prob"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general", "message": "prob"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:10 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general", "message": "GANG"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general", "message": "WHHHYYYYYYY"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:11 AM", "details": {"room": "srv_1776972044:general", "message": "wdym?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "IT THE ULTIMATE RAGEBAIT"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "ikr"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "<a href=\"/profile/jesseramsey\" class=\"mention\">@JJ</a>"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "ya"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "<a href=\"/profile/jesseramsey\" class=\"mention\">@JJ</a>"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "<a href=\"/profile/jesseramsey\" class=\"mention\">@JJ</a>"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "<a href=\"/profile/jesseramsey\" class=\"mention\">@JJ</a>"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "do you like the context menus I added?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:12 AM", "details": {"room": "srv_1776972044:general", "message": "yeah"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:13 AM", "details": {"room": "srv_1776972044:general", "message": "MY EYES"}}
+{"type": "message", "username": "Ryu Ishigori", "timestamp": "2026-04-24 10:13 AM", "details": {"room": "srv_1776972044:general", "message": "<img src=\"/static/emojis/emoji_ryder_1776354130.jpg\" class=\"emoji-img\" alt=\":ryder:\" title=\":ryder:\">"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:13 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:13 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:13 AM", "details": {"room": "srv_1776972044:general", "message": "imagine you are in a dark room when the flashbang hits lol"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:13 AM", "details": {"room": "srv_1776972044:general", "message": "I AM"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:14 AM", "details": {"room": "srv_1776972044:general", "message": "XD"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:14 AM", "details": {"room": "srv_1776972044:general", "message": "BRUH"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:14 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:14 AM", "details": {"room": "srv_1776972044:general", "message": "YOU SON OF A"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:14 AM", "details": {"room": "srv_1776972044:general", "message": "RAGEBAIIIITTTTT"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:14 AM", "details": {"room": "srv_1776972044:general", "message": "DUDE WHYY DID I ADD THAT?"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:15 AM", "details": {"room": "srv_1776972044:general", "message": "WHAT WAS THE POINT IN ADDING THAT?"}}
+{"type": "message", "username": "Killua", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general", "message": "fun"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general", "message": "fair enough"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "profanity", "username": "jesseramsey", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general", "original_message": "they are actually funny unlike gunner was wanting me to ass", "filtered_message": "they are actually funny unlike gunner was wanting me to ###"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general", "message": "they are actually funny unlike gunner was wanting me to ###"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general", "message": "I typed ah by accident"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-04-24 10:16 AM", "details": {"room": "srv_1776972044:general", "message": "whoops"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:17 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "Killua", "timestamp": "2026-04-24 10:17 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:30 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:42 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:54 AM", "details": {"room": "srv_1776972044:general"}}

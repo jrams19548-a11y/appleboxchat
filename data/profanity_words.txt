@@ -1,2 +1,7 @@
 # List of profane words to filter
 # One word per line
+ass
+cunt
+fuck
+nigga
+nigger

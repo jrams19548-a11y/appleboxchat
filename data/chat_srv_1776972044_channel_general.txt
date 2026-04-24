@@ -1,0 +1,1 @@
+{"id": 0, "image": null, "edited": false, "reactions": {}, "reply_to": null, "link_preview": null, "text": "Chat has been cleared", "sender": "Server", "timestamp": "2026-04-24 10:32 AM", "room": "srv_1776972044:general", "whisper_to": "jesseramsey"}

@@ -1,13 +1,8 @@
 {
   "profanity_filter_enabled": true,
-  "popup_message": "Notice anything a little different?",
-  "popup_id": "1776947959",
-  "maintenance_mode": true,
+  "popup_message": "Gunner Shall Not be welcome here, now and forever",
+  "popup_id": "1777037152",
+  "maintenance_mode": false,
   "seasonal_theme": "none",
-  "active_troll_effects": [
-    "reese",
-    "eese",
-    "flashbang",
-    "yellow"
-  ]
+  "active_troll_effects": []
 }

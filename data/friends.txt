@@ -1,0 +1,2 @@
+# Format: username|friend_username|status
+Killua|jesseramsey|accepted
