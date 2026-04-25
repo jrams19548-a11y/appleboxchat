@@ -169,6 +169,11 @@
         color: var(--text-color);
     }
     .voice-user img { width: 18px; height: 18px; border-radius: 50%; }
+    .voice-user .vu-mic, .voice-user .vu-deaf {
+        margin-left: auto;
+        font-size: 10px;
+        color: #f04747;
+    }
 
     .voice-hero {
         display: flex;
@@ -176,6 +181,125 @@
         justify-content: center;
         position: relative;
         min-height: 200px;
+    }
+
+    .voice-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        min-width: 140px;
+        padding: 18px 16px;
+        background: var(--card-bg, #2a2d31);
+        border-radius: 12px;
+        transition: transform 0.15s ease;
+    }
+    .voice-tile.speaking { transform: translateY(-2px); }
+    .voice-tile-avatar {
+        position: relative;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        transition: border-color 0.12s, box-shadow 0.12s;
+    }
+    .voice-tile.speaking .voice-tile-avatar {
+        border-color: #43b581;
+        box-shadow: 0 0 18px rgba(67, 181, 129, 0.55);
+    }
+    .voice-tile-avatar img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: block;
+        object-fit: cover;
+    }
+    .voice-tile-badge {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        background: #f04747;
+        color: white;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        border: 3px solid var(--card-bg, #2a2d31);
+    }
+    .voice-tile-badge.deaf { right: 26px; }
+    .voice-tile-name {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-color);
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .voice-controls-large .call-btn {
+        background: #4f545c;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background 0.15s, transform 0.1s;
+    }
+    .voice-controls-large .call-btn:hover { background: #5d646e; transform: scale(1.05); }
+    .voice-controls-large .call-btn.muted { background: #f04747; }
+    .voice-controls-large .call-btn.active-cam { background: #43b581; }
+    .voice-controls-large .call-btn.hanging-up { background: #f04747; }
+    .voice-controls-large .call-btn.hanging-up:hover { background: #d63a3a; }
+
+    .voice-tile-video {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #000;
+    }
+    .voice-screen-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        margin-bottom: 18px;
+        width: 100%;
+    }
+    .voice-tile-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+    }
+    .voice-screen-tile {
+        background: #1e2024;
+        border-radius: 12px;
+        padding: 10px;
+        max-width: 560px;
+        width: 100%;
+        position: relative;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .voice-screen-label {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        background: rgba(0,0,0,0.6);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 2;
+    }
+    .voice-screen-video {
+        width: 100%;
+        max-height: 360px;
+        border-radius: 8px;
+        background: #000;
+        display: block;
     }
 
     .suggestion-item {
@@ -2278,9 +2402,6 @@
             // Update user list
             userListDiv.innerHTML = '';
             document.getElementById('online-count').textContent = data.users.length;
-            
-            const avatarGrid = document.getElementById('voice-avatar-grid');
-            if (avatarGrid) avatarGrid.innerHTML = '';
 
             data.users.forEach(user => {
                 const userDiv = document.createElement('a');
@@ -2300,112 +2421,651 @@
                 userListDiv.appendChild(userDiv);
             });
 
-            // Update Voice Participants in Sidebar
-            document.querySelectorAll('.voice-participants').forEach(div => div.innerHTML = '');
-            const currentChanName = currentRoom.split(':')[1];
-            
-            data.users.forEach(uid => {
-                // We find the participant div for the current channel
-                const partDiv = document.getElementById(`voice-participants-${currentChanName}`);
-                if (partDiv && isCurrentVoice) {
-                    partDiv.innerHTML += `
-                        <div class="voice-user">
-                            <img src="${getAvatar(uid)}">
-                            <span>${getDisplayName(uid)}</span>
-                        </div>
-                    `;
-                }
-
-                // Populate central grid for active voice room
-                if (avatarGrid) {
-                    avatarGrid.innerHTML += `
-                        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                            <img src="${getAvatar(uid)}" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent-color); box-shadow: var(--shadow-md);">
-                            <span style="font-weight: 600; font-size: 14px;">${getDisplayName(uid)}</span>
-                        </div>
-                    `;
-                }
-            });
         } catch (error) {
             console.error('Error loading messages:', error);
         }
     }
 
-    function updateVoiceRoomUI(status = 'Ready') {
+    // ==================== Discord-style Voice Channels ====================
+    const voicePeers = {};                  // username -> peer object (see ensureVoicePeer)
+    let voiceLocalStream = null;            // MediaStream containing mic + (optional) camera
+    let voiceCameraTrack = null;            // local camera video track
+    let voiceScreenStream = null;           // separate MediaStream for screen share
+    let voiceScreenTrack = null;            // local screen video track
+    let voiceLocalAudioCtx = null;
+    let voiceLocalAnim = null;
+    let voiceMuted = false;
+    let voiceDeafened = false;
+    let voiceCameraOn = false;
+    let voiceScreenOn = false;
+    let voiceRoomId = null;                 // current voice room we are *connected to*
+    const voiceMembers = {};                // username -> member object visible in current room
+    const voiceIceServers = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+    const voiceSidebarState = {};           // chan_name -> [member]  (for the current server's sidebar)
+
+    function renderVoiceInterface() {
         if (!isCurrentVoice) return;
+        if (document.querySelector('.voice-hero')) {
+            renderVoiceGrid();
+            return;
+        }
         const messagesDiv = document.getElementById('chat-messages');
-        const channelName = '{{ room.split(":")[1] }}';
-        
+        const channelName = currentRoom.split(':')[1];
         messagesDiv.innerHTML = `
             <div class="dm-empty" style="height: 100%; justify-content: center; gap: 30px;">
                 <div class="voice-hero">
                     <i class="fas fa-volume-up" style="font-size: 120px; color: var(--accent-color); opacity: 0.1; position: absolute; z-index: 0;"></i>
-                    <div id="voice-avatar-grid" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; z-index: 1;">
-                        <!-- Populated via loadMessages -->
-                    </div>
+                    <div id="voice-avatar-grid" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; z-index: 1; max-width: 880px;"></div>
                 </div>
-                
                 <div style="z-index: 1; text-align: center;">
-                    <h2 style="font-size: 32px; margin-bottom: 8px;">${channelName}</h2>
-                    <div id="voice-room-status" style="color: var(--text-muted); font-weight: 500; letter-spacing: 1px;">${status.toUpperCase()}</div>
+                    <h2 style="font-size: 32px; margin-bottom: 8px;">
+                        <i class="fas fa-volume-up" style="font-size: 22px; opacity: 0.6; margin-right: 8px;"></i>${channelName}
+                    </h2>
+                    <div id="voice-room-status" style="color: var(--text-muted); font-weight: 500; letter-spacing: 1px;">READY TO CONNECT</div>
                 </div>
-
-                <div class="voice-controls-large" style="display: flex; gap: 20px; z-index: 1;">
+                <div class="voice-controls-large" style="display: flex; gap: 16px; z-index: 1; align-items: center;">
                     <button class="btn btn-primary" id="voice-connect-btn" onclick="startVoiceChannelCall()" style="padding: 15px 40px; font-size: 18px; border-radius: 12px;">
-                        <i class="fas fa-phone-alt"></i> Connect Audio
+                        <i class="fas fa-phone-alt"></i> Connect to Voice
                     </button>
-                    <button class="call-btn hanging-up" id="voice-disconnect-btn" onclick="handleVoiceDisconnect()" style="display: none; width: 60px; height: 60px; font-size: 24px; border-radius: 50%;">
-                        <i class="fas fa-phone-slash"></i>
-                    </button>
-                    <button class="call-btn" id="voice-mute-btn" onclick="toggleMute()" style="display: none; width: 60px; height: 60px; font-size: 24px; border-radius: 50%;">
+                    <button class="call-btn" id="voice-mute-btn" onclick="toggleVoiceMute()" style="display: none; width: 56px; height: 56px; font-size: 20px; border-radius: 50%;" title="Mute mic">
                         <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="call-btn" id="voice-camera-btn" onclick="toggleVoiceCamera()" style="display: none; width: 56px; height: 56px; font-size: 20px; border-radius: 50%;" title="Toggle camera">
+                        <i class="fas fa-video-slash"></i>
+                    </button>
+                    <button class="call-btn" id="voice-screen-btn" onclick="toggleVoiceScreenShare()" style="display: none; width: 56px; height: 56px; font-size: 20px; border-radius: 50%;" title="Share screen">
+                        <i class="fas fa-desktop"></i>
+                    </button>
+                    <button class="call-btn" id="voice-deafen-btn" onclick="toggleVoiceDeafen()" style="display: none; width: 56px; height: 56px; font-size: 20px; border-radius: 50%;" title="Deafen">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="call-btn hanging-up" id="voice-disconnect-btn" onclick="handleVoiceDisconnect()" style="display: none; width: 56px; height: 56px; font-size: 20px; border-radius: 50%;" title="Disconnect">
+                        <i class="fas fa-phone-slash"></i>
                     </button>
                 </div>
             </div>
         `;
-    }
-
-    function renderVoiceInterface() {
-        if (document.querySelector('.voice-hero')) return;
-
-        updateVoiceRoomUI();
-        
         // Hide standard chat components for voice rooms
         const inputArea = document.querySelector('.chat-input-area');
         const jumpBtn = document.getElementById('jump-to-bottom');
         if (inputArea) inputArea.style.display = 'none';
         if (jumpBtn) jumpBtn.style.display = 'none';
 
-        // Maintain UI state if call is already connected
-        if (window.peerConnection && window.peerConnection.connectionState === 'connected') {
-            handleVoiceConnectedUI();
+        // If sidebar already has data for this channel, hydrate the grid (so non-connected viewers see who's in)
+        const chan = currentRoom.split(':')[1];
+        if (voiceSidebarState[chan]) {
+            voiceSidebarState[chan].forEach(m => { voiceMembers[m.username] = m; });
+            renderVoiceGrid();
+        }
+        if (voiceRoomId === currentRoom) {
+            updateVoiceControlsUI(true);
         }
     }
 
-    function handleVoiceConnectedUI() {
+    function renderVoiceGrid() {
+        const grid = document.getElementById('voice-avatar-grid');
+        const status = document.getElementById('voice-room-status');
+        if (!grid) return;
+        const members = Object.values(voiceMembers);
+        if (members.length === 0) {
+            grid.innerHTML = `<div style="color: var(--text-muted); padding: 32px;">No one is here yet — be the first to join.</div>`;
+        } else {
+            // Build screen-share tiles (large) for any user sharing screen
+            const screenTiles = members.filter(m => m.screen).map(m => `
+                <div class="voice-screen-tile" data-screen-user="${escapeHtml(m.username)}">
+                    <div class="voice-screen-label">
+                        <i class="fas fa-desktop"></i> ${escapeHtml(m.display_name || m.username)}'s screen
+                    </div>
+                    <video class="voice-screen-video" data-screen-user="${escapeHtml(m.username)}" autoplay playsinline ${m.username === currentUser ? 'muted' : ''}></video>
+                </div>
+            `).join('');
+            // Build avatar/camera tiles for everyone
+            const userTiles = members.map(m => `
+                <div class="voice-tile" data-user="${escapeHtml(m.username)}">
+                    <div class="voice-tile-avatar">
+                        ${m.camera
+                            ? `<video class="voice-tile-video" data-camera-user="${escapeHtml(m.username)}" autoplay playsinline ${m.username === currentUser ? 'muted' : ''}></video>`
+                            : `<img src="${getAvatar(m.username)}" alt="${escapeHtml(m.display_name || m.username)}">`
+                        }
+                        ${m.deafened ? '<span class="voice-tile-badge deaf" title="Deafened"><i class="fas fa-volume-mute"></i></span>' : ''}
+                        ${m.muted ? '<span class="voice-tile-badge" title="Muted"><i class="fas fa-microphone-slash"></i></span>' : ''}
+                    </div>
+                    <div class="voice-tile-name">${escapeHtml(m.display_name || m.username)}</div>
+                </div>
+            `).join('');
+            grid.innerHTML = `
+                ${screenTiles ? `<div class="voice-screen-row">${screenTiles}</div>` : ''}
+                <div class="voice-tile-row">${userTiles}</div>
+            `;
+            // Wire up the video elements with the actual MediaStreams
+            attachVoiceVideoElements();
+        }
+        if (status) {
+            if (voiceRoomId === currentRoom) {
+                status.innerText = `CONNECTED — ${members.length} IN VOICE`;
+            } else {
+                status.innerText = members.length === 0 ? 'READY TO CONNECT' : `${members.length} IN VOICE`;
+            }
+        }
+    }
+
+    function attachVoiceVideoElements() {
+        // Local camera
+        const localCamEl = document.querySelector(`video.voice-tile-video[data-camera-user="${CSS.escape(currentUser)}"]`);
+        if (localCamEl && voiceCameraTrack) {
+            const ms = new MediaStream([voiceCameraTrack]);
+            if (localCamEl.srcObject !== ms) localCamEl.srcObject = ms;
+        }
+        // Local screen
+        const localScreenEl = document.querySelector(`video.voice-screen-video[data-screen-user="${CSS.escape(currentUser)}"]`);
+        if (localScreenEl && voiceScreenTrack) {
+            const ms = new MediaStream([voiceScreenTrack]);
+            if (localScreenEl.srcObject !== ms) localScreenEl.srcObject = ms;
+        }
+        // Remote peers
+        Object.entries(voicePeers).forEach(([uid, peer]) => {
+            const camEl = document.querySelector(`video.voice-tile-video[data-camera-user="${CSS.escape(uid)}"]`);
+            if (camEl && peer.cameraStream && camEl.srcObject !== peer.cameraStream) {
+                camEl.srcObject = peer.cameraStream;
+            }
+            const screenEl = document.querySelector(`video.voice-screen-video[data-screen-user="${CSS.escape(uid)}"]`);
+            if (screenEl && peer.screenStream && screenEl.srcObject !== peer.screenStream) {
+                screenEl.srcObject = peer.screenStream;
+            }
+        });
+    }
+
+    function escapeHtml(str) {
+        return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function updateVoiceControlsUI(connected) {
         const connBtn = document.getElementById('voice-connect-btn');
         const disconnBtn = document.getElementById('voice-disconnect-btn');
         const muteBtn = document.getElementById('voice-mute-btn');
-        const statusText = document.getElementById('voice-room-status');
-        
-        if (connBtn) connBtn.style.display = 'none';
-        if (disconnBtn) disconnBtn.style.display = 'flex';
-        if (muteBtn) muteBtn.style.display = 'flex';
-        if (statusText) statusText.innerText = 'VOICE CONNECTED';
+        const deafenBtn = document.getElementById('voice-deafen-btn');
+        const camBtn = document.getElementById('voice-camera-btn');
+        const screenBtn = document.getElementById('voice-screen-btn');
+        if (connBtn) connBtn.style.display = connected ? 'none' : 'inline-flex';
+        if (disconnBtn) disconnBtn.style.display = connected ? 'inline-flex' : 'none';
+        if (muteBtn) {
+            muteBtn.style.display = connected ? 'inline-flex' : 'none';
+            muteBtn.classList.toggle('muted', voiceMuted);
+            muteBtn.innerHTML = voiceMuted ? '<i class="fas fa-microphone-slash"></i>' : '<i class="fas fa-microphone"></i>';
+        }
+        if (deafenBtn) {
+            deafenBtn.style.display = connected ? 'inline-flex' : 'none';
+            deafenBtn.classList.toggle('muted', voiceDeafened);
+            deafenBtn.innerHTML = voiceDeafened ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+        }
+        if (camBtn) {
+            camBtn.style.display = connected ? 'inline-flex' : 'none';
+            camBtn.classList.toggle('active-cam', voiceCameraOn);
+            camBtn.innerHTML = voiceCameraOn ? '<i class="fas fa-video"></i>' : '<i class="fas fa-video-slash"></i>';
+        }
+        if (screenBtn) {
+            screenBtn.style.display = connected ? 'inline-flex' : 'none';
+            screenBtn.classList.toggle('active-cam', voiceScreenOn);
+        }
+    }
+
+    async function startVoiceChannelCall() {
+        if (voiceRoomId) return;
+        try {
+            voiceLocalStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (e) {
+            console.error('mic error', e);
+            showToast('Microphone access denied', 'error');
+            return;
+        }
+        voiceMuted = false;
+        voiceDeafened = false;
+        voiceCameraOn = false;
+        voiceScreenOn = false;
+        voiceRoomId = currentRoom;
+        voiceMembers[currentUser] = {
+            username: currentUser,
+            display_name: globalUsers[currentUser]?.display_name || currentUser,
+            profile_picture: globalUsers[currentUser]?.profile_picture || '',
+            muted: false, deafened: false, camera: false, screen: false,
+        };
+        renderVoiceGrid();
+        updateVoiceControlsUI(true);
+        setupLocalSpeakingDetection();
+        socket.emit('voice_join', { room: voiceRoomId });
+        showToast('Connecting to voice...', 'success');
     }
 
     function handleVoiceDisconnect() {
-        endCall();
-        updateVoiceRoomUI();
+        if (!voiceRoomId) return;
+        const room = voiceRoomId;
+        socket.emit('voice_leave', { room });
+        teardownVoice();
+        delete voiceMembers[currentUser];
+        renderVoiceGrid();
     }
 
-    function startVoiceChannelCall() {
-        // We treat the channel ID as a "user" to join a group room in the signaling server
-        const callId = "room_" + currentRoom.replace(':', '_');
-        socket.emit('join_room', { room: callId });
-        startCall(callId);
-        showToast('Connecting to voice...', 'success');
+    function teardownVoice() {
+        Object.keys(voicePeers).forEach(uid => closeVoicePeer(uid));
+        if (voiceLocalStream) {
+            voiceLocalStream.getTracks().forEach(t => t.stop());
+            voiceLocalStream = null;
+        }
+        if (voiceCameraTrack) { try { voiceCameraTrack.stop(); } catch(e){} voiceCameraTrack = null; }
+        if (voiceScreenStream) {
+            voiceScreenStream.getTracks().forEach(t => { try { t.stop(); } catch(e){} });
+            voiceScreenStream = null;
+        }
+        if (voiceScreenTrack) { try { voiceScreenTrack.stop(); } catch(e){} voiceScreenTrack = null; }
+        if (voiceLocalAnim) cancelAnimationFrame(voiceLocalAnim);
+        voiceLocalAnim = null;
+        if (voiceLocalAudioCtx) { try { voiceLocalAudioCtx.close(); } catch(e){} voiceLocalAudioCtx = null; }
+        voiceRoomId = null;
+        voiceMuted = false;
+        voiceDeafened = false;
+        voiceCameraOn = false;
+        voiceScreenOn = false;
+        updateVoiceControlsUI(false);
     }
+
+    function closeVoicePeer(uid) {
+        const peer = voicePeers[uid];
+        if (!peer) return;
+        try { peer.pc && peer.pc.close(); } catch(e){}
+        try { peer.audioEl && peer.audioEl.remove(); } catch(e){}
+        if (peer.animFrame) cancelAnimationFrame(peer.animFrame);
+        if (peer.audioCtx) { try { peer.audioCtx.close(); } catch(e){} }
+        delete voicePeers[uid];
+    }
+
+    function ensureVoicePeer(uid) {
+        if (voicePeers[uid]) return voicePeers[uid];
+        const pc = new RTCPeerConnection(voiceIceServers);
+        // Polite peer convention: lexicographically lower username is polite
+        const polite = currentUser < uid;
+        const peer = {
+            pc, audioEl: null, candidateQueue: [],
+            audioCtx: null, animFrame: null,
+            cameraStream: null, screenStream: null,
+            cameraSender: null, screenSender: null,
+            polite, makingOffer: false, ignoreOffer: false, isSettingRemoteAnswer: false,
+        };
+        voicePeers[uid] = peer;
+
+        // Add existing local tracks to this new peer
+        if (voiceLocalStream) {
+            voiceLocalStream.getTracks().forEach(t => pc.addTrack(t, voiceLocalStream));
+        }
+        if (voiceCameraTrack && voiceLocalStream) {
+            try { peer.cameraSender = pc.addTrack(voiceCameraTrack, voiceLocalStream); } catch(e){}
+        }
+        if (voiceScreenTrack && voiceScreenStream) {
+            try { peer.screenSender = pc.addTrack(voiceScreenTrack, voiceScreenStream); } catch(e){}
+        }
+
+        pc.onicecandidate = (event) => {
+            if (event.candidate && voiceRoomId) {
+                socket.emit('voice_signal', { to: uid, room: voiceRoomId, signal: { type: 'ice', data: event.candidate } });
+            }
+        };
+
+        pc.ontrack = (event) => {
+            const stream = event.streams[0];
+            const member = voiceMembers[uid] || {};
+            const isScreen = stream && member.screenStreamId && stream.id === member.screenStreamId;
+            if (event.track.kind === 'audio') {
+                let audioEl = peer.audioEl;
+                if (!audioEl) {
+                    audioEl = document.createElement('audio');
+                    audioEl.autoplay = true;
+                    audioEl.muted = voiceDeafened;
+                    audioEl.playsInline = true;
+                    document.body.appendChild(audioEl);
+                    peer.audioEl = audioEl;
+                }
+                audioEl.srcObject = stream;
+                audioEl.play().catch(e => console.warn('remote audio play deferred', e));
+                setupRemoteSpeakingDetection(uid, stream);
+            } else if (event.track.kind === 'video') {
+                if (isScreen) {
+                    peer.screenStream = stream;
+                } else {
+                    peer.cameraStream = stream;
+                }
+                event.track.onended = () => {
+                    if (peer.cameraStream === stream) peer.cameraStream = null;
+                    if (peer.screenStream === stream) peer.screenStream = null;
+                    renderVoiceGrid();
+                };
+                renderVoiceGrid();
+            }
+        };
+
+        // Perfect negotiation
+        pc.onnegotiationneeded = async () => {
+            if (!voiceRoomId) return;
+            try {
+                peer.makingOffer = true;
+                await pc.setLocalDescription();
+                socket.emit('voice_signal', {
+                    to: uid, room: voiceRoomId,
+                    signal: { type: 'offer', data: pc.localDescription }
+                });
+            } catch (err) {
+                console.error('onnegotiationneeded', err);
+            } finally {
+                peer.makingOffer = false;
+            }
+        };
+
+        return peer;
+    }
+
+    async function createOfferTo(uid) {
+        // Trigger initial connection — addTrack already happened, just nudge negotiation
+        const peer = ensureVoicePeer(uid);
+        // onnegotiationneeded should fire automatically; in case it doesn't (some races), force one:
+        if (peer.pc.signalingState === 'stable' && !peer.makingOffer) {
+            try {
+                peer.makingOffer = true;
+                await peer.pc.setLocalDescription();
+                socket.emit('voice_signal', { to: uid, room: voiceRoomId, signal: { type: 'offer', data: peer.pc.localDescription } });
+            } catch (e) { console.error('createOfferTo', e); }
+            finally { peer.makingOffer = false; }
+        }
+    }
+
+    async function handleIncomingOffer(uid, offer) {
+        const peer = ensureVoicePeer(uid);
+        const description = new RTCSessionDescription(offer);
+        const offerCollision = peer.makingOffer || peer.pc.signalingState !== 'stable';
+        peer.ignoreOffer = !peer.polite && offerCollision;
+        if (peer.ignoreOffer) return;
+        try {
+            await peer.pc.setRemoteDescription(description);
+            while (peer.candidateQueue.length > 0) {
+                try { await peer.pc.addIceCandidate(new RTCIceCandidate(peer.candidateQueue.shift())); } catch(e) { console.warn(e); }
+            }
+            await peer.pc.setLocalDescription();
+            socket.emit('voice_signal', { to: uid, room: voiceRoomId, signal: { type: 'answer', data: peer.pc.localDescription } });
+        } catch (e) { console.error('handleIncomingOffer', e); }
+    }
+
+    async function handleIncomingAnswer(uid, answer) {
+        const peer = voicePeers[uid];
+        if (!peer) return;
+        try {
+            await peer.pc.setRemoteDescription(new RTCSessionDescription(answer));
+            while (peer.candidateQueue.length > 0) {
+                try { await peer.pc.addIceCandidate(new RTCIceCandidate(peer.candidateQueue.shift())); } catch(e) { console.warn(e); }
+            }
+        } catch (e) { console.error('handleIncomingAnswer', e); }
+    }
+
+    async function handleIncomingIce(uid, candidate) {
+        const peer = ensureVoicePeer(uid);
+        if (peer.pc.remoteDescription && peer.pc.remoteDescription.type) {
+            try { await peer.pc.addIceCandidate(new RTCIceCandidate(candidate)); }
+            catch(e) { if (!peer.ignoreOffer) console.warn(e); }
+        } else {
+            peer.candidateQueue.push(candidate);
+        }
+    }
+
+    // --- Camera & screen-share toggles ---
+    async function toggleVoiceCamera() {
+        if (!voiceRoomId) return;
+        if (voiceCameraOn) {
+            // Stop camera
+            Object.values(voicePeers).forEach(peer => {
+                if (peer.cameraSender) {
+                    try { peer.pc.removeTrack(peer.cameraSender); } catch(e){}
+                    peer.cameraSender = null;
+                }
+            });
+            if (voiceCameraTrack) { try { voiceCameraTrack.stop(); } catch(e){} voiceCameraTrack = null; }
+            voiceCameraOn = false;
+            voiceMembers[currentUser].camera = false;
+            voiceMembers[currentUser].cameraStreamId = null;
+            socket.emit('voice_status', { camera: false, cameraStreamId: null });
+            renderVoiceGrid();
+            updateVoiceControlsUI(true);
+        } else {
+            try {
+                const camStream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 360 } });
+                voiceCameraTrack = camStream.getVideoTracks()[0];
+                if (!voiceCameraTrack) throw new Error('no camera track');
+                voiceCameraTrack.onended = () => { if (voiceCameraOn) toggleVoiceCamera(); };
+                Object.values(voicePeers).forEach(peer => {
+                    try { peer.cameraSender = peer.pc.addTrack(voiceCameraTrack, voiceLocalStream); } catch(e){ console.error(e); }
+                });
+                voiceCameraOn = true;
+                voiceMembers[currentUser].camera = true;
+                voiceMembers[currentUser].cameraStreamId = voiceLocalStream.id;
+                socket.emit('voice_status', { camera: true, cameraStreamId: voiceLocalStream.id });
+                renderVoiceGrid();
+                updateVoiceControlsUI(true);
+            } catch (e) {
+                console.error('camera error', e);
+                showToast('Camera access denied', 'error');
+            }
+        }
+    }
+
+    async function toggleVoiceScreenShare() {
+        if (!voiceRoomId) return;
+        if (voiceScreenOn) {
+            Object.values(voicePeers).forEach(peer => {
+                if (peer.screenSender) {
+                    try { peer.pc.removeTrack(peer.screenSender); } catch(e){}
+                    peer.screenSender = null;
+                }
+            });
+            if (voiceScreenTrack) { try { voiceScreenTrack.stop(); } catch(e){} voiceScreenTrack = null; }
+            if (voiceScreenStream) {
+                voiceScreenStream.getTracks().forEach(t => { try { t.stop(); } catch(e){} });
+                voiceScreenStream = null;
+            }
+            voiceScreenOn = false;
+            voiceMembers[currentUser].screen = false;
+            voiceMembers[currentUser].screenStreamId = null;
+            socket.emit('voice_status', { screen: false, screenStreamId: null });
+            renderVoiceGrid();
+            updateVoiceControlsUI(true);
+        } else {
+            try {
+                voiceScreenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
+                voiceScreenTrack = voiceScreenStream.getVideoTracks()[0];
+                if (!voiceScreenTrack) throw new Error('no screen track');
+                voiceScreenTrack.onended = () => { if (voiceScreenOn) toggleVoiceScreenShare(); };
+                Object.values(voicePeers).forEach(peer => {
+                    try { peer.screenSender = peer.pc.addTrack(voiceScreenTrack, voiceScreenStream); } catch(e){ console.error(e); }
+                });
+                voiceScreenOn = true;
+                voiceMembers[currentUser].screen = true;
+                voiceMembers[currentUser].screenStreamId = voiceScreenStream.id;
+                socket.emit('voice_status', { screen: true, screenStreamId: voiceScreenStream.id });
+                renderVoiceGrid();
+                updateVoiceControlsUI(true);
+            } catch (e) {
+                console.error('screen share error', e);
+                showToast('Screen share cancelled or denied', 'error');
+            }
+        }
+    }
+
+    function setupLocalSpeakingDetection() {
+        try {
+            voiceLocalAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = voiceLocalAudioCtx.createMediaStreamSource(voiceLocalStream);
+            const analyser = voiceLocalAudioCtx.createAnalyser();
+            analyser.fftSize = 32;
+            source.connect(analyser);
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const loop = () => {
+                voiceLocalAnim = requestAnimationFrame(loop);
+                analyser.getByteFrequencyData(dataArray);
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+                const avg = sum / dataArray.length;
+                const speaking = !voiceMuted && avg > 18;
+                const tile = document.querySelector(`.voice-tile[data-user="${CSS.escape(currentUser)}"]`);
+                if (tile) tile.classList.toggle('speaking', speaking);
+            };
+            loop();
+        } catch (e) { console.error('local speaking detection failed', e); }
+    }
+
+    function setupRemoteSpeakingDetection(uid, stream) {
+        try {
+            const peer = voicePeers[uid];
+            if (!peer) return;
+            if (peer.audioCtx) { try { peer.audioCtx.close(); } catch(e){} }
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = ctx.createMediaStreamSource(stream);
+            const analyser = ctx.createAnalyser();
+            analyser.fftSize = 32;
+            source.connect(analyser);
+            peer.audioCtx = ctx;
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const loop = () => {
+                peer.animFrame = requestAnimationFrame(loop);
+                analyser.getByteFrequencyData(dataArray);
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+                const avg = sum / dataArray.length;
+                const speaking = avg > 18;
+                const tile = document.querySelector(`.voice-tile[data-user="${CSS.escape(uid)}"]`);
+                if (tile) tile.classList.toggle('speaking', speaking);
+            };
+            loop();
+        } catch (e) { console.error('remote speaking detection failed', e); }
+    }
+
+    function toggleVoiceMute() {
+        if (!voiceLocalStream) return;
+        voiceMuted = !voiceMuted;
+        voiceLocalStream.getAudioTracks().forEach(t => t.enabled = !voiceMuted);
+        socket.emit('voice_status', { muted: voiceMuted, deafened: voiceDeafened });
+        updateVoiceControlsUI(true);
+    }
+
+    function toggleVoiceDeafen() {
+        voiceDeafened = !voiceDeafened;
+        if (voiceDeafened && !voiceMuted) {
+            // Deafen implies mute
+            voiceMuted = true;
+            if (voiceLocalStream) voiceLocalStream.getAudioTracks().forEach(t => t.enabled = false);
+        }
+        Object.values(voicePeers).forEach(p => { if (p.audioEl) p.audioEl.muted = voiceDeafened; });
+        socket.emit('voice_status', { muted: voiceMuted, deafened: voiceDeafened });
+        updateVoiceControlsUI(true);
+    }
+
+    // ===== Sidebar voice participants (for any voice channel in this server) =====
+    function renderSidebarParticipants(chan, members) {
+        voiceSidebarState[chan] = members;
+        const partDiv = document.getElementById(`voice-participants-${chan}`);
+        if (partDiv) {
+            partDiv.innerHTML = members.map(m => `
+                <div class="voice-user">
+                    <img src="${getAvatar(m.username)}">
+                    <span>${escapeHtml(m.display_name || m.username)}</span>
+                    ${m.deafened ? '<span class="vu-deaf" title="Deafened"><i class="fas fa-volume-mute"></i></span>' : (m.muted ? '<span class="vu-mic" title="Muted"><i class="fas fa-microphone-slash"></i></span>' : '')}
+                </div>
+            `).join('');
+        }
+        // If this is the active voice channel and we're viewing it, also keep the central grid in sync for non-connected viewers
+        if (isCurrentVoice && currentRoom.split(':')[1] === chan && voiceRoomId !== currentRoom) {
+            // Replace voiceMembers wholesale for non-connected viewers
+            Object.keys(voiceMembers).forEach(k => delete voiceMembers[k]);
+            members.forEach(m => { voiceMembers[m.username] = m; });
+            renderVoiceGrid();
+        }
+    }
+
+    // ===== Socket listeners (mesh signaling) =====
+    socket.on('voice_room_state', async ({ room, self, peers }) => {
+        if (room !== voiceRoomId) return;
+        // Hydrate grid with self + peers
+        Object.keys(voiceMembers).forEach(k => delete voiceMembers[k]);
+        if (self) voiceMembers[self.username] = self;
+        peers.forEach(p => { voiceMembers[p.username] = p; });
+        renderVoiceGrid();
+        // Initiate offers to existing peers (we joined last, so we initiate)
+        for (const p of peers) {
+            try { await createOfferTo(p.username); } catch(e) { console.error('offer to', p.username, e); }
+        }
+    });
+
+    socket.on('voice_user_joined', ({ room, member }) => {
+        if (room === voiceRoomId) {
+            voiceMembers[member.username] = member;
+            renderVoiceGrid();
+            // We don't initiate; the new peer will initiate to us.
+        }
+    });
+
+    socket.on('voice_user_left', ({ room, username }) => {
+        if (room === voiceRoomId) {
+            delete voiceMembers[username];
+            closeVoicePeer(username);
+            renderVoiceGrid();
+        }
+    });
+
+    socket.on('voice_signal', async ({ from, room, signal }) => {
+        if (room !== voiceRoomId || !signal) return;
+        try {
+            if (signal.type === 'offer') await handleIncomingOffer(from, signal.data);
+            else if (signal.type === 'answer') await handleIncomingAnswer(from, signal.data);
+            else if (signal.type === 'ice') await handleIncomingIce(from, signal.data);
+        } catch (e) { console.error('voice_signal handler', e); }
+    });
+
+    socket.on('voice_status', ({ room, username, muted, deafened, camera, screen, cameraStreamId, screenStreamId }) => {
+        if (room === voiceRoomId && voiceMembers[username]) {
+            voiceMembers[username].muted = muted;
+            voiceMembers[username].deafened = deafened;
+            if (camera !== undefined) voiceMembers[username].camera = camera;
+            if (screen !== undefined) voiceMembers[username].screen = screen;
+            if (cameraStreamId !== undefined) voiceMembers[username].cameraStreamId = cameraStreamId;
+            if (screenStreamId !== undefined) voiceMembers[username].screenStreamId = screenStreamId;
+            // If a remote turned off their camera/screen, clear that stream from peer state
+            const peer = voicePeers[username];
+            if (peer) {
+                if (camera === false) peer.cameraStream = null;
+                if (screen === false) peer.screenStream = null;
+            }
+            renderVoiceGrid();
+        }
+    });
+
+    socket.on('voice_room_update', ({ room, members }) => {
+        if (!room || !room.includes(':')) return;
+        const [srvId, chan] = room.split(':', 2);
+        // Only handle updates for the current server
+        const currentServerId = currentRoom.split(':')[0];
+        if (srvId !== currentServerId) return;
+        renderSidebarParticipants(chan, members || []);
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (voiceRoomId) {
+            try { socket.emit('voice_leave', { room: voiceRoomId }); } catch(e){}
+        }
+    });
+
+    // Fetch initial voice-room state for the server (so sidebar populates immediately)
+    (function initVoiceSidebar() {
+        const serverId = currentRoom.includes(':') ? currentRoom.split(':')[0] : null;
+        if (!serverId) return;
+        fetch(`/api/voice_rooms/${serverId}`).then(r => r.ok ? r.json() : null).then(data => {
+            if (!data || !data.rooms) return;
+            Object.entries(data.rooms).forEach(([chan, members]) => renderSidebarParticipants(chan, members));
+        }).catch(() => {});
+    })();
 
     async function sendMessage() {
         const input = document.getElementById('message-input');

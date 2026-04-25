@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import Flask, send_file, render_template, render_template_string, request, jsonify, redirect, url_for, flash, send_from_directory, session
 from werkzeug.utils import secure_filename
-from flask_socketio import SocketIO, emit, join_room
+from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from datetime import datetime
 import json
@@ -683,6 +683,13 @@ connected_users = {} # {username: connection_count}
 # Format: { username: partner_username }
 active_voice_calls = {}
 
+# Multi-user voice channels (Discord-style server voice rooms)
+voice_room_members = defaultdict(set)   # room_id ("srv_xxx:channel") -> set(username)
+user_voice_room = {}                    # username -> room_id
+user_voice_sid = {}                     # username -> socket sid that joined voice
+sid_voice_user = {}                     # sid -> username (for cleanup on disconnect)
+user_voice_status = {}                  # username -> {'muted': bool, 'deafened': bool}
+
 def rename_user_data(old_username, new_username):
     """Renames a username across all persistent data and in-memory state."""
     # 1. Update active users sets
@@ -694,6 +701,20 @@ def rename_user_data(old_username, new_username):
     # Update active voice calls registry
     if old_username in active_voice_calls:
         active_voice_calls[new_username] = active_voice_calls.pop(old_username)
+
+    # Update voice channel registries
+    if old_username in user_voice_room:
+        room_id = user_voice_room.pop(old_username)
+        user_voice_room[new_username] = room_id
+        if old_username in voice_room_members.get(room_id, set()):
+            voice_room_members[room_id].discard(old_username)
+            voice_room_members[room_id].add(new_username)
+    if old_username in user_voice_sid:
+        sid = user_voice_sid.pop(old_username)
+        user_voice_sid[new_username] = sid
+        sid_voice_user[sid] = new_username
+    if old_username in user_voice_status:
+        user_voice_status[new_username] = user_voice_status.pop(old_username)
 
     # 2. Update chat histories
     for room in chat_rooms:
@@ -3285,6 +3306,12 @@ def handle_connect():
 
 @socketio.on('disconnect')
 def handle_disconnect():
+    # Clean up voice-room membership tied to this socket session, regardless of auth
+    sid = request.sid
+    voice_user = sid_voice_user.pop(sid, None)
+    if voice_user:
+        _voice_cleanup(voice_user, sid_already_removed=True)
+
     if current_user.is_authenticated:
         uid = current_user.id
         if uid in connected_users:
@@ -3341,6 +3368,8 @@ def handle_call_user(data):
     }
     if 'isReconnect' in data:
         payload['isReconnect'] = data['isReconnect']
+    if data.get('renegotiation'):
+        payload['renegotiation'] = True
     emit('call-made', payload, room=data['to'])
 
 @socketio.on('request-call-sync')
@@ -3379,6 +3408,186 @@ def handle_decline_call(data):
     active_voice_calls.pop(current_user.id, None)
     active_voice_calls.pop(data.get('to'), None)
     emit('call-declined', {'sender': current_user.id}, room=data['to'])
+
+# =============================================================================
+# Multi-user voice channels (Discord-style server voice rooms)
+# =============================================================================
+
+def _voice_member_payload(uid):
+    u = users.get(uid, {})
+    status = user_voice_status.get(uid, {})
+    return {
+        'username': uid,
+        'display_name': u.get('display_name', uid),
+        'profile_picture': u.get('profile_picture', ''),
+        'muted': bool(status.get('muted', False)),
+        'deafened': bool(status.get('deafened', False)),
+        'camera': bool(status.get('camera', False)),
+        'screen': bool(status.get('screen', False)),
+        'cameraStreamId': status.get('cameraStreamId'),
+        'screenStreamId': status.get('screenStreamId'),
+    }
+
+def _voice_room_members_payload(room_id):
+    return [_voice_member_payload(m) for m in voice_room_members.get(room_id, set())]
+
+def _voice_cleanup(uid, sid_already_removed=False):
+    """Remove a user from any voice room they're in and notify everyone."""
+    room_id = user_voice_room.pop(uid, None)
+    if not sid_already_removed:
+        sid = user_voice_sid.pop(uid, None)
+        if sid:
+            sid_voice_user.pop(sid, None)
+    else:
+        user_voice_sid.pop(uid, None)
+    user_voice_status.pop(uid, None)
+    if room_id:
+        voice_room_members[room_id].discard(uid)
+        if not voice_room_members[room_id]:
+            voice_room_members.pop(room_id, None)
+        socketio.emit('voice_user_left', {'room': room_id, 'username': uid})
+        socketio.emit('voice_room_update', {
+            'room': room_id,
+            'members': _voice_room_members_payload(room_id),
+        })
+
+@app.route('/api/voice_rooms/<server_id>')
+@login_required
+def api_voice_rooms(server_id):
+    """Returns current voice-room state for all voice channels in a server."""
+    srv = servers_data.get(server_id)
+    if not srv:
+        return jsonify({'error': 'Not found'}), 404
+    if current_user.id not in srv.get('members', []) and current_user.role not in ['Owner', 'Co-owner', 'Admin']:
+        return jsonify({'error': 'Forbidden'}), 403
+    rooms = {}
+    meta = srv.get('channel_metadata', {})
+    for chan in srv.get('channels', []):
+        if meta.get(chan, {}).get('type') == 'voice':
+            room_id = f"{server_id}:{chan}"
+            rooms[chan] = _voice_room_members_payload(room_id)
+    return jsonify({'rooms': rooms})
+
+@socketio.on('voice_join')
+def handle_voice_join(data):
+    """User joins a server voice channel; tells them existing peers and notifies the room."""
+    if not current_user.is_authenticated:
+        return
+    uid = current_user.id
+    room_id = data.get('room')
+    if not room_id or ':' not in room_id:
+        return
+    if not can_access_room(room_id):
+        return
+    server_id, chan = room_id.split(':', 1)
+    srv = servers_data.get(server_id)
+    if not srv:
+        return
+    if srv.get('channel_metadata', {}).get(chan, {}).get('type') != 'voice':
+        return
+
+    # If user was already in a voice room (e.g. switching channels), clean up first
+    if user_voice_room.get(uid) and user_voice_room[uid] != room_id:
+        _voice_cleanup(uid)
+
+    sid = request.sid
+    voice_room_members[room_id].add(uid)
+    user_voice_room[uid] = room_id
+    user_voice_sid[uid] = sid
+    sid_voice_user[sid] = uid
+    user_voice_status[uid] = {'muted': False, 'deafened': False}
+    join_room(f"voice:{room_id}")
+
+    # Send the joining client the existing peers (so they create offers)
+    existing = [m for m in voice_room_members[room_id] if m != uid]
+    emit('voice_room_state', {
+        'room': room_id,
+        'self': _voice_member_payload(uid),
+        'peers': [_voice_member_payload(m) for m in existing],
+    })
+
+    # Notify other members of the voice room (they wait for our offer)
+    emit('voice_user_joined', {
+        'room': room_id,
+        'member': _voice_member_payload(uid),
+    }, room=f"voice:{room_id}", include_self=False)
+
+    # Server-wide broadcast so sidebars (people not in the call) update
+    socketio.emit('voice_room_update', {
+        'room': room_id,
+        'members': _voice_room_members_payload(room_id),
+    })
+
+@socketio.on('voice_leave')
+def handle_voice_leave(data):
+    if not current_user.is_authenticated:
+        return
+    uid = current_user.id
+    room_id = data.get('room') or user_voice_room.get(uid)
+    if not room_id:
+        return
+    try:
+        leave_room(f"voice:{room_id}")
+    except Exception:
+        pass
+    _voice_cleanup(uid)
+
+@socketio.on('voice_signal')
+def handle_voice_signal(data):
+    """Relay WebRTC offer/answer/ice candidates between peers in a voice room."""
+    if not current_user.is_authenticated:
+        return
+    uid = current_user.id
+    target = data.get('to')
+    room_id = data.get('room')
+    signal = data.get('signal')
+    if not target or not room_id or not signal:
+        return
+    # Both must be in the same voice room
+    if user_voice_room.get(uid) != room_id:
+        return
+    if target not in voice_room_members.get(room_id, set()):
+        return
+    target_sid = user_voice_sid.get(target)
+    if not target_sid:
+        return
+    emit('voice_signal', {
+        'from': uid,
+        'room': room_id,
+        'signal': signal,
+    }, room=target_sid)
+
+@socketio.on('voice_status')
+def handle_voice_status(data):
+    """Update mute / deafen / camera / screen state for the calling user."""
+    if not current_user.is_authenticated:
+        return
+    uid = current_user.id
+    room_id = user_voice_room.get(uid)
+    if not room_id:
+        return
+    status = user_voice_status.setdefault(uid, {'muted': False, 'deafened': False})
+    for key in ('muted', 'deafened', 'camera', 'screen'):
+        if key in data:
+            status[key] = bool(data[key])
+    for key in ('cameraStreamId', 'screenStreamId'):
+        if key in data:
+            status[key] = data[key] or None
+    payload = {
+        'room': room_id,
+        'username': uid,
+        'muted': status.get('muted', False),
+        'deafened': status.get('deafened', False),
+        'camera': status.get('camera', False),
+        'screen': status.get('screen', False),
+        'cameraStreamId': status.get('cameraStreamId'),
+        'screenStreamId': status.get('screenStreamId'),
+    }
+    socketio.emit('voice_status', payload)
+    socketio.emit('voice_room_update', {
+        'room': room_id,
+        'members': _voice_room_members_payload(room_id),
+    })
 
 @socketio.on('game-move')
 def handle_game_move(data):
@@ -3616,7 +3825,7 @@ def purge_database():
     return jsonify({'success': True, 'message': 'Database successfully purged. All data has been cleared.'})
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=8000)
+    socketio.run(app, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)
 
 #       ________________________________________________
 #      /                                                \

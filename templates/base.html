@@ -1101,6 +1101,60 @@
         .exit-fullscreen-btn {
             position: absolute; bottom: 50px; right: 50px;
         }
+        .call-btn.active-cam { background: #43b581; }
+        .fullscreen-pfp.video-mode {
+            border-radius: 16px;
+            width: auto;
+            height: auto;
+            max-width: 60vw;
+            max-height: 60vh;
+        }
+        .fs-video-remote, .fs-video-local {
+            border-radius: 12px;
+            background: #000;
+            display: block;
+        }
+        .fs-video-remote {
+            max-width: 70vw;
+            max-height: 60vh;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+        }
+        .fs-video-local {
+            width: 180px;
+            height: auto;
+            border: 2px solid var(--border-color);
+        }
+        .fs-screen-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            padding: 10px;
+            z-index: 5;
+        }
+        .fs-screen-label {
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .fs-screen-video {
+            max-width: 70vw;
+            max-height: 50vh;
+            border-radius: 8px;
+            background: #000;
+        }
+        .call-overlay video {
+            max-width: 180px;
+            border-radius: 8px;
+            background: #000;
+            display: block;
+        }
 
         /* Audio Wave Animation */
         .audio-wave {
@@ -2000,6 +2054,12 @@ function openChat() {
         let remoteAudioCtx, remoteAnalyser, remoteSource, remoteAnimationFrame;
         let remoteCandidateQueue = [];
         const iceServers = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+        // Camera & screen-share state for 1-on-1 calls
+        let localCameraTrack = null, cameraSender = null, isCameraOn = false;
+        let localScreenStream = null, localScreenTrack = null, screenSender = null, isScreenOn = false;
+        let remoteCameraStream = null;        // remote camera (will be the same MediaStream as remoteAudio)
+        let remoteScreenStream = null;        // remote screen share stream
+        let pcMakingOffer = false, pcIgnoreOffer = false, pcPolite = false;
 
         socket.on('connect', () => {
             socket.emit('join', {});
@@ -2110,6 +2170,63 @@ function openChat() {
             }
         }
 
+        function setupPeerConnectionHandlers(targetUsername) {
+            // Perfect negotiation: lex-lower id is polite. Caller is impolite by convention.
+            pcPolite = currentUser < targetUsername;
+            pcMakingOffer = false;
+            pcIgnoreOffer = false;
+
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    socket.emit('ice-candidate', { to: targetUsername, candidate: event.candidate });
+                }
+            };
+
+            peerConnection.onnegotiationneeded = async () => {
+                if (!peerConnection || !currentCallPartner) return;
+                try {
+                    pcMakingOffer = true;
+                    await peerConnection.setLocalDescription();
+                    socket.emit('call-user', {
+                        to: currentCallPartner,
+                        offer: peerConnection.localDescription,
+                        renegotiation: true,
+                    });
+                } catch (e) { console.error('onnegotiationneeded', e); }
+                finally { pcMakingOffer = false; }
+            };
+
+            peerConnection.ontrack = (event) => {
+                const stream = event.streams[0];
+                if (event.track.kind === 'audio') {
+                    const remoteAudio = document.getElementById('remote-audio');
+                    if (remoteAudio.srcObject !== stream) {
+                        remoteAudio.srcObject = stream;
+                        remoteAudio.play().catch(e => console.error('remote audio play', e));
+                        startSpeakerDetection(stream, 'remote');
+                    }
+                    remoteCameraStream = stream;
+                } else if (event.track.kind === 'video') {
+                    // Heuristic: first video track is camera, second is screen share.
+                    // Use stream identity: remote audio's MediaStream = camera; any other = screen.
+                    const remoteAudio = document.getElementById('remote-audio');
+                    if (remoteAudio.srcObject && stream.id === remoteAudio.srcObject.id) {
+                        remoteCameraStream = stream;
+                    } else if (remoteCameraStream && stream.id === remoteCameraStream.id) {
+                        // same stream as camera (audio track)
+                    } else {
+                        remoteScreenStream = stream;
+                    }
+                    event.track.onended = () => {
+                        if (remoteCameraStream && stream.id === remoteCameraStream.id) remoteCameraStream = null;
+                        if (remoteScreenStream && stream.id === remoteScreenStream.id) remoteScreenStream = null;
+                        updateCallVideoUI();
+                    };
+                    updateCallVideoUI();
+                }
+            };
+        }
+
         async function startCall(targetUsername) {
             currentCallPartner = targetUsername;
             const overlay = document.getElementById('call-overlay');
@@ -2125,6 +2242,9 @@ function openChat() {
             if (!isRingtoneMuted) ringtone.play().catch(e => console.log("Audio play failed:", e));
             
             isMuted = false;
+            isCameraOn = false;
+            isScreenOn = false;
+            updateCameraScreenButtons();
             const muteBtn = document.getElementById('mute-btn');
             if (muteBtn) { muteBtn.innerHTML = '<i class="fas fa-microphone"></i>'; muteBtn.classList.remove('muted'); }
 
@@ -2148,20 +2268,7 @@ function openChat() {
                     }
                 };
 
-                peerConnection.ontrack = (event) => {
-                    const remoteAudio = document.getElementById('remote-audio');
-                    if (remoteAudio.srcObject !== event.streams[0]) {
-                        remoteAudio.srcObject = event.streams[0];
-                        remoteAudio.play().catch(e => console.error("Error playing remote audio:", e));
-                        startSpeakerDetection(event.streams[0], 'remote');
-                    }
-                };
-
-                peerConnection.onicecandidate = (event) => {
-                    if (event.candidate) {
-                        socket.emit('ice-candidate', { to: targetUsername, candidate: event.candidate });
-                    }
-                };
+                setupPeerConnectionHandlers(targetUsername);
 
                 const offer = await peerConnection.createOffer();
                 await peerConnection.setLocalDescription(offer);
@@ -2174,6 +2281,21 @@ function openChat() {
         }
 
         socket.on('call-made', async (data) => {
+            // Handle in-call renegotiation (e.g. peer added camera/screen). Skip the modal.
+            if (data.renegotiation && peerConnection && currentCallPartner === data.sender) {
+                try {
+                    const description = new RTCSessionDescription(data.offer);
+                    const offerCollision = pcMakingOffer || peerConnection.signalingState !== 'stable';
+                    pcIgnoreOffer = !pcPolite && offerCollision;
+                    if (pcIgnoreOffer) return;
+                    await peerConnection.setRemoteDescription(description);
+                    await processCandidateQueue();
+                    await peerConnection.setLocalDescription();
+                    socket.emit('make-answer', { to: data.sender, answer: peerConnection.localDescription });
+                } catch (e) { console.error('renegotiation handling', e); }
+                return;
+            }
+
             if (incomingCallModal) incomingCallModal.remove();
             const ringtone = document.getElementById('ringtone');
             if (!isRingtoneMuted) {
@@ -2226,11 +2348,14 @@ function openChat() {
             document.getElementById('call-cancel-action').style.display = 'none';
             
             isMuted = false;
+            isCameraOn = false;
+            isScreenOn = false;
+            updateCameraScreenButtons();
             const muteBtn = document.getElementById('mute-btn');
             if (muteBtn) { muteBtn.innerHTML = '<i class="fas fa-microphone"></i>'; muteBtn.classList.remove('muted'); }
 
             peerConnection = new RTCPeerConnection(iceServers);
-            
+
             peerConnection.onconnectionstatechange = () => {
                 if (peerConnection.connectionState === 'connected') {
                     document.getElementById('call-status').innerText = "In Call";
@@ -2244,31 +2369,26 @@ function openChat() {
             localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
             localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
 
-            peerConnection.ontrack = (event) => {
-                const remoteAudio = document.getElementById('remote-audio');
-                remoteAudio.srcObject = event.streams[0];
-                startSpeakerDetection(event.streams[0], 'remote');
-            };
-
-            peerConnection.onicecandidate = (event) => {
-                if (event.candidate) socket.emit('ice-candidate', { to: data.sender, candidate: event.candidate });
-            };
+            setupPeerConnectionHandlers(data.sender);
 
             await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-            const answer = await peerConnection.createAnswer();
-            await peerConnection.setLocalDescription(answer);
-            socket.emit('make-answer', { to: data.sender, answer: answer });
+            await peerConnection.setLocalDescription();
+            socket.emit('make-answer', { to: data.sender, answer: peerConnection.localDescription });
             processCandidateQueue();
         }
 
         socket.on('answer-made', async (data) => {
-            await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
-            processCandidateQueue();
+            try {
+                await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+                processCandidateQueue();
+            } catch (e) { console.error('answer-made', e); }
         });
 
         socket.on('ice-candidate', async (candidate) => {
             if (peerConnection && peerConnection.remoteDescription) {
-                await peerConnection.addIceCandidate(new RTCIceCandidate(candidate)).catch(console.error);
+                try {
+                    await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+                } catch(e) { if (!pcIgnoreOffer) console.error(e); }
             } else {
                 remoteCandidateQueue.push(candidate);
             }
@@ -2310,6 +2430,17 @@ function openChat() {
                 localStream.getTracks().forEach(track => track.stop());
                 localStream = null;
             }
+            if (localCameraTrack) { try { localCameraTrack.stop(); } catch(e){} localCameraTrack = null; }
+            cameraSender = null;
+            isCameraOn = false;
+            if (localScreenTrack) { try { localScreenTrack.stop(); } catch(e){} localScreenTrack = null; }
+            if (localScreenStream) { localScreenStream.getTracks().forEach(t => { try { t.stop(); } catch(e){} }); localScreenStream = null; }
+            screenSender = null;
+            isScreenOn = false;
+            remoteCameraStream = null;
+            remoteScreenStream = null;
+            updateCallVideoUI();
+            updateCameraScreenButtons();
             stopSpeakerDetection();
             stopTimer();
             document.getElementById('call-overlay').classList.remove('active');
@@ -2319,6 +2450,151 @@ function openChat() {
             currentCallPartner = null;
             const timerEl = document.getElementById('call-timer');
             if (timerEl) timerEl.innerText = "00:00";
+        }
+
+        function updateCallVideoUI() {
+            // Fullscreen modal
+            const fsRemoteVid = document.getElementById('fs-remote-video');
+            const fsRemotePfp = document.getElementById('fullscreen-remote-pfp');
+            const fsLocalVid = document.getElementById('fs-local-video');
+            const fsLocalPfp = document.getElementById('fullscreen-local-pfp');
+            const fsScreenWrap = document.getElementById('fs-screen-share');
+            const fsScreenVid = document.getElementById('fs-screen-video');
+            const fsScreenLabel = document.getElementById('fs-screen-label');
+
+            // Remote camera
+            const remoteHasVideo = remoteCameraStream && remoteCameraStream.getVideoTracks && remoteCameraStream.getVideoTracks().length > 0;
+            if (fsRemoteVid && fsRemotePfp) {
+                if (remoteHasVideo) {
+                    if (fsRemoteVid.srcObject !== remoteCameraStream) fsRemoteVid.srcObject = remoteCameraStream;
+                    fsRemoteVid.style.display = 'block';
+                    fsRemotePfp.style.display = 'none';
+                } else {
+                    fsRemoteVid.style.display = 'none';
+                    fsRemotePfp.style.display = 'block';
+                }
+            }
+            // Local camera (PiP)
+            if (fsLocalVid && fsLocalPfp) {
+                if (isCameraOn && localCameraTrack) {
+                    const ms = new MediaStream([localCameraTrack]);
+                    if (!fsLocalVid.srcObject || fsLocalVid.srcObject.getVideoTracks()[0]?.id !== localCameraTrack.id) {
+                        fsLocalVid.srcObject = ms;
+                    }
+                    fsLocalVid.style.display = 'block';
+                    fsLocalPfp.style.display = 'none';
+                } else {
+                    fsLocalVid.style.display = 'none';
+                    fsLocalPfp.style.display = 'block';
+                }
+            }
+            // Screen share (remote OR local)
+            if (fsScreenWrap && fsScreenVid) {
+                let activeScreenStream = null;
+                let label = '';
+                if (remoteScreenStream && remoteScreenStream.getVideoTracks().length > 0) {
+                    activeScreenStream = remoteScreenStream;
+                    label = `<i class="fas fa-desktop"></i> ${globalUsers[currentCallPartner]?.display_name || currentCallPartner}'s screen`;
+                } else if (isScreenOn && localScreenTrack) {
+                    activeScreenStream = new MediaStream([localScreenTrack]);
+                    label = `<i class="fas fa-desktop"></i> Your screen`;
+                }
+                if (activeScreenStream) {
+                    if (!fsScreenVid.srcObject || fsScreenVid.srcObject.getVideoTracks()[0]?.id !== activeScreenStream.getVideoTracks()[0]?.id) {
+                        fsScreenVid.srcObject = activeScreenStream;
+                    }
+                    fsScreenWrap.style.display = 'flex';
+                    fsScreenLabel.innerHTML = label;
+                } else {
+                    fsScreenWrap.style.display = 'none';
+                    fsScreenVid.srcObject = null;
+                }
+            }
+            // Mini overlay videos
+            const ovRemoteVid = document.getElementById('overlay-remote-video');
+            const ovScreenVid = document.getElementById('overlay-screen-video');
+            if (ovRemoteVid) {
+                if (remoteHasVideo) {
+                    if (ovRemoteVid.srcObject !== remoteCameraStream) ovRemoteVid.srcObject = remoteCameraStream;
+                    ovRemoteVid.style.display = 'block';
+                } else {
+                    ovRemoteVid.style.display = 'none';
+                }
+            }
+            if (ovScreenVid) {
+                const screenStream = remoteScreenStream || (isScreenOn && localScreenTrack ? new MediaStream([localScreenTrack]) : null);
+                if (screenStream) {
+                    if (!ovScreenVid.srcObject || ovScreenVid.srcObject.getVideoTracks()[0]?.id !== screenStream.getVideoTracks()[0]?.id) {
+                        ovScreenVid.srcObject = screenStream;
+                    }
+                    ovScreenVid.style.display = 'block';
+                } else {
+                    ovScreenVid.style.display = 'none';
+                }
+            }
+        }
+
+        function updateCameraScreenButtons() {
+            const camBtn = document.getElementById('camera-btn');
+            const fsCamBtn = document.getElementById('fullscreen-camera-btn');
+            const screenBtn = document.getElementById('screen-btn');
+            const fsScreenBtn = document.getElementById('fullscreen-screen-btn');
+            const camIcon = isCameraOn ? '<i class="fas fa-video"></i>' : '<i class="fas fa-video-slash"></i>';
+            if (camBtn) { camBtn.innerHTML = camIcon; camBtn.classList.toggle('active-cam', isCameraOn); }
+            if (fsCamBtn) { fsCamBtn.innerHTML = camIcon; fsCamBtn.classList.toggle('active-cam', isCameraOn); }
+            if (screenBtn) { screenBtn.classList.toggle('active-cam', isScreenOn); }
+            if (fsScreenBtn) { fsScreenBtn.classList.toggle('active-cam', isScreenOn); }
+        }
+
+        async function toggleCamera() {
+            if (!peerConnection || !currentCallPartner) return;
+            if (isCameraOn) {
+                if (cameraSender) { try { peerConnection.removeTrack(cameraSender); } catch(e){} cameraSender = null; }
+                if (localCameraTrack) { try { localCameraTrack.stop(); } catch(e){} localCameraTrack = null; }
+                isCameraOn = false;
+                updateCameraScreenButtons();
+                updateCallVideoUI();
+            } else {
+                try {
+                    const camStream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 360 } });
+                    localCameraTrack = camStream.getVideoTracks()[0];
+                    if (!localCameraTrack) throw new Error('no camera track');
+                    localCameraTrack.onended = () => { if (isCameraOn) toggleCamera(); };
+                    cameraSender = peerConnection.addTrack(localCameraTrack, localStream);
+                    isCameraOn = true;
+                    updateCameraScreenButtons();
+                    updateCallVideoUI();
+                } catch (e) {
+                    console.error('camera error', e);
+                    showToast('Camera access denied', 'error');
+                }
+            }
+        }
+
+        async function toggleScreenShare() {
+            if (!peerConnection || !currentCallPartner) return;
+            if (isScreenOn) {
+                if (screenSender) { try { peerConnection.removeTrack(screenSender); } catch(e){} screenSender = null; }
+                if (localScreenTrack) { try { localScreenTrack.stop(); } catch(e){} localScreenTrack = null; }
+                if (localScreenStream) { localScreenStream.getTracks().forEach(t => { try { t.stop(); } catch(e){} }); localScreenStream = null; }
+                isScreenOn = false;
+                updateCameraScreenButtons();
+                updateCallVideoUI();
+            } else {
+                try {
+                    localScreenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false });
+                    localScreenTrack = localScreenStream.getVideoTracks()[0];
+                    if (!localScreenTrack) throw new Error('no screen track');
+                    localScreenTrack.onended = () => { if (isScreenOn) toggleScreenShare(); };
+                    screenSender = peerConnection.addTrack(localScreenTrack, localScreenStream);
+                    isScreenOn = true;
+                    updateCameraScreenButtons();
+                    updateCallVideoUI();
+                } catch (e) {
+                    console.error('screen share error', e);
+                    showToast('Screen share cancelled or denied', 'error');
+                }
+            }
         }
 
         function openFullscreenCall() {
@@ -2331,6 +2607,7 @@ function openChat() {
             document.getElementById('fullscreen-local-pfp').src = self?.profile_pic || '/static/uploads/default.png';
             document.getElementById('fullscreen-partner-name').innerText = partner?.display_name || currentCallPartner;
             document.getElementById('call-fullscreen-modal').classList.add('active');
+            updateCallVideoUI();
         }
 
         function closeFullscreenCall() {
@@ -2736,9 +3013,13 @@ function openChat() {
             <div class="wave-bar"></div>
             <div class="wave-bar"></div>
         </div>
+        <video id="overlay-remote-video" autoplay playsinline style="display: none;"></video>
+        <video id="overlay-screen-video" autoplay playsinline style="display: none;"></video>
         <div id="call-timer" style="font-family: monospace; font-size: 14px; margin-bottom: 5px; display: none;">00:00</div>
         <div style="display: flex; gap: 8px; display: none;" id="call-actions">
             <button class="call-btn" id="mute-btn" onclick="toggleMute()" title="Mute/Unmute"><i class="fas fa-microphone"></i></button>
+            <button class="call-btn" id="camera-btn" onclick="toggleCamera()" title="Toggle Camera"><i class="fas fa-video-slash"></i></button>
+            <button class="call-btn" id="screen-btn" onclick="toggleScreenShare()" title="Share Screen"><i class="fas fa-desktop"></i></button>
             <button class="call-btn" onclick="openFullscreenCall()" title="Fullscreen"><i class="fas fa-expand"></i></button>
             <button class="call-btn hanging-up" onclick="endCall()" title="End Call"><i class="fas fa-phone-slash"></i></button>
         </div>
@@ -2748,16 +3029,24 @@ function openChat() {
     </div>
 
     <div class="call-fullscreen-modal" id="call-fullscreen-modal">
+        <div id="fs-screen-share" class="fs-screen-container" style="display: none;">
+            <div class="fs-screen-label" id="fs-screen-label"><i class="fas fa-desktop"></i> Screen share</div>
+            <video id="fs-screen-video" class="fs-screen-video" autoplay playsinline></video>
+        </div>
         <div class="fullscreen-pfp-container">
             <img id="fullscreen-remote-pfp" src="" class="fullscreen-pfp">
+            <video id="fs-remote-video" class="fs-video-remote" autoplay playsinline style="display: none;"></video>
             <div id="fullscreen-partner-name" class="call-name" style="font-size: 24px;">User</div>
             <div id="fullscreen-timer" style="font-family: monospace; font-size: 20px; color: var(--text-muted);">00:00</div>
             <div class="local-pfp-small-wrapper">
                 <img id="fullscreen-local-pfp" src="" class="local-pfp-small">
+                <video id="fs-local-video" class="fs-video-local" autoplay playsinline muted style="display: none;"></video>
             </div>
         </div>
         <div class="fullscreen-controls">
             <button class="call-btn" id="fullscreen-mute-btn" onclick="toggleMute()" style="width: 64px; height: 64px; font-size: 24px;"><i class="fas fa-microphone"></i></button>
+            <button class="call-btn" id="fullscreen-camera-btn" onclick="toggleCamera()" style="width: 64px; height: 64px; font-size: 24px;" title="Toggle Camera"><i class="fas fa-video-slash"></i></button>
+            <button class="call-btn" id="fullscreen-screen-btn" onclick="toggleScreenShare()" style="width: 64px; height: 64px; font-size: 24px;" title="Share Screen"><i class="fas fa-desktop"></i></button>
             <button class="call-btn hanging-up" onclick="endCall()" style="width: 64px; height: 64px; font-size: 24px;"><i class="fas fa-phone-slash"></i></button>
         </div>
         <button class="btn btn-secondary exit-fullscreen-btn" onclick="closeFullscreenCall()">
