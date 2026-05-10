@@ -547,3 +547,26 @@
 {"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:30 AM", "details": {"room": "srv_1776972044:general"}}
 {"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:42 AM", "details": {"room": "srv_1776972044:general"}}
 {"type": "join", "username": "jesseramsey", "timestamp": "2026-04-24 10:54 AM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:07 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-05-04 08:07 PM", "details": {"room": "srv_1776972044:general", "message": "Hi"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:09 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-05-04 08:09 PM", "details": {"room": "srv_1776972044:general", "message": "fuck"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:09 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:09 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:10 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:11 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:14 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:14 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:15 PM", "details": {"room": "srv_1776972044:voice"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-05-04 08:15 PM", "details": {"room": "srv_1776972044:voice", "message": "hi"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:15 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:15 PM", "details": {"room": "srv_1776972044:voice"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-04 08:15 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-10 04:34 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "profanity", "username": "jesseramsey", "timestamp": "2026-05-10 04:34 PM", "details": {"room": "srv_1776972044:general", "original_message": "fuck", "filtered_message": "####"}}
+{"type": "message", "username": "jesseramsey", "timestamp": "2026-05-10 04:34 PM", "details": {"room": "srv_1776972044:general", "message": "####"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-10 04:34 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-10 04:34 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-10 04:41 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-10 04:41 PM", "details": {"room": "srv_1776972044:general"}}
+{"type": "join", "username": "jesseramsey", "timestamp": "2026-05-10 04:43 PM", "details": {"room": "srv_1776972044:general"}}

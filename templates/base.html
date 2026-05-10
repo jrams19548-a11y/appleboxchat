@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}AppleBox{% endblock %}</title>
+    <title>{% block title %}Home - Classroom{% endblock %}</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='hidden.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
@@ -2061,6 +2061,26 @@ function openChat() {
         let remoteScreenStream = null;        // remote screen share stream
         let pcMakingOffer = false, pcIgnoreOffer = false, pcPolite = false;
 
+        async function requestMicrophoneStream() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error('Microphone access is not supported by this browser.');
+            }
+
+            if (navigator.permissions && navigator.permissions.query) {
+                try {
+                    const status = await navigator.permissions.query({ name: 'microphone' });
+                    if (status.state === 'denied') {
+                        throw new DOMException('Microphone permission denied', 'NotAllowedError');
+                    }
+                } catch (err) {
+                    // Some browsers may reject microphone permission queries; ignore and continue.
+                    console.warn('Microphone permission query failed:', err);
+                }
+            }
+
+            return navigator.mediaDevices.getUserMedia({ audio: true });
+        }
+
         socket.on('connect', () => {
             socket.emit('join', {});
         });
@@ -2250,7 +2270,9 @@ function openChat() {
 
             try {
                 peerConnection = new RTCPeerConnection(iceServers);
-                localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                setupPeerConnectionHandlers(targetUsername);
+
+                localStream = await requestMicrophoneStream();
                 localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
 
                 peerConnection.onconnectionstatechange = () => {
@@ -2267,16 +2289,13 @@ function openChat() {
                         endCall(true);
                     }
                 };
-
-                setupPeerConnectionHandlers(targetUsername);
-
-                const offer = await peerConnection.createOffer();
-                await peerConnection.setLocalDescription(offer);
-                socket.emit('call-user', { to: targetUsername, offer: offer });
             } catch (err) {
                 console.error("Call error:", err);
                 overlay.classList.remove('active');
-                showToast("Microphone access denied", "error");
+                const message = err.name === 'NotAllowedError' || err.name === 'SecurityError'
+                    ? 'Microphone permission denied. Please allow microphone access for this site in your browser settings.'
+                    : `Call failed: ${err.message || err.name}`;
+                showToast(message, "error");
             }
         }
 
@@ -2290,7 +2309,8 @@ function openChat() {
                     if (pcIgnoreOffer) return;
                     await peerConnection.setRemoteDescription(description);
                     await processCandidateQueue();
-                    await peerConnection.setLocalDescription();
+                    const answer = await peerConnection.createAnswer();
+                    await peerConnection.setLocalDescription(answer);
                     socket.emit('make-answer', { to: data.sender, answer: peerConnection.localDescription });
                 } catch (e) { console.error('renegotiation handling', e); }
                 return;
@@ -2366,13 +2386,27 @@ function openChat() {
                 }
             };
 
-            localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+            try {
+                localStream = await requestMicrophoneStream();
+                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+            } catch (err) {
+                console.error('Accept call error:', err);
+                const message = err.name === 'NotAllowedError' || err.name === 'SecurityError'
+                    ? 'Microphone permission denied. Please allow microphone access for this site in your browser settings.'
+                    : `Call failed: ${err.message || err.name}`;
+                showToast(message, 'error');
+                if (incomingCallModal) {
+                    incomingCallModal.remove();
+                    incomingCallModal = null;
+                }
+                return;
+            }
 
             setupPeerConnectionHandlers(data.sender);
 
             await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-            await peerConnection.setLocalDescription();
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
             socket.emit('make-answer', { to: data.sender, answer: peerConnection.localDescription });
             processCandidateQueue();
         }

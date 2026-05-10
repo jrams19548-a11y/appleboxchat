@@ -1138,5 +1138,22 @@
     "room": "general",
     "created_at": "2026-04-22 01:16 PM",
     "closed": false
+  },
+  "58": {
+    "id": "58",
+    "title": "Hi",
+    "options": [
+      "Hi",
+      "Hi"
+    ],
+    "votes": {
+      "Hi": [
+        "jesseramsey"
+      ]
+    },
+    "creator": "jesseramsey",
+    "room": "srv_1776972044:general",
+    "created_at": "2026-05-04 08:12 PM",
+    "closed": false
   }
 }

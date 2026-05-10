@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}AppleBox - {% if server %}{{ server.name }}{% if ':' in room %} #{{ room.split(':')[1] }}{% endif %}{% else %}{{ room }}{% endif %}{% endblock %}
+{% block title %}Home - Classroom{% endblock %}
 
 {% block header_title %}
-<i class="fas fa-hashtag"></i> {% if server %}{{ server.name }}{% if ':' in room %} #{{ room.split(':')[1] }}{% endif %}{% else %}{{ room }}{% endif %} - Applebox
+<i class="fas fa-hashtag"></i> {% if server %}{{ server.name }}{% if ':' in room %} #{{ room.split(':')[1] }}{% endif %}{% else %}Home - Classroom{% endif %} - Applebox
 {% block header_actions %}
 <div class="channel-header-controls">
     <button class="header-btn" id="message-search-toggle" type="button" onclick="toggleSearchDropdown()" title="Search messages">
@@ -2612,10 +2612,13 @@
     async function startVoiceChannelCall() {
         if (voiceRoomId) return;
         try {
-            voiceLocalStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            voiceLocalStream = await requestMicrophoneStream();
         } catch (e) {
             console.error('mic error', e);
-            showToast('Microphone access denied', 'error');
+            const message = e.name === 'NotAllowedError' || e.name === 'SecurityError'
+                ? 'Microphone permission denied. Please allow microphone access for this site in your browser settings.'
+                : `Microphone access failed: ${e.message || e.name}`;
+            showToast(message, 'error');
             return;
         }
         voiceMuted = false;

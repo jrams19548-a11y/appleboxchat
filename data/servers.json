@@ -9,11 +9,15 @@
       "ChosoKamo"
     ],
     "channels": [
-      "general"
+      "general",
+      "voice"
     ],
     "channel_metadata": {
       "general": {
         "type": "text"
+      },
+      "voice": {
+        "type": "voice"
       }
     },
     "icon": ""

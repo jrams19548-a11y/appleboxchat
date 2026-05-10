@@ -38,8 +38,8 @@ class ProfanityFilter:
         """
         self.wordlist_file = wordlist_file
         self.profane_words = set()
-        self.load_words(wordlist_file)
         self._regex = None
+        self.load_words(wordlist_file)
         
     def load_words(self, wordlist_file):
         try:
