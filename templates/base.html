@@ -1377,48 +1377,11 @@
         const specialUser = '{{ special_user }}';
 
   function openGame() {
-    var win = window.open(); // Opens a new, blank tab with the URL 'about:blank'
-    var url = "https://organic-yodel-4j5vjwjvjvvw2jqpv.github.dev/"; // **INSERT YOUR URL HERE**
-    var iframe = win.document.createElement('iframe'); // Creates an iframe element in the new tab's document
-
-    // Style the iframe to fill the entire page
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.style.border = "none";
-    iframe.style.margin = "0";
-    iframe.style.padding = "0";
-
-    iframe.src = url; // Sets the source of the iframe to the desired URL
-
-    
-    // Append the iframe to the body of the new tab
-    win.document.body.appendChild(iframe);
-
-    // Optional: Ensure the body has no default margins or padding
-    win.document.body.style.margin = "0";
-    win.document.body.style.padding = "0";
+    window.open(window.location.origin + '/', '_blank');
   }
-function openChat() {
-    var win = window.open(); // Opens a new, blank tab with the URL 'about:blank'
-    var url = "https://organic-yodel-4j5vjwjvjvvw2jqpv-8000.app.github.dev/login"; // **INSERT YOUR URL HERE**
-    var iframe = win.document.createElement('iframe'); // Creates an iframe element in the new tab's document
 
-    // Style the iframe to fill the entire page
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
-    iframe.style.border = "none";
-    iframe.style.margin = "0";
-    iframe.style.padding = "0";
-
-    iframe.src = url; // Sets the source of the iframe to the desired URL
-
-    
-    // Append the iframe to the body of the new tab
-    win.document.body.appendChild(iframe);
-
-    // Optional: Ensure the body has no default margins or padding
-    win.document.body.style.margin = "0";
-    win.document.body.style.padding = "0";
+  function openChat() {
+    window.open(window.location.origin + '/login', '_blank');
   }
         const themes = {
             default: {
